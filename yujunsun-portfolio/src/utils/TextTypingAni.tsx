@@ -4,46 +4,48 @@ interface AnimationProps {
   text: string;
 }
 
+const TYPING_INTERVAL = 100; // 타이핑 간격(ms)
+const DELETING_INTERVAL = 40; // 삭제 간격(ms)
+const PAUSE_DURATION = 3500; // 일시정지 시간(ms)
+
 const TextTypingAni = ({ text }: AnimationProps) => {
   const [word, setWord] = useState<string>("");
-  // 한글자씩 글자를 추가할 상태
   const [textIdx, setTextIdx] = useState<number>(0);
-  // 현재까지 타이핑된 문자열의 위치(인덱스)를 나타내는 상태
-  const [isPaused, setIsPaused] = useState<boolean>(false);
-  // 모든 문자열이 타이핑된 후 일시정지인지 저장하는 상태
+  const [isTyping, setIsTyping] = useState<boolean>(true); // 타이핑 중인지 여부를 나타내는 상태
 
   useEffect(() => {
-    const typingInterval = setInterval(() => {
-      if (isPaused) {
-        clearInterval(typingInterval);
-        setTimeout(() => {
-          setIsPaused(false);
-          setTextIdx(0);
-          setWord("");
-        }, 5000); // 몇 초 일시정지할 것인지
-        return;
-      }
+    if (textIdx >= text.length && isTyping) {
+      const pauseTimeout = setTimeout(() => {
+        setIsTyping(false); // 타이핑이 끝났으니 삭제 모드로 전환
+      }, PAUSE_DURATION);
+      return () => {
+        clearTimeout(pauseTimeout);
+      };
+    }
 
-      if (textIdx >= text.length) {
-        // text length 초과 시 undefined가 출력되는 것을 방지
-        setIsPaused(true);
-        return;
-      }
+    if (textIdx < 0 && !isTyping) {
+      setIsTyping(true); // 모두 삭제되면 다시 타이핑 모드로 전환
+      setTextIdx(0);
+      return;
+    }
 
-      const nextChar = text[textIdx];
-      setWord((prev) => prev + nextChar);
-
-      if (nextChar === "\n") {
-        setTextIdx((prevCount) => prevCount + 2);
-      } else {
-        setTextIdx((prevCount) => prevCount + 1);
-      }
-    }, 100); // 설정한 초만큼 일정한 간격마다 실행된다
+    const interval = setInterval(
+      () => {
+        if (isTyping) {
+          setWord((prev) => prev + text[textIdx]);
+          setTextIdx((prev) => prev + 1);
+        } else {
+          setWord((prev) => prev.slice(0, -1));
+          setTextIdx((prev) => prev - 1);
+        }
+      },
+      isTyping ? TYPING_INTERVAL : DELETING_INTERVAL
+    );
 
     return () => {
-      clearInterval(typingInterval);
-    }; // 컴포넌트가 마운트 해제되거나, 재렌더링 될 때마다 setInterval를 정리하는 함수를 반환함.
-  }, [text, textIdx, isPaused]); // 해당 상태들이 변경될 때마다 useEffect가 다시 실행 됨
+      clearInterval(interval);
+    };
+  }, [text, textIdx, isTyping]);
 
   return <h3>{word}</h3>;
 };
