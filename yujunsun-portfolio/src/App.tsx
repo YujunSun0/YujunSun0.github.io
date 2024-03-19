@@ -1,5 +1,12 @@
+import { Route, Routes } from "react-router-dom";
+import Portfolio from "./pages/portfolio";
+
 function App() {
-  return <div>hello!</div>;
+  return (
+    <Routes>
+      <Route path="/" element={<Portfolio />} />
+    </Routes>
+  );
 }
 
 export default App;
