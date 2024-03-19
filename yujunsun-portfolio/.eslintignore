@@ -3,3 +3,4 @@ dist
 build
 public
 .eslintignore.json
+.ts

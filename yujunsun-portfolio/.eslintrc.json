@@ -16,19 +16,37 @@
   },
   "plugins": ["react"],
   "rules": {
-    "indent": "off",
+    // "indent": [2, "tab"],
+    "indent": ["error", 2],
+    "no-tabs": 0,
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/strict-boolean-expressions": 0,
     "@typescript-eslint/no-non-null-assertion": "off",
     "react/react-in-jsx-scope": "off",
     "prettier/prettier": 0,
+    "@typescript-space-before-function-paren": "off",
     "semi": "off",
-    "@typescript-eslint/semi": ["error"],
+    "@typescript-eslint/quotes": ["error", "double"],
+    "@typescript-eslint/semi": ["error", "always"],
+    "spaced-comment": ["error", "always"],
     "@typescript-eslint/no-misused-promises": [
       "error",
       {
         "checksVoidReturn": false
+      }
+    ],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "semi",
+          "requireLast": true
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": true
+        }
       }
     ]
   }
