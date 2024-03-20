@@ -17,8 +17,20 @@ const GlobalStyle = createGlobalStyle`
 		--font-JalnanGothic: "JalnanGothic";
 	}
 
+	html {
+		font-size: 62.5%;
+	}
+
+	body {
+		font-size: 1.6rem;
+	}
+
 	html, body {
 		font-family: var(--font-NotoSansKR);
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		font-family: var(--font-JalnanGothic);
 	}
 
 `;
