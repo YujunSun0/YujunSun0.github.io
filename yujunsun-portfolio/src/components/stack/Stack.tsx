@@ -74,6 +74,10 @@ const Stack = () => {
             </StackList>
             <StackList>
               <img src="assets/Redux.svg" alt="redux icon" />
+              <div className="list_detail">
+                <h4>Redux-toolkit</h4>
+                <p>내일 작성 예정</p>
+              </div>
             </StackList>
           </StackLists>
         </Stacks>
