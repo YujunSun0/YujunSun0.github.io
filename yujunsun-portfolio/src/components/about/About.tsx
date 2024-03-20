@@ -57,6 +57,7 @@ const SectionTitle = styled.div`
   border-bottom: 2px solid #cccccc;
   padding-bottom: 1.5rem;
   margin: 0 auto 7.5rem;
+  letter-spacing: 4px;
 `;
 
 const AboutMain = styled.ul`

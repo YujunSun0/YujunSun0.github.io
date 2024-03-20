@@ -17,12 +17,18 @@ const GlobalStyle = createGlobalStyle`
 		--font-JalnanGothic: "JalnanGothic";
 	}
 
+	*::-webkit-scrollbar {
+		display: none;
+	}
+
 	html {
 		font-size: 62.5%;
 	}
 
 	body {
 		font-size: 1.6rem;
+		overflow: scroll;
+		-ms-overflow-style: none;
 	}
 
 	html, body {
@@ -31,6 +37,7 @@ const GlobalStyle = createGlobalStyle`
 
 	h1, h2, h3, h4, h5, h6 {
 		font-family: var(--font-JalnanGothic);
+		letter-spacing: 2px;
 	}
 
 `;
