@@ -11,17 +11,7 @@ const Landing = () => {
 
 export default Landing;
 
-const Container = styled.div`
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url("assets/desk-593327_1280.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-
+const Container = styled.article`
   @keyframes blink {
     0%,
     100% {
@@ -32,6 +22,15 @@ const Container = styled.div`
       border-color: #fff;
     }
   }
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("assets/desk-593327_1280.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 
   > h3 {
     font-family: var(--font-JalnanGothic);
