@@ -1,5 +1,6 @@
-import TextTypingAni from "src/utils/TextTypingAni";
+import TextTypingAni from "utils/TextTypingAni";
 import { styled } from "styled-components";
+import myImage from "assets/desk-593327_1280.jpg";
 
 const Landing = () => {
   return (
@@ -27,7 +28,7 @@ const Container = styled.article`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("assets/desk-593327_1280.jpg");
+  background-image: url(${myImage});
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
