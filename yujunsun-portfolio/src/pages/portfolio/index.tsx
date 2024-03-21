@@ -1,8 +1,8 @@
-import About from "src/components/about/About";
+import About from "components/about/About";
 import { styled } from "styled-components";
-import Landing from "src/components/landing/Landing";
-import Header from "src/components/common/Header";
-import Stack from "src/components/stack/Stack";
+import Landing from "components/landing/Landing";
+import Header from "components/common/Header";
+import Stack from "components/stack/Stack";
 
 const Portfolio = () => {
   return (
