@@ -81,7 +81,12 @@ const AboutMain = styled.ul`
   }
 
   .underline {
-    background-image: linear-gradient(90deg, #95dac1, #fffd7f);
+    /* background-image: linear-gradient(90deg, #95dac1, #fffd7f); */
+    background-image: linear-gradient(
+      127deg,
+      rgba(146, 124, 249, 1) 0%,
+      rgba(205, 219, 255, 0.9066220238095238) 98%
+    );
     background-position: bottom;
     background-size: 100% 30%;
     background-repeat: no-repeat;
