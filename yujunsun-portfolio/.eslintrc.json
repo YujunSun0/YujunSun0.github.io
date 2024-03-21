@@ -31,6 +31,8 @@
     "@typescript-eslint/quotes": ["error", "double"],
     "@typescript-eslint/semi": ["error", "always"],
     "spaced-comment": ["error", "always"],
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": "off",
     "@typescript-eslint/no-misused-promises": [
       "error",
       {
@@ -46,7 +48,7 @@
         },
         "singleline": {
           "delimiter": "semi",
-          "requireLast": true
+          "requireLast": false
         }
       }
     ]
