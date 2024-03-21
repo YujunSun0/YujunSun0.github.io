@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import ProgressBar from "./components/common/Progress";
 import Portfolio from "./pages/portfolio";
 
 function App() {
@@ -11,9 +12,12 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route path="/" element={<Portfolio />} />
-    </Routes>
+    <>
+      <ProgressBar />
+      <Routes>
+        <Route path="/" element={<Portfolio />} />
+      </Routes>
+    </>
   );
 }
 
