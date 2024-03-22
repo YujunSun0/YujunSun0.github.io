@@ -10,18 +10,16 @@ const Landing = () => {
   const navigate = useNavigate();
 
   const [observe, unobserve] = useIntersectionObserver(() => {
-    if (window.location.hash !== "") {
-      navigate("/#0");
-    }
+    navigate("/#0");
   });
 
   useEffect(() => {
-    if (target?.current) {
+    if (target.current !== null && target.current !== undefined) {
       observe(target.current);
     }
 
     return () => {
-      if (target.current) {
+      if (target.current !== null && target.current !== undefined) {
         unobserve(target.current);
       }
     };
@@ -64,6 +62,7 @@ const Container = styled.article`
     border-right: 0.1em solid #fff;
     letter-spacing: 0.3rem;
     padding-top: 0.2em;
+    min-height: 4vw;
 
     -webkit-animation: blink 1s step-end infinite;
     animation: blink 1s step-end infinite;

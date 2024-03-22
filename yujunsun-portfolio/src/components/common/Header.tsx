@@ -15,7 +15,7 @@ const Header = () => {
   useEffect(() => {
     // 스크롤 감지
     const handleShowButton = () => {
-      if (window.scrollY > 340) {
+      if (window.scrollY > 260) {
         setOver(true);
       } else {
         setOver(false);
@@ -28,7 +28,7 @@ const Header = () => {
   }, []);
 
   return (
-    <Container>
+    <Container data-header>
       <HeaderContainer $over={over}>
         <nav className="left">
           <HashLink to="#">YujunSun&apos;s portfolio</HashLink>
@@ -92,10 +92,9 @@ const HeaderContainer = styled.div<{ $over: boolean }>`
   .left {
     cursor: pointer;
     padding-left: 1rem;
-    font-size: 2.4rem;
-
+    font-size: 2.2rem;
     transform: scale(1);
-    transition: 700ms ease;
+    transition: 400ms ease;
 
     &:hover {
       transform: scale(1.05);

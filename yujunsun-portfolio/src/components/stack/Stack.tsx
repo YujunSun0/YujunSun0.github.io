@@ -115,12 +115,12 @@ const Stack = () => {
   });
 
   useEffect(() => {
-    if (target?.current) {
+    if (target.current !== null && target.current !== undefined) {
       observe(target.current);
     }
 
     return () => {
-      if (target.current) {
+      if (target.current !== null && target.current !== undefined) {
         unobserve(target.current);
       }
     };
@@ -147,8 +147,7 @@ export default Stack;
 
 const Container = styled.article`
   width: 100%;
-  padding: 8rem 2rem;
-  margin: 0 auto;
+  padding: 8rem 0;
   background-color: rgb(21, 24, 27);
 `;
 
@@ -164,6 +163,10 @@ const StackWrapper = styled.div`
     font-weight: 500;
     color: rgb(255, 255, 255);
     margin-bottom: 4rem;
+
+    @media (max-width: 1060px) {
+      display: none;
+    }
   }
 `;
 

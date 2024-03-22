@@ -19,12 +19,12 @@ const About = () => {
   });
 
   useEffect(() => {
-    if (target?.current) {
+    if (target.current !== null && target.current !== undefined) {
       observe(target.current);
     }
 
     return () => {
-      if (target.current) {
+      if (target.current !== null && target.current !== undefined) {
         unobserve(target.current);
       }
     };
@@ -38,13 +38,19 @@ const About = () => {
         </SectionTitle>
         <AboutMain>
           <li>
-            <span className="underline">웹의 화면 구성 및 기능을 구현</span>
-            하는 것에 흥미가 생겨 <span className="strong">FE 개발자</span>라는
-            직종에 관심을 가지게 되었습니다.
+            <span className="block">
+              <span className="underline">웹의 화면 구성 및 기능을 구현</span>
+              하는 것에 흥미가 생겨
+            </span>{" "}
+            <span className="strong">FE 개발자</span>라는 직종에 관심을 가지게
+            되었습니다.
           </li>
           <li>
-            <span className="strong">좋은 코드</span>를 작성하기 위해 항상
-            생각하며, 개발자로서{" "}
+            <span className="block">
+              <span className="strong">좋은 코드</span>를 작성하기 위해 항상
+              생각하며,
+            </span>{" "}
+            개발자로서{" "}
             <span className="underline">
               다양한 경험을 하며 <span className="strong">성장</span>
             </span>
@@ -80,7 +86,7 @@ export default About;
 
 const Container = styled.article`
   width: 100%;
-  padding: 8rem 2rem;
+  padding: 8rem 0;
   background-color: #fff;
 `;
 
@@ -98,6 +104,10 @@ const SectionTitle = styled.div`
   padding-bottom: 1.5rem;
   margin: 0 auto 7.5rem;
   letter-spacing: 4px;
+
+  @media (max-width: 905px) {
+    margin: 0 auto 3.5rem;
+  }
 `;
 
 const AboutMain = styled.ul`
@@ -131,6 +141,17 @@ const AboutMain = styled.ul`
     background-size: 100% 30%;
     background-repeat: no-repeat;
   }
+
+  @media (max-width: 905px) {
+    .block {
+      display: block;
+    }
+
+    > li {
+      text-align: center;
+      line-height: 3rem;
+    }
+  }
 `;
 
 const InfoWrapper = styled.ul`
@@ -139,4 +160,9 @@ const InfoWrapper = styled.ul`
   grid-template-columns: repeat(3, 1fr);
   column-gap: 10rem;
   transition: 600ms ease;
+
+  @media (max-width: 980px) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 0;
+  }
 `;
