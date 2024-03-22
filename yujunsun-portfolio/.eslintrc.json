@@ -17,7 +17,11 @@
   "plugins": ["react"],
   "rules": {
     // "indent": [2, "tab"],
-    "indent": ["error", 2],
+    "indent": "off",
+    // Indent JSX with 4 spaces
+    "react/jsx-indent": ["error", 2],
+    // Indent props with 4 spaces
+    "react/jsx-indent-props": ["error", 2],
     "no-tabs": 0,
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/indent": "off",
