@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 
+interface ContainerProps {
+  width: number;
+}
+
 const ProgressBar = () => {
   const [width, setWidth] = useState<number>(0); // 스크롤 진행도에 따라 변하는 상태
   const progressRef = useRef<HTMLSpanElement | null>(null);
@@ -29,8 +33,11 @@ const ProgressBar = () => {
 
 export default ProgressBar;
 
-const Container = styled.span<{ width: number }>`
-  width: ${(props) => props.width + "%"};
+const Container = styled.span.attrs<ContainerProps>(({ width }) => ({
+  style: {
+    width: `${width}%`,
+  },
+}))<ContainerProps>`
   height: 3px;
   position: fixed;
   top: 0;
