@@ -14,6 +14,9 @@ import git from "assets/Git.svg";
 import postman from "assets/Postman.svg";
 import aws from "assets/AWS-Dark.svg";
 import firebase from "assets/Firebase-Dark.svg";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 const Stack = () => {
   // frontendData 배열
@@ -104,8 +107,27 @@ const Stack = () => {
     },
   ];
 
+  const target = useRef(null);
+  const navigate = useNavigate();
+
+  const [observe, unobserve] = useIntersectionObserver(() => {
+    navigate("/#2");
+  });
+
+  useEffect(() => {
+    if (target?.current) {
+      observe(target.current);
+    }
+
+    return () => {
+      if (target.current) {
+        unobserve(target.current);
+      }
+    };
+  }, []);
+
   return (
-    <Container>
+    <Container id="2" ref={target}>
       <StackWrapper>
         <SectionTitle>
           <h3>Tech Stack</h3>

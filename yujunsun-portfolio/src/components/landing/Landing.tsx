@@ -1,10 +1,34 @@
 import TextTypingAni from "utils/TextTypingAni";
 import { styled } from "styled-components";
 import myImage from "assets/desk-593327_1280.jpg";
+import { useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
 
 const Landing = () => {
+  const target = useRef(null);
+  const navigate = useNavigate();
+
+  const [observe, unobserve] = useIntersectionObserver(() => {
+    if (window.location.hash !== "") {
+      navigate("/#0");
+    }
+  });
+
+  useEffect(() => {
+    if (target?.current) {
+      observe(target.current);
+    }
+
+    return () => {
+      if (target.current) {
+        unobserve(target.current);
+      }
+    };
+  }, []);
+
   return (
-    <Container>
+    <Container id="0" ref={target}>
       <TextTypingAni text={"FrontEnd Developer 선유준입니다."} />
     </Container>
   );

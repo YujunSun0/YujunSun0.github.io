@@ -6,36 +6,72 @@ import PlaceIcon from "@mui/icons-material/Place";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import EmailIcon from "@mui/icons-material/Email";
 import SchoolIcon from "@mui/icons-material/School";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
+  const target = useRef(null);
+  const navigate = useNavigate();
+
+  const [observe, unobserve] = useIntersectionObserver(() => {
+    navigate("/#1");
+  });
+
+  useEffect(() => {
+    if (target?.current) {
+      observe(target.current);
+    }
+
+    return () => {
+      if (target.current) {
+        unobserve(target.current);
+      }
+    };
+  }, []);
+
   return (
-    <Container>
-      <SectionTitle>
-        <h3>ABOUT ME</h3>
-      </SectionTitle>
-      <AboutMain>
-        <li>
-          <span className="underline">웹의 화면 구성 및 기능을 구현</span>
-          하는 것에 흥미가 생겨 <span className="strong">FE 개발자</span>라는
-          직종에 관심을 가지게 되었습니다.
-        </li>
-        <li>
-          <span className="strong">좋은 코드</span>를 작성하기 위해 항상
-          생각하며, 개발자로서{" "}
-          <span className="underline">
-            다양한 경험을 하며 <span className="strong">성장</span>
-          </span>
-          하는 것을 목표로 합니다.
-        </li>
-      </AboutMain>
-      <InfoWrapper>
-        <Info icon={AccountCircleIcon} title={"이름"} body={"선유준"} />
-        <Info icon={CalendarMonthIcon} title={"생년월일"} body={"2002.01.28"} />
-        <Info icon={PlaceIcon} title={"주소지"} body={"인천광역시 부평구"} />
-        <Info icon={SmartphoneIcon} title={"연락처"} body={"010-8579-6705"} />
-        <Info icon={EmailIcon} title={"이메일"} body={"yujunsun0@gmail.com"} />
-        <Info icon={SchoolIcon} title={"교육"} body={"코드스테이츠\nFE 43기"} />
-      </InfoWrapper>
+    <Container id="1" ref={target}>
+      <AboutWrapper>
+        <SectionTitle>
+          <h3>ABOUT ME</h3>
+        </SectionTitle>
+        <AboutMain>
+          <li>
+            <span className="underline">웹의 화면 구성 및 기능을 구현</span>
+            하는 것에 흥미가 생겨 <span className="strong">FE 개발자</span>라는
+            직종에 관심을 가지게 되었습니다.
+          </li>
+          <li>
+            <span className="strong">좋은 코드</span>를 작성하기 위해 항상
+            생각하며, 개발자로서{" "}
+            <span className="underline">
+              다양한 경험을 하며 <span className="strong">성장</span>
+            </span>
+            하는 것을 목표로 합니다.
+          </li>
+        </AboutMain>
+        <InfoWrapper>
+          <Info icon={AccountCircleIcon} title={"이름"} body={"선유준"} />
+          <Info
+            icon={CalendarMonthIcon}
+            title={"생년월일"}
+            body={"2002.01.28"}
+          />
+          <Info icon={PlaceIcon} title={"주소지"} body={"인천광역시 부평구"} />
+          <Info icon={SmartphoneIcon} title={"연락처"} body={"010-8579-6705"} />
+          <Info
+            icon={EmailIcon}
+            title={"이메일"}
+            body={"yujunsun0@gmail.com"}
+          />
+          <Info
+            icon={SchoolIcon}
+            title={"교육"}
+            body={"코드스테이츠\nFE 43기"}
+          />
+        </InfoWrapper>
+      </AboutWrapper>
     </Container>
   );
 };
@@ -44,9 +80,13 @@ export default About;
 
 const Container = styled.article`
   width: 100%;
+  padding: 8rem 2rem;
+  background-color: #fff;
+`;
+
+const AboutWrapper = styled.div`
   max-width: 80rem;
   height: 100%;
-  padding: 8rem 2rem;
   margin: 0 auto;
 `;
 
@@ -98,4 +138,5 @@ const InfoWrapper = styled.ul`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 10rem;
+  transition: 600ms ease;
 `;
