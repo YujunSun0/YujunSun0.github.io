@@ -1,80 +1,161 @@
 import styled from "styled-components";
 import { HashLink } from "react-router-hash-link";
 import { useEffect, useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import { SvgIcon } from "@mui/material";
 
 const Header = () => {
-  const [over, setOver] = useState<boolean>(false);
+  const [over, setOver] = useState<boolean>(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    setMenuOpen((prevMenuOpen) => !prevMenuOpen);
+  };
 
   // 커스텀 스크롤 함수 (header의 높이가 70이여서 이를 제외한 만큼 스크롤)
   const scrollWithOffset = (el: HTMLElement) => {
     const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
     const yOffset = -70;
     window.scrollTo({ top: yCoordinate + yOffset, behavior: "smooth" });
+    setMenuOpen(false);
   };
 
   useEffect(() => {
     // 스크롤 감지
     const handleShowButton = () => {
-      if (window.scrollY > 260) {
+      if (window.innerWidth <= 768 || window.scrollY > 200) {
         setOver(true);
       } else {
         setOver(false);
       }
     };
+
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setIsMobile(true);
+        setOver(true);
+      } else {
+        setOver(false);
+        setIsMobile(false);
+        setMenuOpen(false);
+      }
+    };
+
     window.addEventListener("scroll", handleShowButton);
+    window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("scroll", handleShowButton);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   return (
-    <Container data-header>
-      <HeaderContainer $over={over}>
+    <Container data-header $over={over} $isMobile={isMobile}>
+      <HeaderContainer $over={over} $isMobile={isMobile}>
         <nav className="left">
-          <HashLink to="#">YujunSun&apos;s portfolio</HashLink>
+          <HashLink
+            to="#"
+            onClick={() => {
+              setMenuOpen(false);
+            }}
+          >
+            YujunSun&apos;s portfolio
+          </HashLink>
         </nav>
         <nav className="right">
-          <ul className="nav_ul">
-            <li className="nav_li">
+          {isMobile ? (
+            <SvgIcon component={MenuIcon} onClick={handleMenuToggle} />
+          ) : (
+            <ul className="nav_ul">
+              <li className="nav_li">
+                <NavStyle to="/#1" $over={over} scroll={scrollWithOffset}>
+                  ABOUT
+                </NavStyle>
+              </li>
+              <li className="nav_li">
+                <NavStyle to="/#2" $over={over} scroll={scrollWithOffset}>
+                  STACK
+                </NavStyle>
+              </li>
+              <li className="nav_li">
+                <NavStyle to="/#3" $over={over} scroll={scrollWithOffset}>
+                  PROJECT
+                </NavStyle>
+              </li>
+              <li className="nav_li">
+                <NavStyle to="/#4" $over={over} scroll={scrollWithOffset}>
+                  CONTACT
+                </NavStyle>
+              </li>
+            </ul>
+          )}
+        </nav>
+      </HeaderContainer>
+      {isMobile && menuOpen && (
+        <MobileMenu>
+          <ul className="mobile_nav_ul">
+            <li className="mobile_nav_li">
               <NavStyle to="/#1" $over={over} scroll={scrollWithOffset}>
                 ABOUT
               </NavStyle>
             </li>
-            <li className="nav_li">
+            <li className="mobile_nav_li">
               <NavStyle to="/#2" $over={over} scroll={scrollWithOffset}>
                 STACK
               </NavStyle>
             </li>
-            <li className="nav_li">
+            <li className="mobile_nav_li">
               <NavStyle to="/#3" $over={over} scroll={scrollWithOffset}>
                 PROJECT
               </NavStyle>
             </li>
-            <li className="nav_li">
+            <li className="mobile_nav_li">
               <NavStyle to="/#4" $over={over} scroll={scrollWithOffset}>
                 CONTACT
               </NavStyle>
             </li>
           </ul>
-        </nav>
-      </HeaderContainer>
+        </MobileMenu>
+      )}
     </Container>
   );
 };
 
 export default Header;
 
-const Container = styled.header`
+const Container = styled.header<{ $over: boolean; $isMobile: boolean }>`
   position: fixed;
   top: 0;
   width: 100vw;
-  height: 7rem;
   z-index: 500;
+  box-shadow: ${(props) =>
+    props.$over && props.$isMobile ? "0 1px .3rem hsla(0,0%,80%,.8)" : ""};
+
+  .mobile_nav_ul {
+    background: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 700ms ease;
+
+    > li {
+      padding: 1rem 0;
+      transform: scale(1);
+      transition: 700ms ease;
+
+      &:hover {
+        transform: scale(1.12);
+      }
+    }
+  }
 `;
 
-const HeaderContainer = styled.div<{ $over: boolean }>`
+const HeaderContainer = styled.div<{ $over: boolean; $isMobile: boolean }>`
   width: 100%;
-  height: 100%;
+  height: 7rem;
   position: relative;
   margin: 0 auto;
   padding: 0 2rem;
@@ -82,11 +163,15 @@ const HeaderContainer = styled.div<{ $over: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: ${(props) => (props.$over ? "white" : "transparent")};
+  background: ${(props) =>
+    props.$isMobile || window.scrollY > 200 ? "white" : "transparent"};
   backdrop-filter: blur(3px);
   box-shadow: ${(props) =>
-    props.$over ? "0 1px .3rem hsla(0,0%,80%,.8)" : ""};
-  color: ${(props) => (props.$over ? "eee" : "hsla(0,0%,100%,.7)")};
+    window.scrollY > 200 && !props.$isMobile
+      ? "0 1px .3rem hsla(0,0%,80%,.8)"
+      : ""};
+  color: ${(props) =>
+    props.$isMobile || window.scrollY > 200 ? "#000" : "hsla(0,0%,100%,.7)"};
   font-weight: 700;
 
   .left {
@@ -98,6 +183,14 @@ const HeaderContainer = styled.div<{ $over: boolean }>`
 
     &:hover {
       transform: scale(1.05);
+    }
+  }
+
+  .right {
+    > svg {
+      cursor: pointer;
+      width: 3rem;
+      height: 3rem;
     }
   }
 
@@ -152,3 +245,5 @@ const NavStyle = styled(HashLink)<{ $over: boolean }>`
     transform: scaleX(1);
   }
 `;
+
+const MobileMenu = styled.div``;

@@ -32,6 +32,7 @@
     "@typescript-space-before-function-paren": "off",
     "@typescript-eslint/space-before-function-paren": "off",
     "semi": "off",
+    "multiline-ternary": "off",
     "@typescript-eslint/quotes": ["error", "double"],
     "@typescript-eslint/semi": ["error", "always"],
     "spaced-comment": ["error", "always"],
