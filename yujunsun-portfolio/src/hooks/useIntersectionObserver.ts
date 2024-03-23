@@ -3,7 +3,7 @@ export default function useIntersectionObserver(callback: () => void) {
 
   const options = {
     root: null,
-    rootMargin: "100px",
+    rootMargin: "80px",
     threshold: 0.5,
   };
 
@@ -13,9 +13,6 @@ export default function useIntersectionObserver(callback: () => void) {
         const hash = "#" + entry.target.id;
         const navEl = document.querySelector(`a[href="/${hash}"]`);
         if (entry.isIntersecting) {
-          console.log("실행");
-          console.log(navEl, hash);
-
           navEl?.classList.add("focus");
           callback();
         } else {
