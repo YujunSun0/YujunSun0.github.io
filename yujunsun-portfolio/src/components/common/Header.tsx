@@ -156,6 +156,11 @@ const Container = styled.header<{
       transform: scale(1);
       transition: 700ms ease;
 
+      // a 태그의 .focus 클래스가 추가되었을 때
+      .focus::after {
+        transform: scaleX(1);
+      }
+
       &:hover {
         transform: scale(1.12);
       }
@@ -223,15 +228,7 @@ const HeaderContainer = styled.div<{ $over: boolean; $isMobile: boolean }>`
       transform: scale(1.12);
     }
 
-    &::after {
-      display: block;
-      content: "";
-      border-bottom: ${(props) =>
-        props.$over ? "2px solid black" : "2px solid white"};
-      transform: scaleX(0);
-      transition: transform 250ms ease-in-out;
-    }
-
+    // a 태그의 .focus 클래스가 추가되었을 때
     .focus::after {
       transform: scaleX(1);
     }
