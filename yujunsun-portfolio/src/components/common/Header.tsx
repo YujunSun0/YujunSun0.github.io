@@ -98,7 +98,6 @@ const Header = () => {
           )}
         </nav>
       </HeaderContainer>
-
       <MobileMenu>
         <ul className="mobile_nav_ul">
           <li className="mobile_nav_li">
@@ -144,7 +143,7 @@ const Container = styled.header<{
   .mobile_nav_ul {
     overflow: hidden;
     background: white;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     max-height: ${(props) => (props.$menuOpen ? "19.2rem" : "0")};
     font-weight: 500;
     display: flex;
