@@ -52,7 +52,12 @@ const Header = () => {
   }, []);
 
   return (
-    <Container data-header $over={over} $isMobile={isMobile}>
+    <Container
+      data-header
+      $over={over}
+      $isMobile={isMobile}
+      $menuOpen={menuOpen}
+    >
       <HeaderContainer $over={over} $isMobile={isMobile}>
         <nav className="left">
           <HashLink
@@ -93,39 +98,42 @@ const Header = () => {
           )}
         </nav>
       </HeaderContainer>
-      {isMobile && menuOpen && (
-        <MobileMenu>
-          <ul className="mobile_nav_ul">
-            <li className="mobile_nav_li">
-              <NavStyle to="/#1" $over={over} scroll={scrollWithOffset}>
-                ABOUT
-              </NavStyle>
-            </li>
-            <li className="mobile_nav_li">
-              <NavStyle to="/#2" $over={over} scroll={scrollWithOffset}>
-                STACK
-              </NavStyle>
-            </li>
-            <li className="mobile_nav_li">
-              <NavStyle to="/#3" $over={over} scroll={scrollWithOffset}>
-                PROJECT
-              </NavStyle>
-            </li>
-            <li className="mobile_nav_li">
-              <NavStyle to="/#4" $over={over} scroll={scrollWithOffset}>
-                CONTACT
-              </NavStyle>
-            </li>
-          </ul>
-        </MobileMenu>
-      )}
+
+      <MobileMenu>
+        <ul className="mobile_nav_ul">
+          <li className="mobile_nav_li">
+            <NavStyle to="/#1" $over={over} scroll={scrollWithOffset}>
+              ABOUT
+            </NavStyle>
+          </li>
+          <li className="mobile_nav_li">
+            <NavStyle to="/#2" $over={over} scroll={scrollWithOffset}>
+              STACK
+            </NavStyle>
+          </li>
+          <li className="mobile_nav_li">
+            <NavStyle to="/#3" $over={over} scroll={scrollWithOffset}>
+              PROJECT
+            </NavStyle>
+          </li>
+          <li className="mobile_nav_li">
+            <NavStyle to="/#4" $over={over} scroll={scrollWithOffset}>
+              CONTACT
+            </NavStyle>
+          </li>
+        </ul>
+      </MobileMenu>
     </Container>
   );
 };
 
 export default Header;
 
-const Container = styled.header<{ $over: boolean; $isMobile: boolean }>`
+const Container = styled.header<{
+  $over: boolean;
+  $isMobile: boolean;
+  $menuOpen: boolean;
+}>`
   position: fixed;
   top: 0;
   width: 100vw;
@@ -134,13 +142,15 @@ const Container = styled.header<{ $over: boolean; $isMobile: boolean }>`
     props.$over && props.$isMobile ? "0 1px .3rem hsla(0,0%,80%,.8)" : ""};
 
   .mobile_nav_ul {
+    overflow: hidden;
     background: white;
     font-size: 1.5rem;
+    max-height: ${(props) => (props.$menuOpen ? "19.2rem" : "0")};
     font-weight: 500;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: 700ms ease;
+    transition: max-height 0.2s ease;
 
     > li {
       padding: 1rem 0;
