@@ -16,7 +16,8 @@ const Header = () => {
   // 커스텀 스크롤 함수 (header의 높이가 70이여서 이를 제외한 만큼 스크롤)
   const scrollWithOffset = (el: HTMLElement) => {
     const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
-    const yOffset = -70;
+    const width = window.innerWidth;
+    const yOffset = width > 905 ? -70 : width > 576 ? -56 : -49;
     window.scrollTo({ top: yCoordinate + yOffset, behavior: "smooth" });
     setMenuOpen(false);
   };

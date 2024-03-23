@@ -38,6 +38,9 @@ export default StackLists;
 
 const Stacks = styled.section`
   width: 100%;
+  @media (max-width: 576px) {
+    width: 94%;
+  }
 `;
 
 const SubTitle = styled.div`
@@ -90,7 +93,7 @@ const StackUl = styled.ul`
     grid-template-columns: 1fr 1fr;
   }
 
-  @media (max-width: 620px) {
+  @media (max-width: 576px) {
     grid-template-columns: 1fr;
     gap: 0;
   }
@@ -179,7 +182,7 @@ const StackList = styled.li`
     box-sizing: border-box;
   }
 
-  @media (max-width: 620px) {
+  @media (max-width: 576px) {
     max-width: 556px;
   }
 `;

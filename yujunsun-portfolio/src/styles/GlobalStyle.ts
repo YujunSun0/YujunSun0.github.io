@@ -8,19 +8,24 @@ const GlobalStyle = createGlobalStyle`
 	:root {
 		--font-NotoSansKR: "NotoSansKR";
 		--font-JalnanGothic: "JalnanGothic";
+
+		--bs-breakpoint-xs: 0;
+		--bs-breakpoint-sm: 576px;
+		--bs-breakpoint-md: 768px;
+		--bs-breakpoint-lg: 905px;
 	}
 
 	*::-webkit-scrollbar {
 		display: none;
 	}
 
-	html {
+	html, body {
 		font-size: 62.5%;
 		scroll-behavior: smooth;
 	}
 
 	body {
-		font-size: 1.6rem;
+		/* font-size: 1.6rem; */
 		overflow: scroll;
 		-ms-overflow-style: none;
 		background-color: rgb(21, 24, 27);
@@ -35,6 +40,24 @@ const GlobalStyle = createGlobalStyle`
 	a {
 		text-decoration: none;
 		color: inherit;
+	}
+
+	@media (max-width: 905px){
+		html {
+			font-size: 9px;
+		}
+	}
+
+	@media (max-width: 768px){
+		html {
+			font-size: 8px;
+		}
+	}
+
+	@media (max-width: 576px){
+		html {
+			font-size: 7px;
+		}
 	}
 
 `;

@@ -165,4 +165,8 @@ const InfoWrapper = styled.ul`
     grid-template-columns: repeat(2, 1fr);
     column-gap: 0;
   }
+
+  @media (max-width: 576px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
