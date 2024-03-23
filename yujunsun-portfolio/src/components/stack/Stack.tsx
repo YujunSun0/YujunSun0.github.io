@@ -135,7 +135,7 @@ const Stack = () => {
         <p className="title_detail">
           아이콘에 마우스를 올리면 자세한 설명이 나옵니다.
         </p>
-        <StackLists name="# FrontEnd-Skill" values={frontendData} />
+        <StackLists name="# FrontEnd" values={frontendData} />
         <StackLists name="# Tools" values={toolsData} />
         <StackLists name="# DevOps" values={devOpsData} />
       </StackWrapper>

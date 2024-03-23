@@ -100,6 +100,7 @@ const SectionTitle = styled.div`
   display: table;
   font-size: 3.6rem;
   font-weight: 600;
+  color: #000;
   border-bottom: 2px solid #cccccc;
   padding-bottom: 1.5rem;
   margin: 0 auto 7.5rem;

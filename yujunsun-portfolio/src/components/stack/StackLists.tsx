@@ -65,11 +65,19 @@ const MainCategory = styled.span`
   background-color: rgba(0, 0, 0, 0.5);
   color: rgb(255, 255, 255);
   border: 1px solid rgb(50, 50, 60);
-  border-radius: 25px;
+  border-radius: 15px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
 
   &:hover {
     transform: scale(1.15);
+  }
+
+  @media (max-width: 1060px) {
+    margin-left: 4rem;
+  }
+
+  @media (max-width: 905px) {
+    margin: 0;
   }
 `;
 
@@ -80,6 +88,7 @@ const StackUl = styled.ul`
   align-items: center;
   min-height: 13rem;
   gap: 2rem;
+  margin: 0 auto;
   padding: 0 3rem;
 
   @media (max-width: 1060px) {
@@ -109,6 +118,7 @@ const StackList = styled.li`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   border: 1px solid rgb(50, 50, 60);
+  border-radius: 15px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
   transition: 350ms ease;
   overflow: hidden;
