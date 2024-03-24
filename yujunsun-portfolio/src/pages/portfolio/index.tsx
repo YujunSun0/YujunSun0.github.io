@@ -4,6 +4,7 @@ import Landing from "components/landing/Landing";
 import Header from "components/common/Header";
 import Stack from "components/stack/Stack";
 import { useEffect, useState } from "react";
+import Project from "components/project/Project";
 
 const Portfolio = () => {
   const [showButton, setShowButton] = useState<boolean>(false);
@@ -36,6 +37,7 @@ const Portfolio = () => {
       <Landing />
       <About />
       <Stack />
+      <Project />
       {showButton && (
         <div className="scroll__container">
           <button id="top" onClick={scrollToTop} type="button">
