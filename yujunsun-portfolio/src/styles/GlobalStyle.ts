@@ -42,6 +42,11 @@ const GlobalStyle = createGlobalStyle`
 		color: inherit;
 	}
 
+	button {
+		cursor: pointer;
+		border: none;
+	}
+
 	@media (max-width: 905px){
 		html {
 			font-size: 9px;

@@ -175,7 +175,7 @@ const SectionTitle = styled.div`
   font-size: 3.8rem;
   font-weight: 500;
   border-bottom: 2px solid #cccccc;
-  color: rgb(156, 107, 212);
+  color: white;
   padding-bottom: 1.5rem;
   margin: 0 auto 4.5rem;
   letter-spacing: 4px;
