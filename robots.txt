@@ -1,0 +1,3 @@
+sitemap: https://yujunsun0.github.io/
+User-agent: *
+Allow: /
