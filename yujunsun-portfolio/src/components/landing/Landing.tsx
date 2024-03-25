@@ -34,7 +34,7 @@ const Landing = () => {
 
 export default Landing;
 
-const Container = styled.article`
+const Container = styled.section`
   @keyframes blink {
     0%,
     100% {

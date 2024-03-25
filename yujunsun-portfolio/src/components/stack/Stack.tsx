@@ -145,7 +145,7 @@ const Stack = () => {
 
 export default Stack;
 
-const Container = styled.article`
+const Container = styled.section`
   width: 100%;
   padding: 8rem 0;
   background-color: rgb(21, 24, 27);
