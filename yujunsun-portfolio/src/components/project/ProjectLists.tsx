@@ -9,12 +9,16 @@ interface ProjectListsProps {
   images: string[];
   projectInfo: projectInfoType;
   projectDetail: projectDetailType;
+  isVisible: number;
+  id: string;
 }
 
 interface projectInfoType {
   projectType: string;
   projectName: string;
   projectDate: string;
+  projectSite: string;
+  projectGithub: string;
 }
 
 interface projectDetailType {
@@ -27,6 +31,8 @@ const ProjectLists = ({
   images,
   projectInfo,
   projectDetail,
+  isVisible,
+  id,
 }: ProjectListsProps) => {
   const [isActive, setIsActive] = useState<number>(0);
 
@@ -36,14 +42,16 @@ const ProjectLists = ({
   };
 
   return (
-    <Projects>
+    <Projects $isVisible={isVisible} id={id}>
       <div className="left">
         <div className="image_slider_wrapper">
-          <img
-            src={images[isActive]}
-            className="active_image"
-            alt="활성화 된 프로젝트 이미지"
-          />
+          <div className="active_image_wrapper">
+            <img
+              src={images[isActive]}
+              className="active_image"
+              alt="활성화 된 프로젝트 이미지"
+            />
+          </div>
           <ul className="image_lists">
             {images.map((image, idx) => {
               return (
@@ -75,9 +83,9 @@ const ProjectLists = ({
             </Button> */}
             <Button
               color={"#5D5D8C"}
-              fontColor={"#ffffff"}
+              $fontColor={"#ffffff"}
               onClick={() => {
-                handleOpenNewTab("https://yujunsun0.github.io/");
+                handleOpenNewTab(projectInfo.projectSite);
               }}
             >
               <SvgIcon component={OpenInNewIcon} />
@@ -85,11 +93,9 @@ const ProjectLists = ({
             </Button>
             <Button
               color={"#202020"}
-              fontColor={"#ffffff"}
+              $fontColor={"#ffffff"}
               onClick={() => {
-                handleOpenNewTab(
-                  "https://github.com/YujunSun0/YujunSun0.github.io/tree/main"
-                );
+                handleOpenNewTab(projectInfo.projectGithub);
               }}
             >
               <SvgIcon component={GitHubIcon} />
@@ -100,18 +106,10 @@ const ProjectLists = ({
       </div>
       <div className="right">
         <h3>프로젝트 설명</h3>
-        <div className="content">
-          <span className="strong">
-            포트폴리오용으로 제작한 웹사이트입니다.
-          </span>{" "}
-          한 페이지에서 편리한 정보 조회가 가능하도록 제작했으며,{" "}
-          <span className="strong">반응형 웹</span>으로 제작되어 모든 환경에서
-          볼 수 있습니다.
-          <br />
-          <br />
-          개발 기간을 짧게 잡아 진행하였고 재사용 가능한 컴포넌트를 만들어
-          유지보수에 용이하게 만들었습니다.
-        </div>
+        <div
+          className="content"
+          dangerouslySetInnerHTML={{ __html: projectDetail.projectExplain }}
+        ></div>
         <h3 className="mgt-30">기술 스택</h3>
         <ul className="stack_lists">
           {projectDetail.projectStacks.map((stack, idx) => {
@@ -123,11 +121,10 @@ const ProjectLists = ({
           })}
         </ul>
         <h3 className="mgt-30">후기</h3>
-        <div className="content">
-          이번 프로젝트는 앞으로도 업데이트해 나가야 할 사이트이므로{" "}
-          <span className="strong">유지보수하기 좋은 코드</span>를 작성하려
-          노력했으며,{" "}
-        </div>
+        <div
+          className="content"
+          dangerouslySetInnerHTML={{ __html: projectDetail.projectReview }}
+        ></div>
       </div>
     </Projects>
   );
@@ -135,10 +132,13 @@ const ProjectLists = ({
 
 export default ProjectLists;
 
-const Projects = styled.section`
+const Projects = styled.section.attrs((props) => ({
+  id: props.id,
+}))<{ $isVisible: number }>`
   width: 100%;
   margin: 0 auto;
-  display: flex;
+  display: ${(props) =>
+    props.$isVisible === Number(props.id) ? "flex" : "none"};
   gap: 3rem;
   color: white;
 
@@ -159,27 +159,47 @@ const Projects = styled.section`
       gap: 1rem;
       flex-direction: column;
 
-      .active_image {
+      .active_image_wrapper {
+        width: 100%;
         border: 1px solid rgba(255, 255, 255, 0.3);
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+        aspect-ratio: 16/8;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        overflow: hidden;
+      }
+
+      .active_image {
+        width: 100%;
+        will-change: transform;
+        transition: 500ms ease;
       }
 
       .image_lists {
         width: 100%;
+        height: 7rem;
         padding-bottom: 0.3rem;
-        overflow-x: scroll;
         white-space: nowrap;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
 
         .image_list {
           box-sizing: border-box;
           cursor: pointer;
-          display: inline-block;
-          width: 11.2rem;
-          height: auto;
+          vertical-align: middle;
+          aspect-ratio: 16/8;
+          width: 24%;
+          /* height: 6rem; */
+          /* overflow: hidden; */
           transition: 200ms ease;
 
           .slider_image {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top; /* 이미지의 상단부터 표시 */
             will-change: transform;
           }
 
@@ -265,12 +285,21 @@ const Projects = styled.section`
 
     .strong {
       font-weight: 700;
+      color: rgb(164 189 255 / 100%);
+    }
+
+    .code_block {
+      background: #555555;
+      font-size: 85%;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
     }
 
     .stack_lists {
       width: 100%;
       display: flex;
       gap: 1rem;
+      flex-wrap: wrap;
       margin-top: 1rem;
 
       .stack_list {
@@ -285,13 +314,13 @@ const Projects = styled.section`
   }
 `;
 
-const Button = styled.button<{ fontColor?: string }>`
+const Button = styled.button<{ $fontColor?: string }>`
   display: flex;
   gap: 0.5rem;
   padding: 0.8rem 1.6rem;
   border-radius: 4px;
   background-color: ${(props) => props.color ?? "white"};
-  color: ${(props) => props.fontColor ?? "#000000"};
+  color: ${(props) => props.$fontColor ?? "#000000"};
   font-weight: 600;
 
   &:hover {
