@@ -1,6 +1,14 @@
 import { styled } from "styled-components";
 import ProjectLists from "./ProjectLists";
 import portfolioLanding from "assets/landing.png";
+import html5 from "assets/html5.png";
+import css3 from "assets/css3.png";
+import ts from "../../assets/ts.png";
+import reactjs from "../../assets/reactjs.png";
+import styledComponents from "../../assets/StyledComponents.svg";
+// import js from "../../assets/js.png";
+// import redux from "../../assets/Redux.svg";
+// import firebase from "assets/Firebase-Dark.svg";
 
 const Project = () => {
   // 개인 포트폴리오 사이트 데이터
@@ -16,13 +24,23 @@ const Project = () => {
     projectName: "개인 포트폴리오 사이트",
     projectDate: "2024.03.17 ~ 2024.03.25",
   };
+  const portfolioDetail = {
+    projectExplain: "",
+    projectStacks: [html5, css3, ts, reactjs, styledComponents],
+    projectReview: "",
+  };
+
   return (
     <Container id="3">
       <ProjectWrapper>
         <SectionTitle>
           <h3>PROJECT</h3>
         </SectionTitle>
-        <ProjectLists images={portfolioImages} projectInfo={portfolioLeft} />
+        <ProjectLists
+          images={portfolioImages}
+          projectInfo={portfolioLeft}
+          projectDetail={portfolioDetail}
+        />
       </ProjectWrapper>
     </Container>
   );
@@ -30,7 +48,7 @@ const Project = () => {
 
 export default Project;
 
-const Container = styled.article`
+const Container = styled.section`
   @keyframes gradient {
     0% {
       background-position: 0% 50%;

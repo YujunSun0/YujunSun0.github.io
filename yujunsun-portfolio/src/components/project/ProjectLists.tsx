@@ -8,6 +8,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 interface ProjectListsProps {
   images: string[];
   projectInfo: projectInfoType;
+  projectDetail: projectDetailType;
 }
 
 interface projectInfoType {
@@ -16,7 +17,17 @@ interface projectInfoType {
   projectDate: string;
 }
 
-const ProjectLists = ({ images, projectInfo }: ProjectListsProps) => {
+interface projectDetailType {
+  projectExplain: string;
+  projectStacks: string[];
+  projectReview: string;
+}
+
+const ProjectLists = ({
+  images,
+  projectInfo,
+  projectDetail,
+}: ProjectListsProps) => {
   const [isActive, setIsActive] = useState<number>(0);
 
   // 새 탭을 열어주는 함수
@@ -87,7 +98,37 @@ const ProjectLists = ({ images, projectInfo }: ProjectListsProps) => {
           </div>
         </div>
       </div>
-      <div className="right">2</div>
+      <div className="right">
+        <h3>프로젝트 설명</h3>
+        <div className="content">
+          <span className="strong">
+            포트폴리오용으로 제작한 웹사이트입니다.
+          </span>{" "}
+          한 페이지에서 편리한 정보 조회가 가능하도록 제작했으며,{" "}
+          <span className="strong">반응형 웹</span>으로 제작되어 모든 환경에서
+          볼 수 있습니다.
+          <br />
+          <br />
+          개발 기간을 짧게 잡아 진행하였고 재사용 가능한 컴포넌트를 만들어
+          유지보수에 용이하게 만들었습니다.
+        </div>
+        <h3 className="mgt-30">기술 스택</h3>
+        <ul className="stack_lists">
+          {projectDetail.projectStacks.map((stack, idx) => {
+            return (
+              <li className="stack_list" key={idx}>
+                <img src={stack} alt="프로젝트 기술 스택" />
+              </li>
+            );
+          })}
+        </ul>
+        <h3 className="mgt-30">후기</h3>
+        <div className="content">
+          이번 프로젝트는 앞으로도 업데이트해 나가야 할 사이트이므로{" "}
+          <span className="strong">유지보수하기 좋은 코드</span>를 작성하려
+          노력했으며,{" "}
+        </div>
+      </div>
     </Projects>
   );
 };
@@ -98,8 +139,12 @@ const Projects = styled.section`
   width: 100%;
   margin: 0 auto;
   display: flex;
-  gap: 1rem;
+  gap: 3rem;
   color: white;
+
+  .mgt-30 {
+    margin-top: 3rem;
+  }
 
   .left {
     width: 45rem;
@@ -203,6 +248,40 @@ const Projects = styled.section`
     width: 100%;
     display: flex;
     flex-direction: column;
+
+    > h3 {
+      color: #da8bff;
+      font-family: var(--font-NotoSansKR);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    // 제목 밑에 들어갈 내용
+    .content {
+      font-size: 1.4rem;
+      word-break: keep-all;
+      line-height: 2rem;
+    }
+
+    .strong {
+      font-weight: 700;
+    }
+
+    .stack_lists {
+      width: 100%;
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+
+      .stack_list {
+        width: 4rem;
+        height: 4rem;
+
+        > img {
+          width: 3.5rem;
+        }
+      }
+    }
   }
 `;
 
