@@ -132,6 +132,7 @@ const Project = () => {
 
   const target = useRef(null);
   const navigate = useNavigate();
+  const listRef = useRef<any>([]);
 
   const [observe, unobserve] = useIntersectionObserver(() => {
     navigate("/#3");
@@ -155,6 +156,11 @@ const Project = () => {
         return prev + 1;
       }
     });
+  };
+
+  const handleClickNavLi = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLElement;
+    setIsVisible(Number(target.id));
   };
 
   useEffect(() => {
@@ -211,6 +217,36 @@ const Project = () => {
             onClick={handleClickForwardBtn}
           />
         </ListsWrapper>
+        <NavList>
+          <SvgIcon
+            className="arrow_back_icon_mobile"
+            component={ArrowBackIosIcon}
+            onClick={handleClickBackBtn}
+          />
+          <li
+            id="0"
+            ref={(el) => (listRef.current[0] = el)}
+            className={`${listRef?.current[0]?.id === isVisible.toString() ? "active" : ""}`}
+            onClick={handleClickNavLi}
+          ></li>
+          <li
+            id="1"
+            ref={(el) => (listRef.current[1] = el)}
+            className={`${listRef?.current[1]?.id === isVisible.toString() ? "active" : ""}`}
+            onClick={handleClickNavLi}
+          ></li>
+          <li
+            id="2"
+            ref={(el) => (listRef.current[2] = el)}
+            className={`${listRef?.current[2]?.id === isVisible.toString() ? "active" : ""}`}
+            onClick={handleClickNavLi}
+          ></li>
+          <SvgIcon
+            className="arrow_forward_icon_mobile"
+            component={ArrowForwardIosIcon}
+            onClick={handleClickForwardBtn}
+          />
+        </NavList>
       </ProjectWrapper>
     </Container>
   );
@@ -251,6 +287,7 @@ const ListsWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding-bottom: 5rem;
 
   @keyframes nav_back_animation {
     0% {
@@ -304,6 +341,54 @@ const ListsWrapper = styled.div`
     &:hover {
       filter: invert(90%);
     }
+  }
+
+  @media (max-width: 768px) {
+    .arrow_back_icon,
+    .arrow_forward_icon {
+      display: none !important;
+    }
+  }
+`;
+
+const NavList = styled.ul`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  .arrow_back_icon_mobile,
+  .arrow_forward_icon_mobile {
+    display: none;
+    width: 2.4rem;
+    height: 2.4rem;
+    cursor: pointer;
+    filter: invert(60%);
+    transition: 500ms ease;
+
+    &:hover {
+      filter: invert(90%);
+    }
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  > li {
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: 500ms ease;
+    background-color: gray;
+  }
+
+  .active {
+    transform: scale(1.15);
+    background-color: white;
   }
 `;
 
