@@ -135,12 +135,24 @@ export default ProjectLists;
 const Projects = styled.section.attrs((props) => ({
   id: props.id,
 }))<{ $isVisible: number }>`
+  @keyframes menuAni {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
   width: 100%;
   margin: 0 auto;
   display: ${(props) =>
     props.$isVisible === Number(props.id) ? "flex" : "none"};
   gap: 3rem;
   color: white;
+  opacity: ${(props) => (props.$isVisible === Number(props.id) ? 1 : 0)};
+  animation: menuAni 2000ms;
 
   .mgt-30 {
     margin-top: 3rem;
