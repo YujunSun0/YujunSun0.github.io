@@ -110,7 +110,7 @@ const ProjectLists = ({
           className="content"
           dangerouslySetInnerHTML={{ __html: projectDetail.projectExplain }}
         ></div>
-        <h3 className="mgt-30">기술 스택</h3>
+        <h3 className="mgt-20">기술 스택</h3>
         <ul className="stack_lists">
           {projectDetail.projectStacks.map((stack, idx) => {
             return (
@@ -120,7 +120,7 @@ const ProjectLists = ({
             );
           })}
         </ul>
-        <h3 className="mgt-30">후기</h3>
+        <h3 className="mgt-20">후기</h3>
         <div
           className="content"
           dangerouslySetInnerHTML={{ __html: projectDetail.projectReview }}
@@ -154,8 +154,21 @@ const Projects = styled.section.attrs((props) => ({
   opacity: ${(props) => (props.$isVisible === Number(props.id) ? 1 : 0)};
   animation: menuAni 2000ms;
 
-  .mgt-30 {
-    margin-top: 3rem;
+  @media (max-width: 850px) {
+    flex-direction: column;
+    width: 75%;
+
+    .left {
+      width: 100% !important;
+    }
+
+    .right {
+      width: 100% !important;
+    }
+  }
+
+  .mgt-20 {
+    margin-top: 2rem;
   }
 
   .left {
@@ -328,11 +341,13 @@ const Projects = styled.section.attrs((props) => ({
 
 const Button = styled.button<{ $fontColor?: string }>`
   display: flex;
+  align-items: center;
   gap: 0.5rem;
   padding: 0.8rem 1.6rem;
   border-radius: 4px;
   background-color: ${(props) => props.color ?? "white"};
   color: ${(props) => props.$fontColor ?? "#000000"};
+  font-size: 1.4rem;
   font-weight: 600;
 
   &:hover {
