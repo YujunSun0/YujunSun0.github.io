@@ -37,7 +37,7 @@ const Project = () => {
   const portfolioLeft = {
     projectType: "개인 프로젝트",
     projectName: "개인 포트폴리오 사이트",
-    projectDate: "2024.03.21 ~ 2024.03.25",
+    projectDate: "2024.03.18 ~ 2024.03.25",
     projectSite: "https://yujunsun0.github.io/",
     projectGithub: "https://github.com/YujunSun0/YujunSun0.github.io/tree/main",
   };
