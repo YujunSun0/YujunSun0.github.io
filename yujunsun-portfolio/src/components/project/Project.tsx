@@ -24,10 +24,12 @@ import css3 from "assets/css3.png";
 import ts from "../../assets/ts.png";
 import reactjs from "../../assets/reactjs.png";
 import styledComponents from "../../assets/StyledComponents.svg";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import redux from "../../assets/Redux.svg";
 import firebase from "assets/Firebase-Dark.svg";
 import AWS from "assets/AWS-Dark.svg";
+import useIntersectionObserver from "hooks/useIntersectionObserver";
+import { useNavigate } from "react-router-dom";
 
 const Project = () => {
   // 개인 포트폴리오 사이트 데이터
@@ -59,8 +61,10 @@ const Project = () => {
           <span class="strong">SEO & UI/UX</span>에 신경썼습니다.
           <br />
           <br />
-          주요 기능들을 라이브러리 없이 구현하여 기술적 이해도를 높이고, 이를
-          계기로 추후 <span class="code_block">Next.js</span>를 학습하여 migration 할 예정입니다.
+          주요 기능들을 라이브러리 없이 구현하여 기술적 이해도를 높이고, 브라우저 렌더링이 대해 생각해보는 계기가 되었습니다.
+          <br/>
+          <br/>
+          이를 계기로 추후 <span class="code_block">Next.js</span>를 학습하여 migration 할 예정입니다.
         `,
   };
 
@@ -126,10 +130,14 @@ const Project = () => {
   const [isVisible, setIsVisible] = useState<number>(0);
   const [start, end] = [0, 2]; // 리스트의 시작과 끝 Idx를 저장
 
-  console.log(isVisible);
+  const target = useRef(null);
+  const navigate = useNavigate();
+
+  const [observe, unobserve] = useIntersectionObserver(() => {
+    navigate("/#3");
+  });
 
   const handleClickBackBtn = () => {
-    console.log("실행 <-");
     setIsVisible((prev) => {
       if (prev === start) {
         return end;
@@ -140,7 +148,6 @@ const Project = () => {
   };
 
   const handleClickForwardBtn = () => {
-    console.log("실행 ->");
     setIsVisible((prev) => {
       if (prev === end) {
         return start;
@@ -150,8 +157,20 @@ const Project = () => {
     });
   };
 
+  useEffect(() => {
+    if (target.current !== null && target.current !== undefined) {
+      observe(target.current);
+    }
+
+    return () => {
+      if (target.current !== null && target.current !== undefined) {
+        unobserve(target.current);
+      }
+    };
+  }, []);
+
   return (
-    <Container id="3">
+    <Container id="3" ref={target}>
       <ProjectWrapper>
         <SectionTitle>
           <h3>PROJECT</h3>
