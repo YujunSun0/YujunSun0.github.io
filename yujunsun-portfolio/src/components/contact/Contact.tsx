@@ -109,7 +109,7 @@ const Contact = () => {
 
   return (
     <>
-      <Container ref={target}>
+      <Container id="4" ref={target}>
         <SectionTitle>
           <h3>CONTACT</h3>
         </SectionTitle>
