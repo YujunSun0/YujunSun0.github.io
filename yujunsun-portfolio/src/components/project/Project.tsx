@@ -43,7 +43,7 @@ const Project = () => {
   };
   const portfolioDetail = {
     projectExplain: `
-          <span class="strong">포트폴리오용으로 제작한 웹사이트</span>입니다.
+          <span class="strong">포트폴리오 용으로 제작한 웹사이트</span>입니다.
           한 페이지에서 편리한 정보 조회가 가능하도록 제작했으며,
           <span class="strong">반응형 웹</span>으로 제작되어 모든 환경에서
           볼 수 있습니다.
