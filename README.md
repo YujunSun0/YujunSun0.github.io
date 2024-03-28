@@ -24,9 +24,7 @@
 <details>
 <summary>구현 함수 보기</summary>
 <div markdown="1">
-<ul>
-  <li>root를 null로 설정하여 viewport를 감지영역으로 두고, threshold 속성을 0.5로 하여 요소가 50%만큼 보여졌을 때  </li>
-</ul>
+
 <img width="560" alt="스크린샷 2024-03-28 오후 6 18 39" src="https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/c411c44a-c667-49d4-ae82-e49716ebedce">
 
 </div>
