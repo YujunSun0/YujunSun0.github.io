@@ -3,13 +3,13 @@ import { styled } from "styled-components";
 import myImage from "assets/desk-593327_1280.jpg";
 import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
+import scrollIntersectionObserver from "utils/scrollIntersectionObserver";
 
 const Landing = () => {
   const target = useRef(null);
   const navigate = useNavigate();
 
-  const [observe, unobserve] = useIntersectionObserver(() => {
+  const [observe, unobserve] = scrollIntersectionObserver(() => {
     navigate("/#0");
   });
 

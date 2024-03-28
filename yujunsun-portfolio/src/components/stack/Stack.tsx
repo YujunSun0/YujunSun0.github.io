@@ -16,7 +16,7 @@ import aws from "assets/AWS-Dark.svg";
 import firebase from "assets/Firebase-Dark.svg";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
+import useIntersectionObserver from "utils/scrollIntersectionObserver";
 
 const Stack = () => {
   // frontendData 배열

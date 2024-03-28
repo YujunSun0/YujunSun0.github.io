@@ -6,7 +6,7 @@ import PlaceIcon from "@mui/icons-material/Place";
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
 import EmailIcon from "@mui/icons-material/Email";
 import SchoolIcon from "@mui/icons-material/School";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
+import scrollIntersectionObserver from "utils/scrollIntersectionObserver";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,7 @@ const About = () => {
   const target = useRef(null);
   const navigate = useNavigate();
 
-  const [observe, unobserve] = useIntersectionObserver(() => {
+  const [observe, unobserve] = scrollIntersectionObserver(() => {
     navigate("/#1");
   });
 

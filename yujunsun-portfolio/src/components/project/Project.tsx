@@ -28,7 +28,7 @@ import { useEffect, useRef, useState } from "react";
 import redux from "../../assets/Redux.svg";
 import firebase from "assets/Firebase-Dark.svg";
 import AWS from "assets/AWS-Dark.svg";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
+import scrollIntersectionObserver from "utils/scrollIntersectionObserver";
 import { useNavigate } from "react-router-dom";
 
 const Project = () => {
@@ -134,7 +134,7 @@ const Project = () => {
   const navigate = useNavigate();
   const listRef = useRef<any>([]);
 
-  const [observe, unobserve] = useIntersectionObserver(() => {
+  const [observe, unobserve] = scrollIntersectionObserver(() => {
     navigate("/#3");
   });
 

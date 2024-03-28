@@ -1,4 +1,4 @@
-export default function useIntersectionObserver(callback: () => void) {
+export default function scrollIntersectionObserver(callback: () => void) {
   // const header = document.querySelector("[data-header]");
 
   const options = {

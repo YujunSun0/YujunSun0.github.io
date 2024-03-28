@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser";
 import { styled } from "styled-components";
 import Spinner from "assets/Rolling2-1s-21px.gif";
 import { useNavigate } from "react-router-dom";
-import useIntersectionObserver from "hooks/useIntersectionObserver";
+import scrollIntersectionObserver from "utils/scrollIntersectionObserver";
 import { debounce } from "utils/debounce";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -31,7 +31,7 @@ const Contact = () => {
 
   const navigate = useNavigate();
 
-  const [observe, unobserve] = useIntersectionObserver(() => {
+  const [observe, unobserve] = scrollIntersectionObserver(() => {
     navigate("/#4");
   });
 
