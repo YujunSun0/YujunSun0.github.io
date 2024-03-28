@@ -39,7 +39,7 @@
 ![2024-03-286 33 51-ezgif com-video-to-gif-converter](https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/a5c9d8a3-02d3-4ed8-b82e-332410ba4faf)
 
 - 스크롤 진행 상황을 표시하는 `bar`입니다.
-- addEventListener를 통해 스크롤 이벤트를 등록하여
+- `useEffect`에서 `addEventListener`를 통해 스크롤 이벤트를 등록하여 현재 스크롤 위치의 **percent(%)**를 구하는 방식으로 구현했습니다.
 
   <br />
 
