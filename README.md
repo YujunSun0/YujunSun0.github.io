@@ -22,7 +22,7 @@
 <br />
 
 <details>
-<summary>구현 함수 보기</summary>
+<summary>소스 코드 보기</summary>
 <div markdown="1">
 
 <img width="560" alt="스크린샷 2024-03-28 오후 6 18 39" src="https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/c411c44a-c667-49d4-ae82-e49716ebedce">
