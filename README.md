@@ -24,7 +24,7 @@
 **Task (과제)**: 사용자의 편의성을 높이기 위해, 클릭 한 번으로 원하는 섹션으로 쉽게 이동할 수 있고, 현재 위치를 실시간으로 파악할 수 있는 기능을 개발해야 했습니다.
 <br />
 <br />
-**Action (행동)**: React-Router의 HashLink를 활용해 클릭 시 해당 섹션으로 이동하는 기능을 구현했습니다. 또한, intersectionObserver API를 사용하여 스크롤 위치에 따라 URL hash를 업데이트하고, 연결된 내비게이션 링크에 스타일을 적용해 시각적으로 강조하는 기능을 추가했습니다.
+**Action (행동)**: `React-Router`의 `HashLink`를 활용해 클릭 시 해당 섹션으로 이동하는 기능을 구현했습니다. 또한, `intersectionObserver API`를 사용하여 스크롤 위치에 따라 URL hash를 업데이트하고, 연결된 내비게이션 링크에 스타일을 적용해 시각적으로 강조하는 기능을 추가했습니다.
 <br />
 <br />
 **Result (결과)**: 이러한 기능들을 통해 사용자 경험을 크게 향상시켰으며, 웹사이트 내비게이션의 효율성과 사용자 만족도가 증가했습니다.
@@ -37,7 +37,7 @@
 ![2024-03-286 33 51-ezgif com-video-to-gif-converter](https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/a5c9d8a3-02d3-4ed8-b82e-332410ba4faf)
 
 - 스크롤 진행 상황을 표시하는 `bar`입니다.
-- `useEffect`에서 `addEventListener`를 통해 스크롤 이벤트를 등록하여 현재 스크롤 위치의 **percent(%)**를 구하는 방식으로 구현했습니다.
+- `useEffect`에서 `addEventListener`를 통해 스크롤 이벤트를 등록하여 현재 스크롤 위치의 **percent(%)** 를 구하는 방식으로 구현했습니다.
 
   <br />
 
