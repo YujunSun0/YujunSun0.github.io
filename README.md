@@ -3,7 +3,7 @@
 #### ⏱️ 프로젝트 기간: `2024.03.18 ~ 2024.03.25`
 #### [배포 링크](https://yujunsun0.github.io/)
 
-프론트엔드 취업을 위한 포트폴리오 용으로 제작한 웹사이트입니다.<br />
+포트폴리오 용으로 제작한 웹사이트입니다.<br />
 한 페이지에서 편리한 정보 조회가 가능하도록 제작했으며, 반응형 웹으로 제작되어 모든 환경에서 볼 수 있습니다.<br />
 
 <br />
@@ -16,22 +16,20 @@
 |--|--|
 |![2024-03-285 22 08-ezgif com-video-to-gif-converter](https://github.com/kimtjrgus/Salog/assets/120611048/304d9238-c945-44d4-b4a4-0b2eb7b8eb46)|![2024-03-285 28 11-ezgif com-video-to-gif-converter](https://github.com/kimtjrgus/Salog/assets/120611048/32eab9c3-c08d-4f25-be05-8dee62e7d081)|
 
-- `intersectionObserver API`를 이용하여 사용자가 **페이지를 스크롤**하는 동안 **관찰 중인 요소가 영역에 감지**되면 사용자의 위치를 나타내는 URL 해시(#)를 업데이트하고,
-해당 요소와 연결된 내비게이션 메뉴의 링크(a 태그)에 .active 클래스를 추가하여 시각적으로 강조합니다.
-
 <br />
 
-<details>
-<summary>구현 함수 보기</summary>
-<div markdown="1">
-<ul>
-  <li>root를 null로 설정하여 viewport를 감지영역으로 두고, threshold 속성을 0.5로 하여 요소가 50%만큼 보여졌을 때  </li>
-</ul>
-<img width="560" alt="스크린샷 2024-03-28 오후 6 18 39" src="https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/c411c44a-c667-49d4-ae82-e49716ebedce">
+**Situation (상황)**: 웹사이트 사용자들이 스크롤을 통해 콘텐츠를 탐색하는 과정에서, 원활한 내비게이션과 현재 위치 파악의 어려움을 겪고 있었습니다.
+<br />
+<br />
+**Task (과제)**: 사용자의 편의성을 높이기 위해, 클릭 한 번으로 원하는 섹션으로 쉽게 이동할 수 있고, 현재 위치를 실시간으로 파악할 수 있는 기능을 개발해야 했습니다.
+<br />
+<br />
+**Action (행동)**: `React-Router`의 `HashLink`를 활용해 클릭 시 해당 섹션으로 이동하는 기능을 구현했습니다. 또한, `intersectionObserver API`를 사용하여 스크롤 위치에 따라 URL hash를 업데이트하고, 연결된 내비게이션 링크에 스타일을 적용해 시각적으로 강조하는 기능을 추가했습니다.
+<br />
+<br />
+**Result (결과)**: 이러한 기능들을 통해 사용자 경험을 크게 향상시켰으며, 웹사이트 내비게이션의 효율성과 사용자 만족도가 증가했습니다.
 
-</div>
-</details>
-
+<br />
 <br />
 
 ### 스크롤 progress bar
@@ -39,7 +37,7 @@
 ![2024-03-286 33 51-ezgif com-video-to-gif-converter](https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/a5c9d8a3-02d3-4ed8-b82e-332410ba4faf)
 
 - 스크롤 진행 상황을 표시하는 `bar`입니다.
-- addEventListener를 통해 스크롤 이벤트를 등록하여
+- `useEffect`에서 `addEventListener`를 통해 스크롤 이벤트를 등록하여 현재 스크롤 위치의 **percent(%)** 를 구하는 방식으로 구현했습니다.
 
   <br />
 
