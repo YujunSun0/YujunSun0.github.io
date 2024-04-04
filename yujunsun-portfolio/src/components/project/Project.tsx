@@ -75,7 +75,7 @@ const Project = () => {
     projectName: "Salog",
     projectDate: "2023.11.17 ~ 2024.02.24",
     projectSite: "https://www.salog.kro.kr/",
-    projectGithub: "https://github.com/kimtjrgus/salog",
+    projectGithub: "https://github.com/YujunSun0/salog-FE/tree/dev/fe",
   };
   const salogDetail = {
     projectExplain: `
