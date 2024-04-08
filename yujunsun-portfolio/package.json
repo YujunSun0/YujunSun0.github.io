@@ -2,6 +2,7 @@
   "name": "yujunsun-portfolio",
   "homepage": "https://YujunSun0.github.io",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
@@ -21,19 +22,19 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "react-router-hash-link": "^2.4.3",
-    "react-scripts": "5.0.1",
     "react-toastify": "^10.0.5",
     "styled-components": "^6.1.8",
     "styled-reset": "^4.5.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "browserslist": {
     "production": [
@@ -53,6 +54,7 @@
     "@types/react-router-hash-link": "^2.4.9",
     "@types/styled-components": "^5.1.34",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
@@ -62,6 +64,8 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.34.1",
     "prettier": "3.2.5",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.2",
+    "vite": "^5.2.8",
+    "vite-tsconfig-paths": "^4.3.2"
   }
 }
