@@ -31,7 +31,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "baseUrl": "src"
+    "typeRoots": ["types"]
   },
-  "include": ["src", "lib/**/*"]
+  "include": [
+    //컴파일 할 타입스크립트 프로젝트
+    "src"
+  ],
+  "exclude": [
+    //컴파일러가 특정 디렉토리나 파일을 제외하도록 지정
+    "node_modules"
+  ],
+  "extends": "./tsconfig.path.json"
 }

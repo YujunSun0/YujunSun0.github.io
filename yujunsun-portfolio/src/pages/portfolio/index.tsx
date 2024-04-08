@@ -1,11 +1,12 @@
-import About from "components/about/About";
+import About from "@components/about/About";
 import { styled } from "styled-components";
-import Landing from "components/landing/Landing";
-import Header from "components/common/Header";
-import Stack from "components/stack/Stack";
+import Landing from "@components/landing/Landing";
+import Header from "@components/common/Header";
+import Stack from "@components/stack/Stack";
 import { useEffect, useState } from "react";
-import Project from "components/project/Project";
-import Contact from "components/contact/Contact";
+import Project from "@components/project/Project";
+// import Contact from "@components/contact/Contact";
+import Contact from "@/components/contact/Contact";
 
 const Portfolio = () => {
   const [showButton, setShowButton] = useState<boolean>(false);
