@@ -8,6 +8,12 @@
 
 <br />
 
+## 기술 스택
+|HTML5|CSS3|TypeScript|React|Styled-Components|Vite|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|<img width="60" alt="html5" src="https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/32d1b7e2-bbf0-4ce9-9063-ee1f83b3cf06">|<img width="60" alt="css3" src="https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/e864e931-28e3-4ede-a67b-0b9ec365a1f4">|<img width="60" alt="ts" src="https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/53ac97ed-b3dc-4142-b93d-b95eb075e1d4" />|<img width="60" alt="reactjs" src="https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/f500d1db-4f3c-4674-b715-a4d5ea1d6179">|<img width="100" src="https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/39c4baac-f29f-4fd4-9eae-b3234610ece7" alt="sc" />|<img width="60" src="https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/4b2926d2-efcd-416a-9333-aff86631f786" alt="vite" />|
+
+
 ## 주요 구현 기능
 
 ### 동적 요소 감지 및 내비게이션 하이라이팅
@@ -39,13 +45,17 @@
 - 스크롤 진행 상황을 표시하는 `bar`입니다.
 - `useEffect`에서 `addEventListener`를 통해 스크롤 이벤트를 등록하여 현재 스크롤 위치의 **percent(%)** 를 구하는 방식으로 구현했습니다.
 
+### 빌드 속도 최적화
+
+- 짧은 배포 주기로 인해 빌드 속도 개선의 필요성을 느꼈으며, 빌드 최적화를 목표로 빌드 도구를 `CRA`에서 `Vite`로 마이그레이션 하였습니다.
+- 이를 통해 빌드 시간을 1/3정도 단축시켰습니다.
+
   <br />
 
 
 ## 트러블 슈팅
 
-### 문제
-progress bar 컴포넌트에서 추가한 스크롤 이벤트가 발생할 때 마다 폰트가 깜빡이는 현상이 발생하였습니다.
+### progress bar 컴포넌트에서 추가한 스크롤 이벤트가 발생할 때 마다 폰트가 깜빡이는 현상
 
 ![2024-03-213 09 53-ezgif com-video-to-gif-converter](https://github.com/YujunSun0/YujunSun0.github.io/assets/120611048/2387863a-78c9-4dab-b25d-b3b77b20826b)
 
