@@ -28,6 +28,7 @@ import { useEffect, useRef, useState } from "react";
 import redux from "@assets/Redux.svg";
 import firebase from "@assets/Firebase-Dark.svg";
 import AWS from "@assets/AWS-Dark.svg";
+import Vite from "@assets/Vite-Dark.svg";
 import scrollIntersectionObserver from "utils/scrollIntersectionObserver";
 import { useNavigate } from "react-router-dom";
 
@@ -53,7 +54,7 @@ const Project = () => {
           <span class="strong">재사용 가능한 컴포넌트</span>를 만들어
           유지보수에 용이하게 만들었습니다.
         `,
-    projectStacks: [html5, css3, ts, reactjs, styledComponents],
+    projectStacks: [html5, css3, ts, reactjs, styledComponents, Vite],
     projectReview: `
           이번 프로젝트는 앞으로도 업데이트해 나가야 할 사이트이므로
           <span class="strong">유지보수하기 좋은 코드</span>를 작성하려
