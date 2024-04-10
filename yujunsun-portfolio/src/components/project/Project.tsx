@@ -19,18 +19,18 @@ import wt2 from "@assets/wt/wt2.png";
 import wt3 from "@assets/wt/wt3.png";
 import wt4 from "@assets/wt/wt4.png";
 import wt5 from "@assets/wt/wt5.png";
-import html5 from "@assets/html5.png";
-import css3 from "@assets/css3.png";
-import ts from "@assets/ts.png";
-import reactjs from "@assets/reactjs.png";
-import styledComponents from "@assets/StyledComponents.svg";
+import html5 from "@assets/stacks/html5.png";
+import css3 from "@assets/stacks/css3.png";
+import ts from "@assets/stacks/ts.png";
+import reactjs from "@assets/stacks/reactjs.png";
+import styledComponents from "@assets/stacks/StyledComponents.svg";
+import redux from "@assets/stacks/Redux.svg";
+import firebase from "@assets/stacks/Firebase-Dark.svg";
+import AWS from "@assets/stacks/AWS-Dark.svg";
+import Vite from "@assets/stacks/Vite-Dark.svg";
 import { useEffect, useRef, useState } from "react";
-import redux from "@assets/Redux.svg";
-import firebase from "@assets/Firebase-Dark.svg";
-import AWS from "@assets/AWS-Dark.svg";
-import Vite from "@assets/Vite-Dark.svg";
-import scrollIntersectionObserver from "utils/scrollIntersectionObserver";
 import { useNavigate } from "react-router-dom";
+import scrollIntersectionObserver from "utils/scrollIntersectionObserver";
 
 const Project = () => {
   // 개인 포트폴리오 사이트 데이터
