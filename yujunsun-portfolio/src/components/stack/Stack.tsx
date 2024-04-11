@@ -35,13 +35,13 @@ const Stack = () => {
     },
     {
       image: js,
-      title: "Javascript",
+      title: "JavaScript",
       content:
         "ES6+ 문법을 사용하며, 함수형 프로그래밍의 개념을 이해하고 활용합니다.",
     },
     {
       image: ts,
-      title: "Typescript",
+      title: "TypeScript",
       content:
         "원시/객체 타입을 이해하고, 인터페이스와 제네릭을 이용하여 타입을 더 유연하게 사용합니다.",
     },
@@ -53,13 +53,13 @@ const Stack = () => {
     },
     {
       image: styledComponents,
-      title: "Styled-components",
+      title: "Styled-Components",
       content:
         "CSS-in-JS 방식으로 스타일을 정의하고, 디자인 시스템을 적용하여 재사용 컴포넌트를 만듭니다.",
     },
     {
       image: redux,
-      title: "Redux-toolkit",
+      title: "Redux-Toolkit",
       content:
         "store & slice로 상태를 관리하며, redux-persist를 이용하여 브라우저에서 데이터를 반 영구적으로 유지할 수 있습니다.",
     },
@@ -97,7 +97,7 @@ const Stack = () => {
       image: aws,
       title: "AWS",
       content:
-        "EC2를 통한 인스턴스 생성, S3, cloudfront, ACM을 이용한 HTTPS 배포를 경험했습니다.",
+        "EC2를 통한 인스턴스 생성, S3, CloudFront, ACM을 이용한 HTTPS 배포를 경험했습니다.",
     },
     {
       image: firebase,
