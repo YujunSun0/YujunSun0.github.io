@@ -38,16 +38,14 @@ const About = () => {
         </SectionTitle>
         <AboutMain>
           <li>
-            <span className="block">
-              <span className="underline">웹의 화면 구성 및 기능을 구현</span>
-              하는 것에 흥미가 생겨
-            </span>{" "}
-            <span className="strong">FE 개발자</span>라는 직종에 관심을 가지게
-            되었습니다.
+            <span className="underline">
+              <span className="strong">주도적</span>으로 문제를 찾아 해결
+            </span>
+            하는 것을 즐기는 프론트엔드 개발자 선유준입니다.
           </li>
           <li>
             <span className="block">
-              <span className="strong">좋은 코드</span>를 작성하기 위해 항상
+              <span className="strong">사용자 경험</span>을 향상시키기 위해
               생각하며,
             </span>{" "}
             개발자로서{" "}
