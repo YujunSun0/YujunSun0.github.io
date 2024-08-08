@@ -215,7 +215,10 @@ const Projects = styled.section.attrs((props) => ({
           cursor: pointer;
           vertical-align: middle;
           aspect-ratio: 16/8;
-          width: 24%;
+
+          /* 2024-08-08 salog 이미지 슬라이더 크가에 이상이 생겨 속성 제거 */
+          /* width: 24%; */
+
           /* height: 6rem; */
           /* overflow: hidden; */
           transition: 200ms ease;
