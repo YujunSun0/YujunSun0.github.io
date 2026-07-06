@@ -1,70 +1,89 @@
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
+import { createGlobalStyle } from "styled-components"
+import reset from "styled-reset"
 
 const GlobalStyle = createGlobalStyle`
-  // styled-reset을 이용한 스타일 초기화
   ${reset}
 
-	:root {
-		--font-NotoSansKR: "NotoSansKR";
-		--font-JalnanGothic: "JalnanGothic";
+  :root {
+    --font-NotoSansKR: "NotoSansKR";
+    --font-JalnanGothic: "JalnanGothic";
 
-		--bs-breakpoint-xs: 0;
-		--bs-breakpoint-sm: 576px;
-		--bs-breakpoint-md: 768px;
-		--bs-breakpoint-lg: 905px;
-	}
+    --color-bg: #0f1114;
+    --color-bg-alt: #161a1e;
+    --color-bg-card: #1c2028;
+    --color-border: #2a2e35;
+    --color-primary: #7c5cfc;
+    --color-primary-light: #a78bfa;
+    --color-text: #e4e4e7;
+    --color-text-muted: #9ca3af;
+    --color-text-dim: #6b7280;
+    --color-white: #ffffff;
+    --color-accent-gradient: linear-gradient(135deg, #7c5cfc 0%, #a78bfa 100%);
 
-	*::-webkit-scrollbar {
-		display: none;
-	}
+    --max-width: 1000px;
 
-	html, body {
-		font-size: 62.5%;
-		scroll-behavior: smooth;
-	}
+    --bs-breakpoint-xs: 0;
+    --bs-breakpoint-sm: 576px;
+    --bs-breakpoint-md: 768px;
+    --bs-breakpoint-lg: 905px;
+  }
 
-	body {
-		/* font-size: 1.6rem; */
-		overflow: scroll;
-		-ms-overflow-style: none;
-		background-color: rgb(21, 24, 27);
-		font-family: var(--font-NotoSansKR);
-	}
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 
-	h1, h2, h3, h4, h5, h6 {
-		font-family: var(--font-JalnanGothic);
-		letter-spacing: 2px;
-	}
+  *::-webkit-scrollbar {
+    display: none;
+  }
 
-	a {
-		text-decoration: none;
-		color: inherit;
-	}
+  html, body {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+  }
 
-	button {
-		cursor: pointer;
-		border: none;
-	}
+  body {
+    overflow: scroll;
+    -ms-overflow-style: none;
+    background-color: var(--color-bg);
+    font-family: var(--font-NotoSansKR);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
 
-	@media (max-width: 905px){
-		html {
-			font-size: 9px;
-		}
-	}
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-NotoSansKR);
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.3;
+  }
 
-	@media (max-width: 768px){
-		html {
-			font-size: 8px;
-		}
-	}
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 
-	@media (max-width: 576px){
-		html {
-			font-size: 7px;
-		}
-	}
+  button {
+    cursor: pointer;
+    border: none;
+  }
 
-`;
+  @media (max-width: 905px) {
+    html {
+      font-size: 9px;
+    }
+  }
 
-export default GlobalStyle;
+  @media (max-width: 768px) {
+    html {
+      font-size: 8px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    html {
+      font-size: 7px;
+    }
+  }
+`
+
+export default GlobalStyle
