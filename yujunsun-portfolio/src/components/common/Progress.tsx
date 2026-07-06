@@ -42,6 +42,6 @@ const Container = styled.span.attrs<ContainerProps>(({ width }) => ({
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgb(135, 100, 255);
+  background: var(--color-accent-gradient);
   z-index: 999;
 `;

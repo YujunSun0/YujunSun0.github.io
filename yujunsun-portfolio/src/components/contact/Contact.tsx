@@ -1,170 +1,175 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
-import { styled } from "styled-components";
-import Spinner from "assets/Rolling2-1s-21px.gif";
-import { useNavigate } from "react-router-dom";
-import scrollIntersectionObserver from "utils/scrollIntersectionObserver";
-import { debounce } from "utils/debounce";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import github from "assets/github.png";
-import velog from "assets/velog.png";
+import React, { useCallback, useEffect, useRef, useState } from "react"
+import emailjs from "@emailjs/browser"
+import { styled } from "styled-components"
+import Spinner from "assets/Rolling2-1s-21px.gif"
+import { useNavigate } from "react-router-dom"
+import scrollIntersectionObserver from "utils/scrollIntersectionObserver"
+import { debounce } from "utils/debounce"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import GitHubIcon from "@mui/icons-material/GitHub"
+import EmailIcon from "@mui/icons-material/Email"
+import { SvgIcon } from "@mui/material"
+import { motion } from "framer-motion"
 
-interface inputType {
-  [key: string]: any;
-  from_name: string;
-  from_email: string;
-  message: string;
+interface InputType {
+  [key: string]: string
+  from_name: string
+  from_email: string
+  message: string
+}
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
 }
 
 const Contact = () => {
-  const [values, setValues] = useState<inputType>({
+  const [values, setValues] = useState<InputType>({
     from_name: "",
     from_email: "",
     message: "",
-  });
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  })
+  const [isDisabled, setIsDisabled] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const form = useRef<HTMLFormElement>(null); // 이메일 form
-  const target = useRef(null); // section 영역
-
-  const navigate = useNavigate();
+  const form = useRef<HTMLFormElement>(null)
+  const target = useRef(null)
+  const navigate = useNavigate()
 
   const [observe, unobserve] = scrollIntersectionObserver(() => {
-    navigate("/#4");
-  });
+    navigate("/#5")
+  })
 
   const onChangeValues = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    setValues((prev) => {
-      return { ...prev, [name]: value };
-    });
-  };
+    const { name, value } = e.target
+    setValues((prev) => ({ ...prev, [name]: value }))
+  }
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
+    setIsLoading(true)
 
-    setIsLoading(true);
     if (form.current) {
       emailjs
         .send(
-          `${process.env.REACT_APP_SERVICE_ID}`,
-          `${process.env.REACT_APP_TEMPLATE_ID}`,
+          `${import.meta.env.VITE_SERVICE_ID || process.env.REACT_APP_SERVICE_ID}`,
+          `${import.meta.env.VITE_TEMPLATE_ID || process.env.REACT_APP_TEMPLATE_ID}`,
           values,
-          `${process.env.REACT_APP_PUBLIC_KEY}`
+          `${import.meta.env.VITE_PUBLIC_KEY || process.env.REACT_APP_PUBLIC_KEY}`
         )
         .then(() => {
-          setIsLoading(false);
-          form.current?.reset();
-          setValues((prev) => {
-            return { ...prev, from_email: "", from_name: "", message: "" };
-          });
-          // 작성완료 모달이나 토스트 띄우기
-          toast.success("이메일 전송이 완료되었습니다");
+          setIsLoading(false)
+          form.current?.reset()
+          setValues({ from_email: "", from_name: "", message: "" })
+          toast.success("이메일 전송이 완료되었습니다")
         })
         .catch(() => {
-          alert("이메일 전송에 오류가 발생했습니다.");
-          setIsLoading(false);
-        });
+          toast.error("이메일 전송에 오류가 발생했습니다.")
+          setIsLoading(false)
+        })
     }
-  };
+  }
 
   const checkValues = useCallback(
-    debounce((values: inputType) => {
-      let isBlank = false;
-      let isNotValid = true;
-
-      // 빈 값 체크
-      for (const key in values) {
-        if (values[key] === "") {
-          isBlank = true;
-        }
-      }
-      if (!isBlank) {
-        isNotValid = false;
-      }
-      setIsDisabled(isNotValid);
+    debounce((vals: InputType) => {
+      const hasBlank = Object.values(vals).some((v) => v === "")
+      setIsDisabled(hasBlank)
     }, 700),
     []
-  );
+  )
 
   useEffect(() => {
-    if (target.current !== null && target.current !== undefined) {
-      observe(target.current);
-    }
-
+    if (target.current) observe(target.current)
     return () => {
-      if (target.current !== null && target.current !== undefined) {
-        unobserve(target.current);
-      }
-    };
-  }, []);
+      if (target.current) unobserve(target.current)
+    }
+  }, [])
 
   useEffect(() => {
-    checkValues(values);
-  }, [values]);
+    checkValues(values)
+  }, [values])
 
   return (
     <>
-      <Container id="4" ref={target}>
-        <SectionTitle>
-          <h3>CONTACT</h3>
-        </SectionTitle>
-        <FormContainer ref={form} onSubmit={sendEmail}>
-          <label>Name</label>
-          <input
-            type="text"
-            name="from_name"
-            //   placeholder="제목을 입력해주세요"
-            value={values.from_name}
-            onChange={onChangeValues}
-          />
-          <label>Email</label>
-          <input
-            type="email"
-            name="from_email"
-            value={values.from_email}
-            //   placeholder={"이메일을 입력해주세요"}
-            onChange={onChangeValues}
-          />
-          <label>Message</label>
-          <textarea
-            name="message"
-            //   placeholder="내용을 입력해주세요"
-            value={values.message}
-            onChange={onChangeValues}
-          />
-          <button type="submit" disabled={isDisabled}>
-            {isLoading ? <img src={Spinner} alt="로딩" /> : "Send Message"}
-          </button>
-        </FormContainer>
+      <Container id="5" ref={target}>
+        <InnerWrapper>
+          <SectionTitle
+            as={motion.div}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <h2>Contact</h2>
+            <p className="subtitle">
+              궁금한 점이 있으시면 편하게 연락주세요.
+            </p>
+          </SectionTitle>
+
+          <FormContainer ref={form} onSubmit={sendEmail}>
+            <label>Name</label>
+            <input
+              type="text"
+              name="from_name"
+              value={values.from_name}
+              onChange={onChangeValues}
+            />
+            <label>Email</label>
+            <input
+              type="email"
+              name="from_email"
+              value={values.from_email}
+              onChange={onChangeValues}
+            />
+            <label>Message</label>
+            <textarea
+              name="message"
+              value={values.message}
+              onChange={onChangeValues}
+            />
+            <button type="submit" disabled={isDisabled}>
+              {isLoading ? <img src={Spinner} alt="로딩" /> : "Send Message"}
+            </button>
+          </FormContainer>
+        </InnerWrapper>
+
         <Footer>
-          <div className="icon_wrapper">
+          <FooterLinks>
             <a
               href="https://github.com/YujunSun0"
               target="_blank"
               rel="noreferrer"
-              className="img_li"
             >
-              <img src={github} alt="깃허브 링크 아이콘" />
+              <SvgIcon component={GitHubIcon} />
+            </a>
+            <a
+              href="mailto:yujunsun0@gmail.com"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <SvgIcon component={EmailIcon} />
             </a>
             <a
               href="https://velog.io/@yujunsun0/posts"
               target="_blank"
               rel="noreferrer"
-              className="img_li velog"
             >
-              <img src={velog} alt="velog 링크 아이콘" />
+              <VelogIcon>V</VelogIcon>
             </a>
-          </div>
-          <div className="copyright">
-            Copyright ⓒ 2024. YujunSun. All rights reserved.
-          </div>
+          </FooterLinks>
+          <Copyright>
+            Copyright &copy; 2026. YujunSun. All rights reserved.
+          </Copyright>
         </Footer>
       </Container>
+
       <Toast
         position="top-center"
         autoClose={5000}
@@ -176,162 +181,183 @@ const Contact = () => {
         draggable
         pauseOnHover
         theme="dark"
-        // transition:Slide
       />
     </>
-  );
-};
+  )
+}
 
-export default Contact;
+export default Contact
 
 const Container = styled.section`
   width: 100%;
-  padding: 8rem 0 0;
-  background-color: #f5f5f5;
-`;
+  background-color: var(--color-bg);
+`
+
+const InnerWrapper = styled.div`
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 8rem 2rem 4rem;
+`
 
 const SectionTitle = styled.div`
-  display: table;
-  font-size: 3.8rem;
-  font-weight: 500;
-  border-bottom: 2px solid #cccccc;
-  padding-bottom: 1.5rem;
-  margin: 0 auto 4.5rem;
-  letter-spacing: 4px;
-`;
+  margin-bottom: 3rem;
+
+  > h2 {
+    font-size: 2.8rem;
+    color: var(--color-white);
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: var(--color-accent-gradient);
+      margin-top: 0.8rem;
+      border-radius: 2px;
+    }
+  }
+
+  .subtitle {
+    font-size: 1.4rem;
+    color: var(--color-text-muted);
+    margin-top: 1.2rem;
+  }
+`
 
 const FormContainer = styled.form`
   max-width: 50rem;
-  margin: 0 auto;
-  margin-top: 3rem;
-  margin-bottom: 8rem;
-  padding: 3rem 10rem;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  box-shadow: rgba(149, 160, 165, 0.2) 0px 8px 25px;
 
   > label {
     font-size: 1.2rem;
-    margin-bottom: 1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.6rem;
+    font-weight: 600;
   }
 
   > input {
     outline: none;
     margin-bottom: 2rem;
-    padding: 0 1rem;
-    border: 1px solid #b3b3b3;
-    border-radius: 6px;
-    height: 3.5rem;
+    padding: 0 1.2rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    height: 4rem;
+    background-color: var(--color-bg-card);
+    color: var(--color-text);
+    font-size: 1.3rem;
+    font-family: var(--font-NotoSansKR);
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: var(--color-primary);
+    }
+  }
+
+  > textarea {
+    margin-bottom: 2rem;
+    border: 1px solid var(--color-border);
+    padding: 1.2rem;
+    resize: none;
+    border-radius: 8px;
+    height: 15rem;
+    outline: none;
+    background-color: var(--color-bg-card);
+    color: var(--color-text);
+    font-size: 1.3rem;
+    font-family: var(--font-NotoSansKR);
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: var(--color-primary);
+    }
   }
 
   > button {
-    height: 3.5rem;
+    height: 4rem;
     border: none;
-    background: rgb(135, 100, 255);
-    pointer-events: auto;
-    border-radius: 4px;
-    color: white;
+    background: var(--color-primary);
+    border-radius: 8px;
+    color: var(--color-white);
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-family: var(--font-NotoSansKR);
     cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.85;
+    }
 
     &:disabled {
       opacity: 0.4;
       pointer-events: none;
     }
   }
-
-  > textarea {
-    margin-bottom: 2rem;
-    border: 1px solid #b3b3b3;
-    padding: 1rem;
-    resize: none;
-    border-radius: 6px;
-    height: 15rem;
-    outline: none;
-  }
-
-  > h3 {
-    text-align: center;
-    margin-bottom: 1rem;
-    color: #000000;
-  }
-
-  > p {
-    text-align: center;
-    font-size: 1.4rem;
-    color: #777777;
-    margin-bottom: 5rem;
-  }
-`;
+`
 
 const Footer = styled.footer`
   width: 100%;
-  height: 18rem;
+  padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.5rem;
-  justify-content: center;
-  background: rgb(23, 24, 25);
+  gap: 2rem;
+  border-top: 1px solid var(--color-border);
+`
 
-  .icon_wrapper {
-    display: flex;
-    gap: 4rem;
-  }
+const FooterLinks = styled.div`
+  display: flex;
+  gap: 2rem;
+  align-items: center;
 
-  .img_li {
-    cursor: pointer;
-    width: 4rem;
-    height: 4rem;
-    background-color: #fff;
-    border-radius: 5rem;
-    padding: 0.2rem;
-
-    > img {
-      width: 100%;
-    }
+  > a {
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
 
     &:hover {
-      opacity: 0.8;
+      color: var(--color-primary-light);
+    }
+
+    > svg {
+      width: 2.2rem;
+      height: 2.2rem;
     }
   }
+`
 
-  .velog {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1rem;
-    padding: 1px;
+const VelogIcon = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--color-text-muted);
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  transition: color 0.2s ease;
 
-    > img {
-      width: 90%;
-    }
+  &:hover {
+    color: var(--color-primary-light);
   }
+`
 
-  .copyright {
-    color: white;
-    font-size: 1.2rem;
-  }
-`;
+const Copyright = styled.p`
+  font-size: 1.2rem;
+  color: var(--color-text-dim);
+`
 
 const Toast = styled(ToastContainer)`
-  .Tostify {
-    max-width: 50rem;
-  }
-
-  .Toastify__toast-container {
-    width: 100%;
-  }
-
   .Toastify__toast {
-    font-size: 1.6rem;
-    width: 100%;
+    font-size: 1.4rem;
   }
 
   .Toastify__toast-icon {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
   }
-`;
+`

@@ -1,256 +1,208 @@
-import styled from "styled-components";
-import { HashLink } from "react-router-hash-link";
-import { useEffect, useState } from "react";
-import MenuIcon from "@mui/icons-material/Menu";
-import { SvgIcon } from "@mui/material";
+import styled from "styled-components"
+import { HashLink } from "react-router-hash-link"
+import { useEffect, useState } from "react"
+import MenuIcon from "@mui/icons-material/Menu"
+import CloseIcon from "@mui/icons-material/Close"
+import { SvgIcon } from "@mui/material"
+
+const navItems = [
+  { label: "INTRO", hash: "#0" },
+  { label: "EXPERIENCE", hash: "#1" },
+  { label: "PROJECTS", hash: "#2" },
+  { label: "STACK", hash: "#3" },
+  { label: "BLOG", hash: "#4" },
+  { label: "CONTACT", hash: "#5" },
+]
 
 const Header = () => {
-  const [over, setOver] = useState<boolean>(window.innerWidth <= 768);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const handleMenuToggle = () => {
-    setMenuOpen((prevMenuOpen) => !prevMenuOpen);
-  };
+    setMenuOpen((prev) => !prev)
+  }
 
-  // 커스텀 스크롤 함수 (header의 높이가 70이여서 이를 제외한 만큼 스크롤)
   const scrollWithOffset = (el: HTMLElement) => {
-    const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
-    const width = window.innerWidth;
-    const yOffset = width > 905 ? -70 : width > 576 ? -56 : -49;
-    window.scrollTo({ top: yCoordinate + yOffset, behavior: "smooth" });
-    setMenuOpen(false);
-  };
+    const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset
+    const width = window.innerWidth
+    const yOffset = width > 905 ? -60 : width > 576 ? -50 : -45
+    window.scrollTo({ top: yCoordinate + yOffset, behavior: "smooth" })
+    setMenuOpen(false)
+  }
 
   useEffect(() => {
-    // 스크롤 감지
-    const handleShowButton = () => {
-      if (window.innerWidth <= 768 || window.scrollY > 200) {
-        setOver(true);
-      } else {
-        setOver(false);
-      }
-    };
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
 
     const handleResize = () => {
-      if (window.innerWidth <= 768) {
-        setIsMobile(true);
-        setOver(true);
-      } else {
-        setOver(false);
-        setIsMobile(false);
-        setMenuOpen(false);
-      }
-    };
+      const mobile = window.innerWidth <= 768
+      setIsMobile(mobile)
+      if (!mobile) setMenuOpen(false)
+    }
 
-    window.addEventListener("scroll", handleShowButton);
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("resize", handleResize)
     return () => {
-      window.removeEventListener("scroll", handleShowButton);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
 
   return (
-    <Container
-      data-header
-      $over={over}
-      $isMobile={isMobile}
-      $menuOpen={menuOpen}
-    >
-      <HeaderContainer $over={over} $isMobile={isMobile}>
-        <nav className="left">
-          <HashLink
-            to="#"
-            onClick={() => {
-              setMenuOpen(false);
-            }}
-          >
-            YujunSun&apos;s portfolio
+    <Container $isScrolled={isScrolled} $menuOpen={menuOpen}>
+      <HeaderInner>
+        <Logo>
+          <HashLink to="#" onClick={() => setMenuOpen(false)}>
+            YujunSun
           </HashLink>
-        </nav>
-        <nav className="right">
-          {isMobile ? (
-            <SvgIcon component={MenuIcon} onClick={handleMenuToggle} />
-          ) : (
-            <ul className="nav_ul">
-              <li className="nav_li">
-                <NavStyle to="/#1" $over={over} scroll={scrollWithOffset}>
-                  ABOUT
-                </NavStyle>
-              </li>
-              <li className="nav_li">
-                <NavStyle to="/#2" $over={over} scroll={scrollWithOffset}>
-                  STACK
-                </NavStyle>
-              </li>
-              <li className="nav_li">
-                <NavStyle to="/#3" $over={over} scroll={scrollWithOffset}>
-                  PROJECT
-                </NavStyle>
-              </li>
-              <li className="nav_li">
-                <NavStyle to="/#4" $over={over} scroll={scrollWithOffset}>
-                  CONTACT
-                </NavStyle>
-              </li>
-            </ul>
-          )}
-        </nav>
-      </HeaderContainer>
-      <MobileMenu>
-        <ul className="mobile_nav_ul">
-          <li className="mobile_nav_li">
-            <NavStyle to="/#1" $over={over} scroll={scrollWithOffset}>
-              ABOUT
-            </NavStyle>
-          </li>
-          <li className="mobile_nav_li">
-            <NavStyle to="/#2" $over={over} scroll={scrollWithOffset}>
-              STACK
-            </NavStyle>
-          </li>
-          <li className="mobile_nav_li">
-            <NavStyle to="/#3" $over={over} scroll={scrollWithOffset}>
-              PROJECT
-            </NavStyle>
-          </li>
-          <li className="mobile_nav_li">
-            <NavStyle to="/#4" $over={over} scroll={scrollWithOffset}>
-              CONTACT
-            </NavStyle>
-          </li>
-        </ul>
-      </MobileMenu>
+        </Logo>
+
+        {isMobile ? (
+          <MobileToggle onClick={handleMenuToggle}>
+            <SvgIcon component={menuOpen ? CloseIcon : MenuIcon} />
+          </MobileToggle>
+        ) : (
+          <NavList>
+            {navItems.map((item) => (
+              <NavItem key={item.hash}>
+                <NavLink
+                  to={`/${item.hash}`}
+                  scroll={scrollWithOffset}
+                  $isScrolled={isScrolled}
+                >
+                  {item.label}
+                </NavLink>
+              </NavItem>
+            ))}
+          </NavList>
+        )}
+      </HeaderInner>
+
+      {isMobile && (
+        <MobileMenu $menuOpen={menuOpen}>
+          {navItems.map((item) => (
+            <MobileNavItem key={item.hash}>
+              <NavLink
+                to={`/${item.hash}`}
+                scroll={scrollWithOffset}
+                $isScrolled={true}
+              >
+                {item.label}
+              </NavLink>
+            </MobileNavItem>
+          ))}
+        </MobileMenu>
+      )}
     </Container>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
 
-const Container = styled.header<{
-  $over: boolean;
-  $isMobile: boolean;
-  $menuOpen: boolean;
-}>`
+const Container = styled.header<{ $isScrolled: boolean; $menuOpen: boolean }>`
   position: fixed;
   top: 0;
   width: 100vw;
   z-index: 500;
-  box-shadow: ${(props) =>
-    props.$over && props.$isMobile ? "0 1px .3rem hsla(0,0%,80%,.8)" : ""};
+  background-color: ${(props) =>
+    props.$isScrolled || props.$menuOpen
+      ? "rgba(15, 17, 20, 0.95)"
+      : "transparent"};
+  backdrop-filter: ${(props) =>
+    props.$isScrolled ? "blur(8px)" : "none"};
+  border-bottom: ${(props) =>
+    props.$isScrolled ? "1px solid var(--color-border)" : "none"};
+  transition: all 0.3s ease;
+`
 
-  .mobile_nav_ul {
-    overflow: hidden;
-    background: white;
-    font-size: 1.6rem;
-    max-height: ${(props) => (props.$menuOpen ? "19.2rem" : "0")};
-    font-weight: 500;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: max-height 0.2s ease;
-
-    > li {
-      padding: 1rem 0;
-      transform: scale(1);
-      transition: 700ms ease;
-
-      // a 태그의 .focus 클래스가 추가되었을 때
-      .focus::after {
-        transform: scaleX(1);
-      }
-
-      &:hover {
-        transform: scale(1.12);
-      }
-    }
-  }
-`;
-
-const HeaderContainer = styled.div<{ $over: boolean; $isMobile: boolean }>`
-  width: 100%;
-  height: 7rem;
-  position: relative;
+const HeaderInner = styled.div`
+  max-width: var(--max-width);
   margin: 0 auto;
+  height: 6rem;
   padding: 0 2rem;
-  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: ${(props) =>
-    props.$isMobile || window.scrollY > 200 ? "white" : "transparent"};
-  backdrop-filter: blur(3px);
-  box-shadow: ${(props) =>
-    window.scrollY > 200 && !props.$isMobile
-      ? "0 1px .3rem hsla(0,0%,80%,.8)"
-      : ""};
-  color: ${(props) =>
-    props.$isMobile || window.scrollY > 200 ? "#000" : "hsla(0,0%,100%,.7)"};
-  font-weight: 700;
+`
 
-  .left {
-    cursor: pointer;
-    padding-left: 1rem;
-    font-size: 2.2rem;
-    transform: scale(1);
-    transition: 400ms ease;
+const Logo = styled.div`
+  > a {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-white);
+    letter-spacing: -0.5px;
+    transition: opacity 0.2s ease;
 
     &:hover {
-      transform: scale(1.05);
+      opacity: 0.8;
     }
   }
+`
 
-  .right {
-    > svg {
-      cursor: pointer;
-      width: 3rem;
-      height: 3rem;
-    }
+const MobileToggle = styled.button`
+  background: transparent;
+  color: var(--color-text);
+  padding: 0.4rem;
+
+  > svg {
+    width: 2.4rem;
+    height: 2.4rem;
   }
+`
 
-  .nav_ul {
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-top: 0.5rem; // 가상 선택자에 margin-top을 주어 영역이 올라갔기 때문에 조절해주는 스타일
+const NavList = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+`
+
+const NavItem = styled.li`
+  list-style: none;
+`
+
+const NavLink = styled(HashLink)<{ $isScrolled: boolean }>`
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
+
+  &:hover {
+    color: var(--color-white);
+    background-color: rgba(255, 255, 255, 0.06);
   }
+`
 
-  .nav_li {
-    cursor: pointer;
-    padding: 0.6rem 1rem;
-    transform: scale(1);
-    transition: 700ms ease;
-    margin-bottom: 0.5rem;
+const MobileMenu = styled.div<{ $menuOpen: boolean }>`
+  max-height: ${(props) => (props.$menuOpen ? "40rem" : "0")};
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  border-top: ${(props) =>
+    props.$menuOpen ? "1px solid var(--color-border)" : "none"};
+`
 
-    &:hover {
-      transform: scale(1.12);
-    }
+const MobileNavItem = styled.div`
+  padding: 0.4rem 2rem;
 
-    // a 태그의 .focus 클래스가 추가되었을 때
-    .focus::after {
-      transform: scaleX(1);
-    }
-  }
-`;
-
-const NavStyle = styled(HashLink)<{ $over: boolean }>`
-  padding-bottom: 0.5rem;
-
-  &::after {
-    margin-top: 0.5rem;
+  > a {
     display: block;
-    content: "";
-    border-bottom: ${(props) =>
-      props.$over ? "2px solid black" : "2px solid white"};
-    transform: scaleX(0);
-    transition: transform 250ms ease-in-out;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--color-border);
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--color-white);
+    }
   }
 
-  &:hover::after {
-    transform: scaleX(1);
+  &:last-child > a {
+    border-bottom: none;
   }
-`;
-
-const MobileMenu = styled.div``;
+`

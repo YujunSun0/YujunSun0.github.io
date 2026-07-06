@@ -1,182 +1,87 @@
-import { styled } from "styled-components";
-import StackLists from "./StackLists";
-// 이미지 불러오기
-import html5 from "@assets/stacks/html5.png";
-import css3 from "@assets/stacks/css3.png";
-import js from "@assets/stacks/js.png";
-import ts from "@assets/stacks/ts.png";
-import reactjs from "@assets/stacks/reactjs.png";
-import styledComponents from "@assets/stacks/StyledComponents.svg";
-import redux from "@assets/stacks/Redux.svg";
-import figma from "@assets/stacks/Figma-Dark.svg";
-import vscode from "@assets/stacks/VSCode-Dark.svg";
-import git from "@assets/stacks/Git.svg";
-import postman from "@assets/stacks/Postman.svg";
-import aws from "@assets/stacks/AWS-Dark.svg";
-import firebase from "@assets/stacks/Firebase-Dark.svg";
-import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import useIntersectionObserver from "utils/scrollIntersectionObserver";
+import { styled } from "styled-components"
+import StackLists from "./StackLists"
+import { frontendData, toolsData, devOpsData } from "@/data/stacks"
+import { useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
+import useIntersectionObserver from "utils/scrollIntersectionObserver"
+import { motion } from "framer-motion"
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+}
 
 const Stack = () => {
-  // frontendData 배열
-  const frontendData = [
-    {
-      image: html5,
-      title: "HTML5",
-      content:
-        "웹 접근성 & 웹 표준을 준수하며 시맨틱 태그를 사용하여 마크업합니다.",
-    },
-    {
-      image: css3,
-      title: "CSS3",
-      content:
-        "flexbox, grid를 사용한 레이아웃을 만들고 미디어 쿼리를 통해 반응형 웹을 제작합니다.",
-    },
-    {
-      image: js,
-      title: "JavaScript",
-      content:
-        "ES6+ 문법을 사용하며, 함수형 프로그래밍의 개념을 이해하고 활용합니다.",
-    },
-    {
-      image: ts,
-      title: "TypeScript",
-      content:
-        "원시/객체 타입을 이해하고, 인터페이스와 제네릭을 이용하여 타입을 더 유연하게 사용합니다.",
-    },
-    {
-      image: reactjs,
-      title: "React",
-      content:
-        "함수형 컴포넌트를 통해 hooks를 사용하며, 재사용 가능한 컴포넌트를 만듭니다.",
-    },
-    {
-      image: styledComponents,
-      title: "Styled-Components",
-      content:
-        "CSS-in-JS 방식으로 스타일을 정의하고, 디자인 시스템을 적용하여 재사용 컴포넌트를 만듭니다.",
-    },
-    {
-      image: redux,
-      title: "Redux-Toolkit",
-      content:
-        "store & slice로 상태를 관리하며, redux-persist를 이용하여 브라우저에서 데이터를 반 영구적으로 유지할 수 있습니다.",
-    },
-  ];
-
-  // toolsData 배열
-  const toolsData = [
-    {
-      image: figma,
-      title: "Figma",
-      content: "UI/UX 디자인 및 프로토타입을 제작할 수 있습니다.",
-    },
-    {
-      image: vscode,
-      title: "VS Code",
-      content:
-        "개발 시 사용하는 툴이며, 여러 확장 프로그램들을 사용하여 효율적으로 개발합니다.",
-    },
-    {
-      image: git,
-      title: "Git",
-      content:
-        "Github와 함께 사용하며, 로컬 & 원격 저장소를 이용한 버전 관리 및 협업이 가능합니다.",
-    },
-    {
-      image: postman,
-      title: "Postman",
-      content: "REST API 테스트 및 공유 시 사용하는 툴입니다.",
-    },
-  ];
-
-  // devOpsData 배열
-  const devOpsData = [
-    {
-      image: aws,
-      title: "AWS",
-      content:
-        "EC2를 통한 인스턴스 생성, S3, CloudFront, ACM을 이용한 HTTPS 배포를 경험했습니다.",
-    },
-    {
-      image: firebase,
-      title: "Firebase",
-      content:
-        "serverless 웹을 개발해봤으며, storage를 이용하여 이미지 업로드를 경험해봤습니다.",
-    },
-  ];
-
-  const target = useRef(null);
-  const navigate = useNavigate();
+  const target = useRef(null)
+  const navigate = useNavigate()
 
   const [observe, unobserve] = useIntersectionObserver(() => {
-    navigate("/#2");
-  });
+    navigate("/#3")
+  })
 
   useEffect(() => {
-    if (target.current !== null && target.current !== undefined) {
-      observe(target.current);
-    }
-
+    if (target.current) observe(target.current)
     return () => {
-      if (target.current !== null && target.current !== undefined) {
-        unobserve(target.current);
-      }
-    };
-  }, []);
+      if (target.current) unobserve(target.current)
+    }
+  }, [])
 
   return (
-    <Container id="2" ref={target}>
-      <StackWrapper>
-        <SectionTitle>
-          <h3>Tech Stack</h3>
+    <Container id="3" ref={target}>
+      <InnerWrapper>
+        <SectionTitle
+          as={motion.div}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+        >
+          <h2>Tech Stack</h2>
         </SectionTitle>
-        <p className="title_detail">
-          아이콘에 마우스를 올리면 자세한 설명이 나옵니다.
-        </p>
         <StackLists name="# FrontEnd" values={frontendData} />
         <StackLists name="# Tools" values={toolsData} />
         <StackLists name="# DevOps" values={devOpsData} />
-      </StackWrapper>
+      </InnerWrapper>
     </Container>
-  );
-};
+  )
+}
 
-export default Stack;
+export default Stack
 
 const Container = styled.section`
   width: 100%;
-  padding: 8rem 0;
-  background-color: rgb(21, 24, 27);
-`;
+  padding: 8rem 2rem;
+  background-color: var(--color-bg);
+`
 
-const StackWrapper = styled.div`
-  max-width: 95rem;
+const InnerWrapper = styled.div`
+  max-width: var(--max-width);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  .title_detail {
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: rgb(255, 255, 255);
-    margin-bottom: 4rem;
-
-    @media (max-width: 1060px) {
-      display: none;
-    }
-  }
-`;
+`
 
 const SectionTitle = styled.div`
-  display: table;
-  font-size: 3.8rem;
-  font-weight: 500;
-  border-bottom: 2px solid #cccccc;
-  color: white;
-  padding-bottom: 1.5rem;
-  margin: 0 auto 4.5rem;
-  letter-spacing: 4px;
-`;
+  margin-bottom: 4rem;
+
+  > h2 {
+    font-size: 2.8rem;
+    color: var(--color-white);
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: var(--color-accent-gradient);
+      margin-top: 0.8rem;
+      border-radius: 2px;
+    }
+  }
+`
