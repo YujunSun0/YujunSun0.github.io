@@ -42,7 +42,7 @@ const Stacks = styled.section`
 
 const SubTitle = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   margin-bottom: 2rem;
 `
@@ -57,6 +57,7 @@ const StackGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
   gap: 1.2rem;
+  text-align: left;
 
   @media (max-width: 576px) {
     grid-template-columns: 1fr;

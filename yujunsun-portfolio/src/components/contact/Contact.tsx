@@ -197,10 +197,12 @@ const InnerWrapper = styled.div`
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 8rem 2rem 4rem;
+  text-align: center;
 `
 
 const SectionTitle = styled.div`
   margin-bottom: 3rem;
+  text-align: center;
 
   > h2 {
     font-size: 2.8rem;
@@ -228,8 +230,11 @@ const SectionTitle = styled.div`
 
 const FormContainer = styled.form`
   max-width: 50rem;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  text-align: left;
 
   > label {
     font-size: 1.2rem;

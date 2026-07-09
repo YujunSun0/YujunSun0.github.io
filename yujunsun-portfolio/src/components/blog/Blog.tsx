@@ -105,6 +105,7 @@ const InnerWrapper = styled.div`
 
 const SectionTitle = styled.div`
   margin-bottom: 3rem;
+  text-align: center;
 
   > h2 {
     font-size: 2.8rem;
@@ -128,6 +129,7 @@ const BlogGrid = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  text-align: left;
 `
 
 const BlogCard = styled.a`

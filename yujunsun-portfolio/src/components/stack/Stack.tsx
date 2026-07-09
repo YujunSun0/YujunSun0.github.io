@@ -67,6 +67,7 @@ const InnerWrapper = styled.div`
 
 const SectionTitle = styled.div`
   margin-bottom: 4rem;
+  text-align: center;
 
   > h2 {
     font-size: 2.8rem;
