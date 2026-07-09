@@ -112,6 +112,7 @@ const InnerWrapper = styled.div`
 
 const SectionTitle = styled.div`
   margin-bottom: 3rem;
+  text-align: center;
 
   > h2 {
     font-size: 2.8rem;
@@ -136,6 +137,7 @@ const FilterRow = styled.div`
   gap: 0.8rem;
   margin-bottom: 3rem;
   flex-wrap: wrap;
+  justify-content: center;
 `
 
 const FilterButton = styled.button<{ $isActive: boolean }>`
@@ -161,6 +163,7 @@ const ProjectGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+  text-align: left;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;

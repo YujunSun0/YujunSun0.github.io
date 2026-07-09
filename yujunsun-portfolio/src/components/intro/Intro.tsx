@@ -135,7 +135,9 @@ const InnerWrapper = styled.div`
   margin-top: 10rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2.4rem;
+  text-align: center;
 `
 
 const Heading = styled.h1`
@@ -158,6 +160,7 @@ const ContactRow = styled.div`
   flex-wrap: wrap;
   gap: 1.6rem;
   align-items: center;
+  justify-content: center;
 `
 
 const ContactItem = styled.a`
@@ -218,6 +221,8 @@ const StrengthGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: 1.6rem;
+  width: 100%;
+  text-align: left;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;

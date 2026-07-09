@@ -1,3 +1,15 @@
+import js from "@assets/stacks/js.png"
+import ts from "@assets/stacks/ts.png"
+import reactjs from "@assets/stacks/reactjs.png"
+import styledComponents from "@assets/stacks/StyledComponents.svg"
+import git from "@assets/stacks/Git.svg"
+
+export interface TechStackItem {
+  key: string
+  label: string
+  image?: string
+}
+
 export interface CompanyExperience {
   company: string
   period: string
@@ -5,7 +17,26 @@ export interface CompanyExperience {
   role: string
   position: string
   employmentType: string
+  techStack: string[]
   highlights: string[]
+}
+
+export const techStackMap: Record<string, TechStackItem> = {
+  cafe24: { key: "cafe24", label: "Cafe24" },
+  js: { key: "js", label: "JavaScript", image: js },
+  javascript: { key: "javascript", label: "JavaScript", image: js },
+  github: { key: "github", label: "GitHub", image: git },
+  react: { key: "react", label: "React", image: reactjs },
+  typescript: { key: "typescript", label: "TypeScript", image: ts },
+  "styled-components": {
+    key: "styled-components",
+    label: "styled-components",
+    image: styledComponents,
+  },
+  nextjs: { key: "nextjs", label: "Next.js" },
+  zustand: { key: "zustand", label: "zustand" },
+  "tanstack-query": { key: "tanstack-query", label: "TanStack Query" },
+  "react-hook-form": { key: "react-hook-form", label: "React Hook Form" },
 }
 
 export interface ExperienceGroup {
@@ -29,6 +60,14 @@ export const experienceData: ExperienceGroup = {
       role: "전략기획1팀",
       position: "대리",
       employmentType: "정규직",
+      techStack: [
+        "react",
+        "nextjs",
+        "typescript",
+        "zustand",
+        "tanstack-query",
+        "react-hook-form",
+      ],
       highlights: [
         "PHP 기반 레거시 서비스를 Next.js(App Router) + TypeScript로 전면 마이그레이션",
         "30개 이상 파트너사 상담 신청 페이지를 단일 플랫폼으로 통합, 사이트 생성 시간 96% 단축 (5시간 → 5분)",
@@ -44,6 +83,13 @@ export const experienceData: ExperienceGroup = {
       role: "전략기획1팀",
       position: "주임",
       employmentType: "계약직",
+      techStack: [
+        "react",
+        "typescript",
+        "javascript",
+        "github",
+        "styled-components",
+      ],
       highlights: [
         "HOLOMEDIA 크리에이터/팬 미디어 플랫폼 풀스택 개발",
         "HLS 스트리밍 플레이어 구현 (브라우저별 처리 분리, 자동 복구 로직)",
@@ -59,6 +105,7 @@ export const experienceData: ExperienceGroup = {
       role: "마케팅팀",
       position: "주임",
       employmentType: "계약직",
+      techStack: ["cafe24", "js", "github"],
       highlights: [
         "CAFE24, IMWEB 기반 자사몰 개발 및 유지보수",
         "UI 컴포넌트 커스터마이징을 통한 사용자 경험 개선",

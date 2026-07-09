@@ -19,5 +19,11 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "prettier.trailingComma": "none"
+  },
+  "search.exclude": {
+    "**/.wireit": true,
+    "**/.pnpm/**": true,
+    "**/.turbo/**": true,
+    "**/.nx/**": true
   }
 }
