@@ -92,16 +92,20 @@ const Experience = () => {
                     <TechStackRow>
                       {company.techStack.map((tech) => {
                         const stack = techStackMap[tech]
+                        const label = getTechLabel(tech)
                         return (
-                          <TechBadge key={tech} title={getTechLabel(tech)}>
-                            {stack?.image ? (
-                              <img src={stack.image} alt={stack.label} />
-                            ) : (
-                              <span className="initial">
-                                {getTechInitial(tech)}
-                              </span>
-                            )}
-                          </TechBadge>
+                          <TechBadgeWrap key={tech}>
+                            <TechBadge>
+                              {stack?.image ? (
+                                <img src={stack.image} alt={label} />
+                              ) : (
+                                <span className="initial">
+                                  {getTechInitial(tech)}
+                                </span>
+                              )}
+                            </TechBadge>
+                            <TechTooltip>{label.toLowerCase()}</TechTooltip>
+                          </TechBadgeWrap>
                         )
                       })}
                     </TechStackRow>
@@ -168,7 +172,7 @@ const GroupCard = styled.div`
   background-color: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: 16px;
-  overflow: hidden;
+  overflow: visible;
 `
 
 const GroupHeader = styled.div`
@@ -321,6 +325,20 @@ const TechStackRow = styled.div`
   flex-wrap: wrap;
   gap: 0.8rem;
   margin-top: 0.4rem;
+  padding-bottom: 0.4rem;
+`
+
+const TechBadgeWrap = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:hover > span:last-child {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
 `
 
 const TechBadge = styled.div`
@@ -351,6 +369,29 @@ const TechBadge = styled.div`
     color: var(--color-primary-light);
     letter-spacing: -0.02em;
   }
+`
+
+const TechTooltip = styled.span`
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  padding: 0.4rem 0.9rem;
+  background-color: #d1d5db;
+  color: #1f2937;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0.15s ease;
+  pointer-events: none;
+  z-index: 20;
 `
 
 const HighlightBox = styled.div`

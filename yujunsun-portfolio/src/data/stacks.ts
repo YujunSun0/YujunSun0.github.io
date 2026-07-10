@@ -4,13 +4,19 @@ import js from "@assets/stacks/js.png"
 import ts from "@assets/stacks/ts.png"
 import reactjs from "@assets/stacks/reactjs.png"
 import styledComponents from "@assets/stacks/StyledComponents.svg"
-import redux from "@assets/stacks/Redux.svg"
 import figma from "@assets/stacks/Figma-Dark.svg"
 import vscode from "@assets/stacks/VSCode-Dark.svg"
 import git from "@assets/stacks/Git.svg"
 import postman from "@assets/stacks/Postman.svg"
 import aws from "@assets/stacks/AWS-Dark.svg"
 import firebase from "@assets/stacks/Firebase-Dark.svg"
+import nextjs from "@assets/stacks/nextjs.jpg"
+import tailwind from "@assets/stacks/Tailwind.svg"
+import zustand from "@assets/stacks/zustand.svg"
+import tanstackQuery from "@assets/stacks/Tanstack-query.webp"
+import storybook from "@assets/stacks/storybook.svg"
+import strapi from "@assets/stacks/Strapi.monogram.logo.svg"
+import vercel from "@assets/stacks/vercel.svg"
 
 export interface StackItem {
   image: string
@@ -50,7 +56,7 @@ export const frontendData: StackItem[] = [
       "함수형 컴포넌트와 hooks를 활용하며, 재사용 가능한 컴포넌트 설계를 지향합니다.",
   },
   {
-    image: "",
+    image: nextjs,
     title: "Next.js",
     content:
       "App Router 기반 SSR/RSC/CSR 렌더링 전략을 분리 적용하며, 프로덕션 서비스를 구축한 경험이 있습니다.",
@@ -62,19 +68,19 @@ export const frontendData: StackItem[] = [
       "CSS-in-JS 방식으로 컴포넌트 단위 스타일링을 하며, 테마 시스템을 적용합니다.",
   },
   {
-    image: "",
+    image: tailwind,
     title: "TailwindCSS",
     content:
       "유틸리티 퍼스트 CSS로 빠른 UI 개발 및 일관된 디자인 시스템을 구현합니다.",
   },
   {
-    image: redux,
+    image: zustand,
     title: "Redux / zustand",
     content:
       "상태 관리 라이브러리를 상황에 맞게 선택하여 사용하며, 도메인 단위 store 분리 경험이 있습니다.",
   },
   {
-    image: "",
+    image: tanstackQuery,
     title: "TanStack Query",
     content:
       "서버 상태 관리와 캐싱 전략을 적용하여 효율적인 데이터 패칭을 구현합니다.",
@@ -105,12 +111,12 @@ export const toolsData: StackItem[] = [
     content: "REST API 테스트 및 문서화에 활용합니다.",
   },
   {
-    image: "",
+    image: storybook,
     title: "Storybook",
     content: "UI 컴포넌트 개발 및 문서화, 시각적 테스트에 활용합니다.",
   },
   {
-    image: "",
+    image: strapi,
     title: "Strapi",
     content: "Headless CMS로 콘텐츠 관리 시스템을 구축한 경험이 있습니다.",
   },
@@ -118,7 +124,7 @@ export const toolsData: StackItem[] = [
 
 export const devOpsData: StackItem[] = [
   {
-    image: "",
+    image: vercel,
     title: "Vercel",
     content:
       "Next.js 프로젝트의 CI/CD 및 프리뷰 배포에 활용합니다.",

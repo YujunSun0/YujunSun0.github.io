@@ -3,6 +3,10 @@ import ts from "@assets/stacks/ts.png"
 import reactjs from "@assets/stacks/reactjs.png"
 import styledComponents from "@assets/stacks/StyledComponents.svg"
 import git from "@assets/stacks/Git.svg"
+import cafe24 from "@assets/stacks/cafe24.webp"
+import nextjs from "@assets/stacks/nextjs.jpg"
+import zustand from "@assets/stacks/zustand.svg"
+import tanstackQuery from "@assets/stacks/Tanstack-query.webp"
 
 export interface TechStackItem {
   key: string
@@ -22,7 +26,7 @@ export interface CompanyExperience {
 }
 
 export const techStackMap: Record<string, TechStackItem> = {
-  cafe24: { key: "cafe24", label: "Cafe24" },
+  cafe24: { key: "cafe24", label: "Cafe24", image: cafe24 },
   js: { key: "js", label: "JavaScript", image: js },
   javascript: { key: "javascript", label: "JavaScript", image: js },
   github: { key: "github", label: "GitHub", image: git },
@@ -33,10 +37,13 @@ export const techStackMap: Record<string, TechStackItem> = {
     label: "styled-components",
     image: styledComponents,
   },
-  nextjs: { key: "nextjs", label: "Next.js" },
-  zustand: { key: "zustand", label: "zustand" },
-  "tanstack-query": { key: "tanstack-query", label: "TanStack Query" },
-  "react-hook-form": { key: "react-hook-form", label: "React Hook Form" },
+  nextjs: { key: "nextjs", label: "Next.js", image: nextjs },
+  zustand: { key: "zustand", label: "zustand", image: zustand },
+  "tanstack-query": {
+    key: "tanstack-query",
+    label: "TanStack Query",
+    image: tanstackQuery,
+  },
 }
 
 export interface ExperienceGroup {
@@ -64,9 +71,10 @@ export const experienceData: ExperienceGroup = {
         "react",
         "nextjs",
         "typescript",
+        "javascript",
+        "github",
         "zustand",
         "tanstack-query",
-        "react-hook-form",
       ],
       highlights: [
         "PHP 기반 레거시 서비스를 Next.js(App Router) + TypeScript로 전면 마이그레이션",

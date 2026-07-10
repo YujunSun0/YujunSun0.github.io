@@ -24,7 +24,7 @@ export const projectsData: ProjectData[] = [
       "페이지 특성에 따라 SSR, RSC, CSR 렌더링 전략을 분리 적용하여 사용자 경험과 데이터 처리 효율 최적화",
       "공통 레이아웃 및 데이터 패칭 구조 표준화로 유지보수 복잡도 감소",
     ],
-    techStack: ["Next.js", "TypeScript", "TailwindCSS", "zustand", "react-query"],
+    techStack: ["Next.js", "TypeScript", "TailwindCSS", "zustand", "TanStack Query"],
   },
   {
     id: "partner-centralization",
@@ -52,7 +52,7 @@ export const projectsData: ProjectData[] = [
       "옵션/수량 단계에서 실시간 한도 안내로 결제 실패 및 이탈 부담 완화",
       "자동완성 디바운싱, 무한 스크롤 조건 분리로 검색 UX 최적화",
     ],
-    techStack: ["Next.js", "TypeScript", "TailwindCSS", "zustand", "react-query"],
+    techStack: ["Next.js", "TypeScript", "TailwindCSS", "zustand", "TanStack Query"],
   },
   {
     id: "seldoc-subscription",
