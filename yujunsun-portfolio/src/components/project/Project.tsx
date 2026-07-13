@@ -21,7 +21,7 @@ const Project = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(
     null
   )
-  const [filter, setFilter] = useState<"all" | "company" | "side">("all")
+  const [filter, setFilter] = useState<"company" | "side">("company")
 
   const target = useRef(null)
   const navigate = useNavigate()
@@ -37,9 +37,7 @@ const Project = () => {
     }
   }, [])
 
-  const filteredProjects = projectsData.filter((p) =>
-    filter === "all" ? true : p.category === filter
-  )
+  const filteredProjects = projectsData.filter((p) => p.category === filter)
 
   return (
     <Container id="2" ref={target}>
@@ -55,12 +53,6 @@ const Project = () => {
         </SectionTitle>
 
         <FilterRow>
-          <FilterButton
-            $isActive={filter === "all"}
-            onClick={() => setFilter("all")}
-          >
-            전체
-          </FilterButton>
           <FilterButton
             $isActive={filter === "company"}
             onClick={() => setFilter("company")}

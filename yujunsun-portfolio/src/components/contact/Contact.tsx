@@ -9,8 +9,36 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import EmailIcon from "@mui/icons-material/Email"
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined"
 import { SvgIcon } from "@mui/material"
 import { motion } from "framer-motion"
+import { blogLinks } from "@/data/blog"
+
+const footerLinks = [
+  {
+    href: "https://github.com/YujunSun0",
+    label: "GitHub",
+    type: "icon" as const,
+    icon: GitHubIcon,
+  },
+  {
+    href: "mailto:yujunsun0@gmail.com",
+    label: "Email",
+    type: "icon" as const,
+    icon: EmailIcon,
+  },
+  {
+    href: blogLinks.current,
+    label: "Blog",
+    type: "icon" as const,
+    icon: ArticleOutlinedIcon,
+  },
+  {
+    href: blogLinks.archive,
+    label: "이전 블로그",
+    type: "velog" as const,
+  },
+]
 
 interface InputType {
   [key: string]: string
@@ -142,27 +170,22 @@ const Contact = () => {
 
         <Footer>
           <FooterLinks>
-            <a
-              href="https://github.com/YujunSun0"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <SvgIcon component={GitHubIcon} />
-            </a>
-            <a
-              href="mailto:yujunsun0@gmail.com"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <SvgIcon component={EmailIcon} />
-            </a>
-            <a
-              href="https://velog.io/@yujunsun0/posts"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <VelogIcon>V</VelogIcon>
-            </a>
+            {footerLinks.map((link) => (
+              <FooterLinkWrap key={link.label}>
+                <FooterLink
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {link.type === "velog" ? (
+                    <VelogIcon>V</VelogIcon>
+                  ) : (
+                    <SvgIcon component={link.icon} />
+                  )}
+                </FooterLink>
+                <FooterTooltip>{link.label}</FooterTooltip>
+              </FooterLinkWrap>
+            ))}
           </FooterLinks>
           <Copyright>
             Copyright &copy; 2026. YujunSun. All rights reserved.
@@ -306,31 +329,72 @@ const FormContainer = styled.form`
 const Footer = styled.footer`
   width: 100%;
   padding: 4rem 2rem;
+  padding-top: 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
   border-top: 1px solid var(--color-border);
+  overflow: visible;
 `
 
 const FooterLinks = styled.div`
   display: flex;
   gap: 2rem;
   align-items: center;
+`
 
-  > a {
-    color: var(--color-text-muted);
-    transition: color 0.2s ease;
+const FooterLinkWrap = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    &:hover {
-      color: var(--color-primary-light);
-    }
-
-    > svg {
-      width: 2.2rem;
-      height: 2.2rem;
-    }
+  &:hover > span:last-child {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
   }
+`
+
+const FooterLink = styled.a`
+  color: var(--color-text-muted);
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: var(--color-primary-light);
+  }
+
+  > svg {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+`
+
+const FooterTooltip = styled.span`
+  position: absolute;
+  bottom: calc(100% + 0.8rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 0.4rem 0.9rem;
+  background-color: #d1d5db;
+  color: #1f2937;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    visibility 0.15s ease;
+  pointer-events: none;
+  z-index: 20;
 `
 
 const VelogIcon = styled.span`
@@ -341,14 +405,9 @@ const VelogIcon = styled.span`
   height: 2.2rem;
   font-size: 1.3rem;
   font-weight: 800;
-  color: var(--color-text-muted);
+  color: inherit;
   border: 2px solid currentColor;
   border-radius: 4px;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: var(--color-primary-light);
-  }
 `
 
 const Copyright = styled.p`

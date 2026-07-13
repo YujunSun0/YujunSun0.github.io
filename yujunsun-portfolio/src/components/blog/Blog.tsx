@@ -77,12 +77,16 @@ const Blog = () => {
         </BlogGrid>
 
         <BlogLinkRow>
+          <BlogLink href={blogLinks.current} target="_blank" rel="noreferrer">
+            블로그 전체 보기 →
+          </BlogLink>
           <BlogLink
-            href={blogLinks.current}
+            href={blogLinks.archive}
             target="_blank"
             rel="noreferrer"
+            className="archive"
           >
-            블로그 전체 보기 →
+            이전 글 더 보기 (Velog) →
           </BlogLink>
         </BlogLinkRow>
       </InnerWrapper>
@@ -196,6 +200,10 @@ const LinkIcon = styled.div`
 const BlogLinkRow = styled.div`
   margin-top: 2.4rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 `
 
 const BlogLink = styled.a`
@@ -206,5 +214,11 @@ const BlogLink = styled.a`
 
   &:hover {
     opacity: 0.8;
+  }
+
+  &.archive {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
   }
 `

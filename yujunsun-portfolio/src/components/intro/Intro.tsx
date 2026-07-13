@@ -6,7 +6,9 @@ import { motion } from "framer-motion"
 import EmailIcon from "@mui/icons-material/Email"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import PhoneIcon from "@mui/icons-material/Phone"
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined"
 import { SvgIcon } from "@mui/material"
+import { blogLinks } from "@/data/blog"
 
 const coreStrengths = [
   {
@@ -73,12 +75,20 @@ const Intro = () => {
             <span>GitHub</span>
           </ContactItem>
           <ContactItem
-            href="https://velog.io/@yujunsun0/posts"
+            href={blogLinks.current}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <SvgIcon component={ArticleOutlinedIcon} fontSize="small" />
+            <span>Blog</span>
+          </ContactItem>
+          <ContactItem
+            href={blogLinks.archive}
             target="_blank"
             rel="noreferrer"
           >
             <VelogIcon>V</VelogIcon>
-            <span>Velog</span>
+            <span>이전 블로그</span>
           </ContactItem>
           <ContactItem as="span">
             <SvgIcon component={PhoneIcon} fontSize="small" />

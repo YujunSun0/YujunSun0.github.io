@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { HashLink } from "react-router-hash-link"
 import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
 import MenuIcon from "@mui/icons-material/Menu"
 import CloseIcon from "@mui/icons-material/Close"
 import { SvgIcon } from "@mui/material"
@@ -18,6 +19,8 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
+  const activeHash = location.hash || "#0"
 
   const handleMenuToggle = () => {
     setMenuOpen((prev) => !prev)
@@ -71,6 +74,7 @@ const Header = () => {
                   to={`/${item.hash}`}
                   scroll={scrollWithOffset}
                   $isScrolled={isScrolled}
+                  $isActive={activeHash === item.hash}
                 >
                   {item.label}
                 </NavLink>
@@ -88,6 +92,7 @@ const Header = () => {
                 to={`/${item.hash}`}
                 scroll={scrollWithOffset}
                 $isScrolled={true}
+                $isActive={activeHash === item.hash}
               >
                 {item.label}
               </NavLink>
@@ -162,14 +167,29 @@ const NavItem = styled.li`
   list-style: none;
 `
 
-const NavLink = styled(HashLink)<{ $isScrolled: boolean }>`
+const NavLink = styled(HashLink)<{ $isScrolled: boolean; $isActive: boolean }>`
+  position: relative;
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--color-text-muted);
+  color: ${(props) =>
+    props.$isActive ? "var(--color-white)" : "var(--color-text-muted)"};
   padding: 0.6rem 1rem;
   border-radius: 6px;
   transition: all 0.2s ease;
   letter-spacing: 0.5px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.1rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-accent-gradient);
+    opacity: ${(props) => (props.$isActive ? 1 : 0)};
+    transition: opacity 0.2s ease;
+  }
 
   &:hover {
     color: var(--color-white);
@@ -192,13 +212,21 @@ const MobileNavItem = styled.div`
     display: block;
     font-size: 1.4rem;
     font-weight: 600;
-    color: var(--color-text-muted);
     padding: 1.2rem 0;
     border-bottom: 1px solid var(--color-border);
+    border-radius: 0;
     transition: color 0.2s ease;
+
+    &::after {
+      left: 0;
+      right: auto;
+      width: 2.4rem;
+      bottom: 0.8rem;
+    }
 
     &:hover {
       color: var(--color-white);
+      background-color: transparent;
     }
   }
 
