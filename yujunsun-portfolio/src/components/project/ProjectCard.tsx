@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { motion } from "framer-motion"
 import type { ProjectData } from "@/data/projects"
+import { getProjectThumbnail, hasProjectImages } from "@/data/projects"
 
 interface ProjectCardProps {
   project: ProjectData
@@ -18,6 +19,9 @@ const fadeInUp = {
 }
 
 const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
+  const thumbnail = getProjectThumbnail(project)
+  const imageCount = hasProjectImages(project) ? project.images.length : 0
+
   return (
     <Card
       as={motion.div}
@@ -28,20 +32,29 @@ const ProjectCard = ({ project, index, onClick }: ProjectCardProps) => {
       variants={fadeInUp}
       onClick={onClick}
     >
-      <CardHeader>
-        {project.company && <CompanyBadge>{project.company}</CompanyBadge>}
-        <Period>{project.period}</Period>
-      </CardHeader>
-      <ProjectName>{project.name}</ProjectName>
-      <Description>{project.description}</Description>
-      <TechTags>
-        {project.techStack.slice(0, 4).map((tech) => (
-          <Tag key={tech}>{tech}</Tag>
-        ))}
-        {project.techStack.length > 4 && (
-          <Tag className="more">+{project.techStack.length - 4}</Tag>
-        )}
-      </TechTags>
+      {thumbnail && (
+        <ThumbnailWrap>
+          <img src={thumbnail} alt={`${project.name} 썸네일`} loading="lazy" />
+          {imageCount > 1 && <ImageCount>+{imageCount - 1}</ImageCount>}
+        </ThumbnailWrap>
+      )}
+
+      <CardBody>
+        <CardHeader>
+          {project.company && <CompanyBadge>{project.company}</CompanyBadge>}
+          <Period>{project.period}</Period>
+        </CardHeader>
+        <ProjectName>{project.name}</ProjectName>
+        <Description>{project.description}</Description>
+        <TechTags>
+          {project.techStack.slice(0, 4).map((tech) => (
+            <Tag key={tech}>{tech}</Tag>
+          ))}
+          {project.techStack.length > 4 && (
+            <Tag className="more">+{project.techStack.length - 4}</Tag>
+          )}
+        </TechTags>
+      </CardBody>
     </Card>
   )
 }
@@ -52,7 +65,7 @@ const Card = styled.div`
   background-color: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: 12px;
-  padding: 2.4rem;
+  overflow: hidden;
   cursor: pointer;
   transition:
     border-color 0.3s ease,
@@ -61,7 +74,44 @@ const Card = styled.div`
   &:hover {
     border-color: var(--color-primary);
     transform: translateY(-2px);
+
+    img {
+      transform: scale(1.03);
+    }
   }
+`
+
+const ThumbnailWrap = styled.div`
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: var(--color-bg-alt);
+
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+`
+
+const ImageCount = styled.span`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-white);
+  background-color: rgba(15, 17, 20, 0.75);
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+`
+
+const CardBody = styled.div`
+  padding: 2.4rem;
 `
 
 const CardHeader = styled.div`

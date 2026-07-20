@@ -1,10 +1,12 @@
 import styled from "styled-components"
 import { useEffect } from "react"
 import type { ProjectData } from "@/data/projects"
+import { hasProjectImages } from "@/data/projects"
 import CloseIcon from "@mui/icons-material/Close"
 import LaunchIcon from "@mui/icons-material/Launch"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import { SvgIcon } from "@mui/material"
+import ProjectImageGallery from "./ProjectImageGallery"
 
 interface ProjectModalProps {
   project: ProjectData
@@ -40,6 +42,10 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         </ModalHeader>
 
         <ModalBody>
+          {hasProjectImages(project) && (
+            <ProjectImageGallery images={project.images} />
+          )}
+
           <ProjectTitle>{project.name}</ProjectTitle>
           <ProjectDescription>{project.description}</ProjectDescription>
 

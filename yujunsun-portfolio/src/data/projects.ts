@@ -1,3 +1,14 @@
+import sourcingHome from "@assets/projects/sourcing/01-home-sourcing.png"
+import sourcingGraph from "@assets/projects/sourcing/02-graph-sourcing.png"
+import blogQuizMain from "@assets/projects/blog-quiz/01-main-blog.png"
+import blogQuizResult from "@assets/projects/blog-quiz/02-result-blog.png"
+
+export interface ProjectImage {
+  src: string
+  alt: string
+  caption?: string
+}
+
 export interface ProjectData {
   id: string
   category: "company" | "side"
@@ -9,7 +20,39 @@ export interface ProjectData {
   techStack: string[]
   siteUrl?: string
   githubUrl?: string
+  /** 스크린샷 1~5장. 없으면 카드/모달은 텍스트만 표시 */
+  images?: ProjectImage[]
+  /** 카드 썸네일. 없으면 images[0] 사용 */
+  thumbnail?: string
 }
+
+/** 이미지가 있는 프로젝트만 true — 카드/모달에서 공통 사용 */
+export const hasProjectImages = (
+  project: ProjectData
+): project is ProjectData & { images: ProjectImage[] } =>
+  Array.isArray(project.images) && project.images.length > 0
+
+export const getProjectThumbnail = (project: ProjectData): string | null => {
+  if (project.thumbnail) return project.thumbnail
+  if (hasProjectImages(project)) return project.images[0].src
+  return null
+}
+
+/*
+  이미지 추가 예시:
+
+  import openMarketMain from "@assets/projects/open-market/01-main.webp"
+  import openMarketCart from "@assets/projects/open-market/02-cart.webp"
+
+  {
+    id: "open-market",
+    ...
+    images: [
+      { src: openMarketMain, alt: "오픈몰 메인", caption: "메인 페이지" },
+      { src: openMarketCart, alt: "장바구니", caption: "장바구니/결제" },
+    ],
+  }
+*/
 
 export const projectsData: ProjectData[] = [
   {
@@ -82,6 +125,18 @@ export const projectsData: ProjectData[] = [
       "Playwright 시나리오 테스트 + k6 동시 접속 약 2,000명 부하 테스트 가이드 구축",
     ],
     techStack: ["Next.js", "TypeScript", "Strapi", "Playwright", "k6"],
+    images: [
+      {
+        src: blogQuizMain,
+        alt: "블로그 퀴즈 메인 페이지",
+        caption: "메인 페이지",
+      },
+      {
+        src: blogQuizResult,
+        alt: "블로그 퀴즈 결과 페이지",
+        caption: "결과 페이지",
+      },
+    ],
   },
   {
     id: "totalsourcing",
@@ -96,6 +151,18 @@ export const projectsData: ProjectData[] = [
       "최근 검색 기록 LocalStorage 저장 및 비동기 폴링 구조 적용",
     ],
     techStack: ["Next.js", "TypeScript", "TanStack Query", "FastAPI"],
+    images: [
+      {
+        src: sourcingHome,
+        alt: "토탈소싱기 메인 페이지",
+        caption: "메인 페이지",
+      },
+      {
+        src: sourcingGraph,
+        alt: "토탈소싱기 검색 결과 페이지",
+        caption: "검색 결과",
+      },
+    ],
   },
   {
     id: "lecture-service",
