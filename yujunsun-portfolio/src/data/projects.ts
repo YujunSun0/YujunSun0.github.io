@@ -2,6 +2,8 @@ import sourcingHome from "@assets/projects/sourcing/01-home-sourcing.png"
 import sourcingGraph from "@assets/projects/sourcing/02-graph-sourcing.png"
 import blogQuizMain from "@assets/projects/blog-quiz/01-main-blog.png"
 import blogQuizResult from "@assets/projects/blog-quiz/02-result-blog.png"
+import blogQuizStrapi from "@assets/projects/blog-quiz/03-strapi-blog.png"
+import deepdevMain from "@assets/projects/deepdev/01-main-deepdev.png"
 
 export interface ProjectImage {
   src: string
@@ -127,6 +129,11 @@ export const projectsData: ProjectData[] = [
     techStack: ["Next.js", "TypeScript", "Strapi", "Playwright", "k6"],
     images: [
       {
+        src: blogQuizStrapi,
+        alt: "블로그 퀴즈 Strapi 등록 화면",
+        caption: "Strapi CMS 등록",
+      },
+      {
         src: blogQuizMain,
         alt: "블로그 퀴즈 메인 페이지",
         caption: "메인 페이지",
@@ -204,25 +211,50 @@ export const projectsData: ProjectData[] = [
     ],
   },
   {
-    id: "salog",
+    id: "deepdev",
     category: "side",
-    name: "Salog",
-    period: "2023.11 ~ 2024.02",
-    description: "가계부와 일기를 기록하는 웹 서비스 (팀 프로젝트 3인)",
+    name: "DeepDev",
+    period: "2026",
+    description:
+      "개념 그래프 기반 AI 학습 플랫폼 — 숙련도 측정부터 인증·결제·배포까지 E2E 구축",
     details: [
-      "Redux-toolkit + Redux-persist를 활용한 상태 관리",
-      "OAuth 2.0 소셜 로그인 및 PWA 구현",
-      "AWS S3 + CloudFront를 이용한 HTTPS 배포",
+      "Next.js·NestJS·PostgreSQL 모노레포로 설계·구현하고 인증·결제·배포까지 end-to-end 구축",
+      "세션 오케스트레이터(상태 머신)로 설명→문제→평가 LLM 호출 흐름 제어",
+      "숙련도(Mastery)·GSI 정량 산출 후 약점 개념 추천·성장 대시보드에 반영",
+      "Google/GitHub OAuth, Lemon Squeezy 구독 결제, 플랜별 세션·토큰 한도를 서버에서 강제",
     ],
     techStack: [
-      "React",
+      "Next.js",
+      "NestJS",
       "TypeScript",
-      "styled-components",
-      "Redux",
-      "Firebase",
-      "AWS",
+      "PostgreSQL",
+      "OAuth",
+      "Lemon Squeezy",
     ],
-    siteUrl: "https://www.salog.kro.kr/",
-    githubUrl: "https://github.com/YujunSun0/salog-FE/tree/dev/fe",
+    images: [
+      {
+        src: deepdevMain,
+        alt: "DeepDev 메인 화면",
+        caption: "메인 페이지",
+      },
+    ],
+    siteUrl: "https://deepdev.info/",
+    githubUrl: "https://github.com/YujunSun0/DeepDev",
+  },
+  {
+    id: "personal-blog",
+    category: "side",
+    name: "개인 기술 블로그",
+    period: "2025.12",
+    description:
+      "Next.js·Supabase·Vercel로 구축한 운영형 개인 기술 블로그 (월 인프라 비용 0원)",
+    details: [
+      "기술 블로그·갤러리·관리자 CMS를 설계·구현하고 프로덕션 배포까지 완료",
+      "Supabase Auth + Middleware 기반 RBAC, Markdown 에디터/렌더링, 태그·댓글·앨범 CRUD API 구축",
+      "동적 sitemap·Open Graph·robots SEO 적용 및 조회수·D3 통계·검색·다크모드로 운영 고도화",
+    ],
+    techStack: ["Next.js", "TypeScript", "TailwindCSS", "Supabase", "Vercel", "D3"],
+    siteUrl: "https://yujunsun.tech/",
+    githubUrl: "https://github.com/YujunSun0/Personal-Blog",
   },
 ]

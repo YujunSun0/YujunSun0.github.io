@@ -252,7 +252,6 @@ const SectionTitle = styled.div`
 `
 
 const FormContainer = styled.form`
-  max-width: 50rem;
   width: 100%;
   margin: 0 auto;
   display: flex;
