@@ -4,6 +4,8 @@ import blogQuizMain from "@assets/projects/blog-quiz/01-main-blog.png"
 import blogQuizResult from "@assets/projects/blog-quiz/02-result-blog.png"
 import blogQuizStrapi from "@assets/projects/blog-quiz/03-strapi-blog.png"
 import deepdevMain from "@assets/projects/deepdev/01-main-deepdev.png"
+import blogMain from "@assets/projects/blog/01-main-tech.png"
+import blogGallery from "@assets/projects/blog/02-gall-tech.png"
 
 export interface ProjectImage {
   src: string
@@ -254,6 +256,18 @@ export const projectsData: ProjectData[] = [
       "동적 sitemap·Open Graph·robots SEO 적용 및 조회수·D3 통계·검색·다크모드로 운영 고도화",
     ],
     techStack: ["Next.js", "TypeScript", "TailwindCSS", "Supabase", "Vercel", "D3"],
+    images: [
+      {
+        src: blogMain,
+        alt: "개인 기술 블로그 메인 페이지",
+        caption: "메인 페이지",
+      },
+      {
+        src: blogGallery,
+        alt: "개인 기술 블로그 갤러리 페이지",
+        caption: "갤러리",
+      },
+    ],
     siteUrl: "https://yujunsun.tech/",
     githubUrl: "https://github.com/YujunSun0/Personal-Blog",
   },
