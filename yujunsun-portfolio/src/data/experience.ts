@@ -29,7 +29,7 @@ export const techStackMap: Record<string, TechStackItem> = {
   cafe24: { key: "cafe24", label: "Cafe24", image: cafe24 },
   js: { key: "js", label: "JavaScript", image: js },
   javascript: { key: "javascript", label: "JavaScript", image: js },
-  github: { key: "github", label: "GitHub", image: git },
+  github: { key: "github", label: "Git/GitHub", image: git },
   react: { key: "react", label: "React", image: reactjs },
   typescript: { key: "typescript", label: "TypeScript", image: ts },
   "styled-components": {
