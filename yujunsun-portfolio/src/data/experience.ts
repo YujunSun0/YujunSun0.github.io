@@ -17,7 +17,7 @@ export interface TechStackItem {
 export interface CompanyExperience {
   company: string
   period: string
-  duration: string
+  duration?: string
   role: string
   position: string
   employmentType: string
@@ -63,7 +63,7 @@ export const experienceData: ExperienceGroup = {
     {
       company: "주식회사 토탈셀러",
       period: "2025.05 ~ 2026.03",
-      duration: "8개월",
+      duration: "10개월",
       role: "전략기획1팀",
       position: "대리",
       employmentType: "정규직",
@@ -87,7 +87,7 @@ export const experienceData: ExperienceGroup = {
     {
       company: "(주)혜안파트너스",
       period: "2024.12 ~ 2025.05",
-      duration: "6개월",
+      duration: "5개월",
       role: "전략기획1팀",
       position: "주임",
       employmentType: "계약직",
@@ -109,7 +109,7 @@ export const experienceData: ExperienceGroup = {
     {
       company: "스마트하우스",
       period: "2024.08 ~ 2024.12",
-      duration: "5개월",
+      duration: "4개월",
       role: "마케팅팀",
       position: "주임",
       employmentType: "계약직",

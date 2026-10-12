@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 import type { ProjectData } from "@/data/projects"
 
 interface ProjectCardProps {
@@ -8,7 +8,7 @@ interface ProjectCardProps {
   onClick: () => void
 }
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,

@@ -4,9 +4,9 @@ import { frontendData, toolsData, devOpsData } from "@/data/stacks"
 import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import useIntersectionObserver from "utils/scrollIntersectionObserver"
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,

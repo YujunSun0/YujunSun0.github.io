@@ -11,7 +11,7 @@ import GitHubIcon from "@mui/icons-material/GitHub"
 import EmailIcon from "@mui/icons-material/Email"
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined"
 import { SvgIcon } from "@mui/material"
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 import { blogLinks } from "@/data/blog"
 
 const footerLinks = [
@@ -47,7 +47,7 @@ interface InputType {
   message: string
 }
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,

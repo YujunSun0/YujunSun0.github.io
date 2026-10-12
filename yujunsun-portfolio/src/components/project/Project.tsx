@@ -2,13 +2,13 @@ import { styled } from "styled-components"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import scrollIntersectionObserver from "utils/scrollIntersectionObserver"
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 import { projectsData } from "@/data/projects"
 import type { ProjectData } from "@/data/projects"
 import ProjectCard from "./ProjectCard"
 import ProjectModal from "./ProjectModal"
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,

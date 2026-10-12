@@ -2,12 +2,12 @@ import styled from "styled-components"
 import { useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import scrollIntersectionObserver from "utils/scrollIntersectionObserver"
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 import { blogPosts, blogLinks } from "@/data/blog"
 import LaunchIcon from "@mui/icons-material/Launch"
 import { SvgIcon } from "@mui/material"
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,

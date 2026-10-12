@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import scrollIntersectionObserver from "utils/scrollIntersectionObserver"
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 import EmailIcon from "@mui/icons-material/Email"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import PhoneIcon from "@mui/icons-material/Phone"
@@ -28,7 +28,7 @@ const coreStrengths = [
   },
 ]
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,

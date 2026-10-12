@@ -2,12 +2,12 @@ import styled from "styled-components"
 import { useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import scrollIntersectionObserver from "utils/scrollIntersectionObserver"
-import { motion } from "framer-motion"
+import { motion, type Variants } from "framer-motion"
 import { experienceData, techStackMap } from "@/data/experience"
 import StarOutlineIcon from "@mui/icons-material/StarOutline"
 import { SvgIcon } from "@mui/material"
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -78,7 +78,7 @@ const Experience = () => {
                     </StarIcon>
                     <PeriodText>
                       <span className="period">{company.period}</span>
-                      <span className="duration">({company.duration})</span>
+                      {/* <span className="duration">({company.duration})</span> */}
                     </PeriodText>
                   </TimelineLeft>
 
