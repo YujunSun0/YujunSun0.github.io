@@ -1599,8 +1599,10 @@ table {
   ${j3}
 
   :root {
-    --font-NotoSansKR: "NotoSansKR";
-    --font-JalnanGothic: "JalnanGothic";
+    --font-NotoSansKR: "NotoSansKR", "Apple SD Gothic Neo", "Malgun Gothic",
+      sans-serif;
+    --font-JalnanGothic: "JalnanGothic", "NotoSansKR", "Apple SD Gothic Neo",
+      "Malgun Gothic", sans-serif;
 
     --color-bg: #0f1114;
     --color-bg-alt: #161a1e;
