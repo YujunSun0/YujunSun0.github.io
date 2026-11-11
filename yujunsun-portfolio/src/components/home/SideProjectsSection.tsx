@@ -1,11 +1,12 @@
 import styled from "styled-components"
-import { sideProjects } from "@/data/sideProjects"
+import { sideProjects, type SideProjectStatus } from "@/data/sideProjects"
 import SectionLabel from "@/components/common/SectionLabel"
 
-const statusLabel = {
+const statusLabel: Record<SideProjectStatus, string> = {
   live: "운영 중",
-  preparing: "배포 준비 중"
-} as const
+  local: "로컬 실행",
+  prototype: "프로토타입"
+}
 
 const SideProjectsSection = () => {
   const visible = sideProjects.filter((project) => project.published)
@@ -69,10 +70,10 @@ const Section = styled.section`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 2.4rem;
 
-  @media (max-width: 400px) {
+  @media (max-width: 720px) {
     grid-template-columns: 1fr;
   }
 `
@@ -113,7 +114,7 @@ const Name = styled.h3`
   font-weight: 700;
 `
 
-const Status = styled.span<{ $status: "live" | "preparing" }>`
+const Status = styled.span<{ $status: SideProjectStatus }>`
   font-size: 1.2rem;
   font-weight: 700;
   padding: 0.2rem 0.8rem;

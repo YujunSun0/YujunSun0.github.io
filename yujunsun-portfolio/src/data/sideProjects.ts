@@ -1,9 +1,13 @@
 import deepdevMain from "@assets/projects/deepdev/01-main-deepdev.png"
 import blogMain from "@assets/projects/blog/01-main-tech.png"
+import audioStudioMain from "@assets/projects/audio-studio/01-main-audio-studio.png"
+import onginoteLogin from "@assets/projects/onginote/01-login-onginote.png"
+
+export type SideProjectStatus = "live" | "local" | "prototype"
 
 export interface SideProject {
   name: string
-  status: "live" | "preparing"
+  status: SideProjectStatus
   description: string
   stack: string
   image?: { src: string; alt: string }
@@ -37,17 +41,22 @@ export const sideProjects: SideProject[] = [
     published: true
   },
   {
-    name: "audio-studio",
-    status: "preparing",
-    description: "",
-    stack: "",
-    published: false
+    name: "Audio Studio",
+    status: "local",
+    description:
+      "YouTube 링크 하나로 MP3 추출과 AI 보컬 분리까지 처리하는 로컬 웹앱. fp16·overlap 튜닝으로 분리 속도를 약 4배 높였고, SSE 진행률 표시와 Web Audio API 기반 트랙 믹서를 직접 구현했습니다.",
+    stack: "React · TypeScript · FastAPI · PyTorch · Web Audio API",
+    image: { src: audioStudioMain, alt: "Audio Studio 메인 화면" },
+    githubUrl: "https://github.com/YujunSun0/audio-studio",
+    published: true
   },
   {
-    name: "onginote",
-    status: "preparing",
-    description: "",
-    stack: "",
-    published: false
+    name: "온기노트",
+    status: "prototype",
+    description:
+      "캐릭터와 함께하는 연애·인간관계 고민 상담 웹앱. 메시지마다 답변 모드를 판단하는 2단계 LLM 구조를 설계했고, 프롬프트 캐싱과 사용량 한도로 비용을 관리하며 Supabase RLS로 본인 데이터만 접근하도록 했습니다.",
+    stack: "Next.js · TypeScript · Supabase · Claude API",
+    image: { src: onginoteLogin, alt: "온기노트 로그인 화면" },
+    published: true
   }
 ]
