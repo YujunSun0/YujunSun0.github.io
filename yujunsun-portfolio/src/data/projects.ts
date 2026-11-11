@@ -3,272 +3,352 @@ import sourcingGraph from "@assets/projects/sourcing/02-graph-sourcing.png"
 import blogQuizMain from "@assets/projects/blog-quiz/01-main-blog.png"
 import blogQuizResult from "@assets/projects/blog-quiz/02-result-blog.png"
 import blogQuizStrapi from "@assets/projects/blog-quiz/03-strapi-blog.png"
-import deepdevMain from "@assets/projects/deepdev/01-main-deepdev.png"
-import blogMain from "@assets/projects/blog/01-main-tech.png"
-import blogGallery from "@assets/projects/blog/02-gall-tech.png"
 
 export interface ProjectImage {
   src: string
   alt: string
-  caption?: string
+  caption: string
 }
 
-export interface ProjectData {
-  id: string
-  category: "company" | "side"
-  company?: string
-  name: string
+export interface DiagramNode {
+  title: string
+  description?: string
+}
+
+/** 화면 캡처가 없는 프로젝트는 구조도로 설명합니다. */
+export type ProjectDiagram =
+  | {
+      type: "before-after"
+      beforeLabel: string
+      before: DiagramNode[]
+      afterLabel: string
+      after: DiagramNode[]
+      caption: string
+    }
+  | {
+      type: "flow"
+      steps: DiagramNode[]
+      caption: string
+    }
+
+export type TaskStepLabel = "상황" | "문제" | "판단" | "구현" | "해결" | "결과"
+
+export interface ProjectTask {
+  title: string
+  steps: Array<{ label: TaskStepLabel; text: string }>
+}
+
+export interface ProjectMetaItem {
+  label: string
+  lines: string[]
+}
+
+export interface ProjectDetail {
+  slug: string
+  company: string
   period: string
-  description: string
-  details: string[]
-  techStack: string[]
-  siteUrl?: string
-  githubUrl?: string
-  /** 스크린샷 1~5장. 없으면 카드/모달은 텍스트만 표시 */
+  name: string
+  /** 목록에 보이는 한 줄 성과 */
+  outcome: string
+  /** 목록에 보이는 한 줄 설명 */
+  summary: string
+  /** 상세 페이지 상단 도입 문단 */
+  lead: string
+  meta: ProjectMetaItem[]
   images?: ProjectImage[]
-  /** 카드 썸네일. 없으면 images[0] 사용 */
-  thumbnail?: string
+  diagram?: ProjectDiagram
+  tasks: ProjectTask[]
+  /** 아직 작성하지 않았다면 비워두면 섹션이 숨겨집니다. */
+  learnings?: string
 }
 
-/** 이미지가 있는 프로젝트만 true — 카드/모달에서 공통 사용 */
-export const hasProjectImages = (
-  project: ProjectData
-): project is ProjectData & { images: ProjectImage[] } =>
-  Array.isArray(project.images) && project.images.length > 0
-
-export const getProjectThumbnail = (project: ProjectData): string | null => {
-  if (project.thumbnail) return project.thumbnail
-  if (hasProjectImages(project)) return project.images[0].src
-  return null
-}
-
-/*
-  이미지 추가 예시:
-
-  import openMarketMain from "@assets/projects/open-market/01-main.webp"
-  import openMarketCart from "@assets/projects/open-market/02-cart.webp"
-
+export const projectDetails: ProjectDetail[] = [
   {
-    id: "open-market",
-    ...
+    slug: "partner-platform",
+    company: "주식회사 토탈셀러",
+    period: "2025.05 – 2026.03",
+    name: "협업체 상담 신청 플랫폼",
+    outcome: "30+ 파트너사 상담 페이지를 하나로 통합, 온보딩 리드타임 90% 단축",
+    summary:
+      "파트너별로 따로 만들던 페이지를 동적 라우팅·서브도메인 기반으로 합쳐, 신규 파트너 추가 시 개발 작업을 없앴습니다.",
+    lead: "30개 이상의 파트너사가 각자 따로 운영하던 상담 신청 페이지를 하나의 플랫폼으로 통합했습니다. 신규 파트너를 추가할 때마다 반복되던 개발 작업을 없애, 온보딩 리드타임을 90% 줄였습니다.",
+    meta: [
+      { label: "역할", lines: ["프론트엔드 개발"] },
+      { label: "성과", lines: ["온보딩 리드타임 90% 단축", "파트너 30+ 통합"] },
+      { label: "기술", lines: ["Next.js, TypeScript,", "Tailwind CSS"] },
+      { label: "서비스", lines: ["운영 종료", "화면 대신 구조도로 설명"] },
+    ],
+    diagram: {
+      type: "before-after",
+      beforeLabel: "BEFORE · 파트너마다 별도 페이지",
+      before: [
+        { title: "파트너 A 상담 페이지", description: "개별 개발·배포" },
+        { title: "파트너 B 상담 페이지", description: "개별 개발·배포" },
+        { title: "… 30개 이상", description: "추가할 때마다 개발 작업 반복" },
+      ],
+      afterLabel: "AFTER · 하나의 플랫폼",
+      after: [
+        { title: "파트너 설정", description: "파트너별로 다른 부분만 데이터로 관리" },
+        { title: "단일 Next.js 앱", description: "동적 라우팅으로 파트너별 화면 생성" },
+        { title: "서브도메인", description: "파트너마다 고유 주소로 접속" },
+      ],
+      caption:
+        "신규 파트너는 설정만 추가하면 페이지가 생깁니다. 서비스가 종료되어 화면 캡처 대신 구조로 설명합니다.",
+    },
+    tasks: [
+      {
+        title: "반복되던 파트너 페이지 개발을 설정으로 바꾸기",
+        steps: [
+          {
+            label: "상황",
+            text: "파트너사마다 상담 신청 페이지를 따로 만들어 운영했습니다. 내용은 거의 같은데도 새 파트너가 생길 때마다 페이지를 새로 만들고 배포하는 개발 작업이 반복됐습니다.",
+          },
+          {
+            label: "판단",
+            text: "파트너별로 달라지는 부분만 데이터로 분리하면, 페이지 자체는 하나로 유지할 수 있다고 판단했습니다.",
+          },
+          {
+            label: "구현",
+            text: "동적 라우팅과 서브도메인을 활용해 하나의 앱이 파트너별 상담 페이지를 만들도록 구성했습니다.",
+          },
+          {
+            label: "결과",
+            text: "신규 파트너 추가 시 개발 작업이 사라져 온보딩 리드타임 90% 단축, 30개 이상 파트너를 한 곳에서 운영",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "content-management",
+    company: "주식회사 토탈셀러",
+    period: "2025.11 – 2026.01",
+    name: "콘텐츠 관리 시스템",
+    outcome: "개발팀 의존 없이 운영자가 직접 관리, 콘텐츠 반영 리드타임 50% 단축",
+    summary: "Strapi 기반 CMS와 권한 체계를 설계·구현하고, 블로그 퀴즈·캠페인 운영에 적용했습니다.",
+    lead: "개발팀에 요청해야만 바꿀 수 있던 콘텐츠를 운영자가 직접 관리할 수 있도록 Strapi 기반 CMS를 도입했습니다. 이를 바탕으로 블로그 퀴즈·캠페인을 웹에서 진행하고 결과를 집계하는 서비스를 만들었습니다.",
+    meta: [
+      { label: "역할", lines: ["프론트엔드 개발", "CMS 설계·구축"] },
+      { label: "성과", lines: ["콘텐츠 반영 리드타임 50% 단축"] },
+      { label: "기술", lines: ["Next.js, TypeScript,", "Strapi, Playwright, k6"] },
+      { label: "서비스", lines: ["운영 종료", "아래는 운영 당시 캡처"] },
+    ],
     images: [
-      { src: openMarketMain, alt: "오픈몰 메인", caption: "메인 페이지" },
-      { src: openMarketCart, alt: "장바구니", caption: "장바구니/결제" },
+      { src: blogQuizStrapi, alt: "Strapi 퀴즈 등록 화면", caption: "Strapi — 운영자가 직접 퀴즈 등록" },
+      { src: blogQuizMain, alt: "블로그 퀴즈 메인 페이지", caption: "퀴즈 메인" },
+      { src: blogQuizResult, alt: "블로그 퀴즈 결과 페이지", caption: "결과 페이지" },
     ],
-  }
-*/
-
-export const projectsData: ProjectData[] = [
-  {
-    id: "totalseller-migration",
-    category: "company",
-    company: "주식회사 토탈셀러",
-    name: "토탈셀러 마이그레이션",
-    period: "2025.05 ~ 2026.03",
-    description:
-      "PHP 기반 레거시 서비스를 Next.js(App Router) + TypeScript로 전면 마이그레이션",
-    details: [
-      "페이지 특성에 따라 SSR, RSC, CSR 렌더링 전략을 분리 적용하여 사용자 경험과 데이터 처리 효율 최적화",
-      "공통 레이아웃 및 데이터 패칭 구조 표준화로 유지보수 복잡도 감소",
+    tasks: [
+      {
+        title: "콘텐츠 수정의 개발 의존 없애기",
+        steps: [
+          {
+            label: "상황",
+            text: "콘텐츠를 바꾸려면 개발팀에 요청하고 배포를 기다려야 해서, 운영 일정이 개발 일정에 묶여 있었습니다.",
+          },
+          {
+            label: "구현",
+            text: "Headless CMS(Strapi)를 도입하고, 운영자가 맡은 콘텐츠만 다룰 수 있도록 권한 체계를 설계·구현했습니다.",
+          },
+          {
+            label: "결과",
+            text: "콘텐츠 수정의 개발 의존성을 없애 콘텐츠 반영 리드타임 50% 단축",
+          },
+        ],
+      },
+      {
+        title: "등록한 퀴즈를 배포 없이 바로 반영하기",
+        steps: [
+          {
+            label: "구현",
+            text: "퀴즈 페이지를 force-dynamic SSR로 구성해, Strapi에서 활성화한 퀴즈가 별도 배포 없이 바로 반영되도록 했습니다.",
+          },
+          {
+            label: "구현",
+            text: "Playwright 시나리오 테스트와 k6 동시 접속 약 2,000명 부하 테스트 가이드를 만들어, 캠페인 오픈 전에 주요 흐름과 부하를 검증할 수 있게 했습니다.",
+          },
+        ],
+      },
     ],
-    techStack: ["Next.js", "TypeScript", "TailwindCSS", "zustand", "TanStack Query"],
   },
   {
-    id: "partner-centralization",
-    category: "company",
+    slug: "seldoc-subscription",
     company: "주식회사 토탈셀러",
-    name: "협업체 상담 신청 페이지 중앙화",
-    period: "2025.05 ~ 2026.03",
-    description:
-      "파트너사별로 개별 운영되던 30개 이상의 상담 신청 페이지를 단일 플랫폼으로 통합",
-    details: [
-      "동적 라우팅 및 서브도메인 구조를 활용하여 신규 파트너 추가 시 개발 작업 없이 확장 가능한 구조 설계",
-      "신규 사이트 제작 시간을 5시간 → 5분 이내로 약 96% 단축",
-    ],
-    techStack: ["Next.js", "TypeScript", "TailwindCSS"],
-  },
-  {
-    id: "open-market",
-    category: "company",
-    company: "주식회사 토탈셀러",
-    name: "오픈/중개몰 서비스",
-    period: "2025.11 ~ 2026.03",
-    description: "셀러 입점 기반 마켓플레이스 구축",
-    details: [
-      "장바구니/결제 전환 구간에서 중복 요청을 UI 단계에서 차단하고 재고·구매제한 위반을 사전 보정",
-      "옵션/수량 단계에서 실시간 한도 안내로 결제 실패 및 이탈 부담 완화",
-      "자동완성 디바운싱, 무한 스크롤 조건 분리로 검색 UX 최적화",
-    ],
-    techStack: ["Next.js", "TypeScript", "TailwindCSS", "zustand", "TanStack Query"],
-  },
-  {
-    id: "seldoc-subscription",
-    category: "company",
-    company: "주식회사 토탈셀러",
+    period: "2025.05 – 2026.03",
     name: "셀독 구독·결제 서비스",
-    period: "2025.05 ~ 2026.03",
-    description: "셀러를 위한 광고·운영 대행형 구독 서비스",
-    details: [
-      "레거시 PHP 구간 할인·쿠폰·부가세 계산을 이식하여 견적·실청구 불일치 리스크 감소",
-      "빌링키 기반 최초/재결제 분기 처리 및 아임포트 스크립트 지연 로딩 캡슐화",
-      "최근 구독 생성 시각 기준 단시간 중복 결제 방지",
+    outcome: "PHP에 흩어진 가격 계산을 React로 이관해 견적·실결제 금액 불일치 방지",
+    summary:
+      "쿠폰 검증 API와 같은 기준으로 계산하도록 구성하고, 빌링키 정기결제와 중복 결제 방지를 구현했습니다.",
+    lead: "셀러를 위한 광고·운영 대행형 구독 서비스입니다. 레거시 PHP에 흩어져 있던 할인·쿠폰·부가세 계산을 분석해 React로 옮기고, 견적 금액과 실제 결제 금액이 어긋나지 않도록 계산 기준을 하나로 맞췄습니다.",
+    meta: [
+      { label: "역할", lines: ["프론트엔드 개발"] },
+      { label: "성과", lines: ["견적·실결제 불일치 방지", "중복 결제 방지"] },
+      { label: "기술", lines: ["Next.js, TypeScript,", "Tailwind CSS, 아임포트"] },
+      { label: "서비스", lines: ["운영 종료", "화면 대신 구조도로 설명"] },
     ],
-    techStack: ["Next.js", "TypeScript", "TailwindCSS", "아임포트"],
+    diagram: {
+      type: "before-after",
+      beforeLabel: "BEFORE · 계산 기준이 여러 곳",
+      before: [
+        { title: "PHP 여러 구간", description: "할인·쿠폰·부가세 계산이 분산" },
+        { title: "화면의 견적 금액", description: "서버 검증과 계산 기준이 다를 수 있음" },
+        { title: "결과", description: "견적과 실제 결제 금액 불일치 위험" },
+      ],
+      afterLabel: "AFTER · 하나의 계산 기준",
+      after: [
+        { title: "React 계산 로직", description: "할인 → 쿠폰 → 부가세 순서로 이관" },
+        { title: "쿠폰 검증 API 기준", description: "서버 검증과 같은 기준으로 계산" },
+        { title: "결과", description: "보이는 견적 = 실제 결제 금액" },
+      ],
+      caption: "가격 계산을 한 곳으로 모으고, 서버 검증과 같은 기준을 따르도록 맞췄습니다.",
+    },
+    tasks: [
+      {
+        title: "견적 금액과 실제 결제 금액 맞추기",
+        steps: [
+          {
+            label: "상황",
+            text: "할인·쿠폰·부가세 계산이 레거시 PHP 여러 구간에 흩어져 있어, 화면에 보이는 견적과 실제 청구 금액이 어긋날 위험이 있었습니다.",
+          },
+          {
+            label: "구현",
+            text: "레거시 계산 로직을 분석해 React로 이관하고, 쿠폰 검증 API와 동일한 기준으로 계산하도록 구성했습니다.",
+          },
+          {
+            label: "결과",
+            text: "견적 금액과 실제 결제 금액의 불일치 방지",
+          },
+        ],
+      },
+      {
+        title: "정기결제와 중복 결제 방지",
+        steps: [
+          {
+            label: "구현",
+            text: "빌링키 기반으로 최초 결제와 재결제를 분기 처리하고, 아임포트 스크립트 지연 로딩을 하나의 모듈로 캡슐화했습니다.",
+          },
+          {
+            label: "구현",
+            text: "최근 구독 생성 시각을 기준으로 짧은 시간 안의 중복 결제 요청을 막았습니다.",
+          },
+        ],
+      },
+    ],
   },
   {
-    id: "blog-quiz-campaign",
-    category: "company",
+    slug: "keyword-analysis",
     company: "주식회사 토탈셀러",
-    name: "블로그 퀴즈 · 캠페인 운영 도구",
-    period: "2025.11 ~ 2026.01",
-    description:
-      "시의성 있는 활동을 웹에서 진행·집계하고, 운영이 결과를 확인·공유할 수 있는 서비스",
-    details: [
-      "Headless CMS(Strapi) 도입으로 마케팅팀 자체 콘텐츠 관리 환경 구축",
-      "force-dynamic SSR로 Strapi 활성 퀴즈를 실시간 반영",
-      "Playwright 시나리오 테스트 + k6 동시 접속 약 2,000명 부하 테스트 가이드 구축",
-    ],
-    techStack: ["Next.js", "TypeScript", "Strapi", "Playwright", "k6"],
-    images: [
-      {
-        src: blogQuizStrapi,
-        alt: "블로그 퀴즈 Strapi 등록 화면",
-        caption: "Strapi CMS 등록",
-      },
-      {
-        src: blogQuizMain,
-        alt: "블로그 퀴즈 메인 페이지",
-        caption: "메인 페이지",
-      },
-      {
-        src: blogQuizResult,
-        alt: "블로그 퀴즈 결과 페이지",
-        caption: "결과 페이지",
-      },
-    ],
-  },
-  {
-    id: "totalsourcing",
-    category: "company",
-    company: "주식회사 토탈셀러",
-    name: "토탈소싱기",
     period: "2025.11",
-    description: "네이버/쿠팡 키워드 검색량 및 경쟁도 분석 프로그램",
-    details: [
-      "네이버 DataLab/검색광고 API + 쿠팡 크롤링 서버(FastAPI) 연동",
-      "TanStack Query 캐싱(5분) + Redis 백엔드 캐싱으로 API 호출 최적화",
-      "최근 검색 기록 LocalStorage 저장 및 비동기 폴링 구조 적용",
+    name: "마케팅 키워드 분석 서비스",
+    outcome: "캐시 우선 조회와 비동기 폴링으로 중복 크롤링 요청 감소",
+    summary: "네이버·쿠팡 데이터로 상품 키워드의 검색량과 경쟁도를 분석하는 서비스를 구축했습니다.",
+    lead: "네이버·쿠팡 데이터로 상품 키워드의 검색량과 경쟁도를 분석하는 서비스입니다. 캐시 우선 조회로 중복 크롤링 요청을 줄이고, 오래 걸리는 분석은 비동기 폴링으로 추적해 사용자가 이탈 없이 결과를 받도록 만들었습니다.",
+    meta: [
+      { label: "역할", lines: ["프론트엔드 개발"] },
+      { label: "성과", lines: ["중복 크롤링 요청 감소"] },
+      { label: "기술", lines: ["Next.js, TypeScript,", "TanStack Query, FastAPI"] },
+      { label: "서비스", lines: ["운영 종료", "아래는 운영 당시 캡처"] },
     ],
-    techStack: ["Next.js", "TypeScript", "TanStack Query", "FastAPI"],
     images: [
+      { src: sourcingHome, alt: "키워드 분석 서비스 메인 화면", caption: "메인 — 키워드 입력과 최근 검색 기록" },
+      { src: sourcingGraph, alt: "키워드 분석 결과 화면", caption: "결과 — 검색량 추이와 경쟁도" },
+    ],
+    tasks: [
       {
-        src: sourcingHome,
-        alt: "토탈소싱기 메인 페이지",
-        caption: "메인 페이지",
+        title: "같은 키워드를 매번 다시 크롤링하지 않기",
+        steps: [
+          {
+            label: "상황",
+            text: "쿠팡 데이터는 크롤링 서버(FastAPI)를 거쳐 가져와야 해서, 같은 키워드를 반복 조회할 때마다 크롤링이 새로 실행됐습니다.",
+          },
+          {
+            label: "판단",
+            text: "키워드 지표는 짧은 시간 안에 크게 바뀌지 않는다고 보고, 최신 데이터보다 캐시를 먼저 확인하는 방식을 택했습니다.",
+          },
+          {
+            label: "구현",
+            text: "클라이언트는 TanStack Query로 5분간 캐시하고, 백엔드는 Redis 캐시를 두어 캐시가 있으면 크롤링 없이 응답하게 했습니다. 네이버 DataLab·검색광고 API와 쿠팡 크롤링 서버를 연동하고, 최근 검색 기록은 LocalStorage에 남겼습니다.",
+          },
+          {
+            label: "결과",
+            text: "중복 크롤링 요청 감소",
+          },
+        ],
       },
       {
-        src: sourcingGraph,
-        alt: "토탈소싱기 검색 결과 페이지",
-        caption: "검색 결과",
+        title: "오래 걸리는 분석을 기다리게 만들지 않기",
+        steps: [
+          {
+            label: "상황",
+            text: "크롤링이 포함된 분석은 시간이 걸려, 요청 하나로 결과를 기다리면 사용자가 이탈할 수 있었습니다.",
+          },
+          {
+            label: "구현",
+            text: "분석 작업의 완료 여부를 주기적으로 확인하는 비동기 폴링 구조를 설계했습니다.",
+          },
+          {
+            label: "결과",
+            text: "분석 완료 여부를 안정적으로 추적하고, 사용자가 화면을 떠나지 않고 결과를 확인",
+          },
+        ],
       },
     ],
   },
   {
-    id: "lecture-service",
-    category: "company",
+    slug: "seller-marketplace",
     company: "주식회사 토탈셀러",
-    name: "온라인/오프라인 강의 서비스",
-    period: "2025.12 ~ 2026.01",
-    description:
-      "셀러 교육 강의를 결제 신청으로 받고, 유형별로 오프라인·ZOOM·VOD 수강까지 이어주는 서비스",
-    details: [
-      "ReactPlayer 기반 커스텀 플레이어에서 시청 구간 API 동기화 및 이어보기 구현",
-      "아임포트 일회성 카드 결제 처리 및 쿠폰 할인율 반영 UX 구현",
+    period: "2025.11 – 2026.03",
+    name: "셀러 입점형 온라인 쇼핑몰",
+    outcome: "주문·재고 검증과 화면 상태를 함께 설계해 구매 흐름 안정성 향상",
+    summary:
+      "상품 조회·구매부터 주문 관리, 관리자 페이지, 셀러 입점까지 쇼핑몰 전반의 기능을 개발했습니다.",
+    lead: "상품을 판매하는 셀러가 입점하고 고객이 상품을 구매하는 쇼핑몰입니다. 상품 조회·구매부터 주문 관리, 관리자 페이지, 셀러 입점까지 사용자·관리자 기능 전반을 개발했고, 장바구니·결제 구간에서 주문 정보가 어긋나지 않도록 검증 로직과 화면 상태를 함께 설계했습니다.",
+    meta: [
+      { label: "역할", lines: ["프론트엔드 개발", "사용자·관리자 화면 전반"] },
+      { label: "성과", lines: ["구매 흐름 안정성 향상"] },
+      { label: "기술", lines: ["Next.js, TypeScript,", "Zustand, TanStack Query"] },
+      { label: "서비스", lines: ["운영 종료", "화면 대신 구조도로 설명"] },
     ],
-    techStack: ["Next.js", "TypeScript", "ReactPlayer", "아임포트"],
-  },
-  {
-    id: "holomedia",
-    category: "company",
-    company: "(주)혜안파트너스",
-    name: "HOLOMEDIA 플랫폼",
-    period: "2024.12 ~ 2025.05",
-    description: "크리에이터·팬 미디어 플랫폼 프론트엔드 전담 개발",
-    details: [
-      "React + TypeScript + Vite 기반 SPA 구조로 플랫폼 구축",
-      "HLS 스트리밍 플레이어 구현 (브라우저별 처리 분리, 자동 복구 로직)",
-      "NICE 본인인증 + postMessage 연동, 단계적 접근 제어 구조",
-      "Masonry 그리드 기반 영상·업로더 카드 혼합 피드 설계",
-      "i18next 기반 4개 언어(ko/en/jp/zh) 지원",
-      "Firebase Storage 기반 미디어 업로드 구현",
-    ],
-    techStack: [
-      "React",
-      "TypeScript",
-      "Vite",
-      "Redux",
-      "i18next",
-      "Firebase",
-      "AWS S3",
-    ],
-  },
-  {
-    id: "deepdev",
-    category: "side",
-    name: "DeepDev",
-    period: "2026",
-    description:
-      "개념 그래프 기반 AI 학습 플랫폼 — 숙련도 측정부터 인증·결제·배포까지 E2E 구축",
-    details: [
-      "Next.js·NestJS·PostgreSQL 모노레포로 설계·구현하고 인증·결제·배포까지 end-to-end 구축",
-      "세션 오케스트레이터(상태 머신)로 설명→문제→평가 LLM 호출 흐름 제어",
-      "숙련도(Mastery)·GSI 정량 산출 후 약점 개념 추천·성장 대시보드에 반영",
-      "Google/GitHub OAuth, Lemon Squeezy 구독 결제, 플랜별 세션·토큰 한도를 서버에서 강제",
-    ],
-    techStack: [
-      "Next.js",
-      "NestJS",
-      "TypeScript",
-      "PostgreSQL",
-      "OAuth",
-      "Lemon Squeezy",
-    ],
-    images: [
+    diagram: {
+      type: "flow",
+      steps: [
+        { title: "옵션·수량 선택", description: "구매 한도를 실시간으로 안내" },
+        { title: "장바구니", description: "재고·구매제한 위반을 미리 보정" },
+        { title: "결제 요청", description: "중복 요청을 UI 단계에서 차단" },
+        { title: "주문 생성", description: "검증을 통과한 주문만 결제로 진행" },
+      ],
+      caption: "구매 흐름의 각 단계에서 어떤 검증을 했는지 보여줍니다.",
+    },
+    tasks: [
       {
-        src: deepdevMain,
-        alt: "DeepDev 메인 화면",
-        caption: "메인 페이지",
-      },
-    ],
-    siteUrl: "https://deepdev.info/",
-    githubUrl: "https://github.com/YujunSun0/DeepDev",
-  },
-  {
-    id: "personal-blog",
-    category: "side",
-    name: "개인 기술 블로그",
-    period: "2025.12",
-    description:
-      "Next.js·Supabase·Vercel로 구축한 운영형 개인 기술 블로그 (월 인프라 비용 0원)",
-    details: [
-      "기술 블로그·갤러리·관리자 CMS를 설계·구현하고 프로덕션 배포까지 완료",
-      "Supabase Auth + Middleware 기반 RBAC, Markdown 에디터/렌더링, 태그·댓글·앨범 CRUD API 구축",
-      "동적 sitemap·Open Graph·robots SEO 적용 및 조회수·D3 통계·검색·다크모드로 운영 고도화",
-    ],
-    techStack: ["Next.js", "TypeScript", "TailwindCSS", "Supabase", "Vercel", "D3"],
-    images: [
-      {
-        src: blogMain,
-        alt: "개인 기술 블로그 메인 페이지",
-        caption: "메인 페이지",
+        title: "장바구니·결제 구간에서 주문 정보가 어긋나지 않게 하기",
+        steps: [
+          {
+            label: "상황",
+            text: "장바구니에서 결제로 넘어가는 구간에서 요청이 중복되거나, 재고·구매제한과 맞지 않는 주문이 결제 단계까지 넘어갈 수 있었습니다.",
+          },
+          {
+            label: "구현",
+            text: "결제 전환 구간의 중복 요청을 UI 단계에서 차단하고, 재고·구매제한 위반은 결제 전에 미리 보정했습니다. 옵션·수량 단계에서는 구매 한도를 실시간으로 안내했습니다.",
+          },
+          {
+            label: "결과",
+            text: "결제 실패와 이탈 부담을 줄이고 구매 흐름의 안정성 향상",
+          },
+        ],
       },
       {
-        src: blogGallery,
-        alt: "개인 기술 블로그 갤러리 페이지",
-        caption: "갤러리",
+        title: "검색 UX 다듬기",
+        steps: [
+          {
+            label: "구현",
+            text: "자동완성에 디바운싱을 적용하고, 무한 스크롤의 다음 페이지 요청 조건을 분리해 불필요한 요청을 줄였습니다.",
+          },
+        ],
       },
     ],
-    siteUrl: "https://yujunsun.tech/",
-    githubUrl: "https://github.com/YujunSun0/Personal-Blog",
   },
 ]
+
+export const getProjectBySlug = (slug: string | undefined) =>
+  projectDetails.find((project) => project.slug === slug)

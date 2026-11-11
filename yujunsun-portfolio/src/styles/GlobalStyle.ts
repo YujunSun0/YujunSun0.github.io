@@ -5,85 +5,75 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
 
   :root {
-    --font-NotoSansKR: "NotoSansKR", "Apple SD Gothic Neo", "Malgun Gothic",
+    --font-sans: "NotoSansKR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui,
       sans-serif;
-    --font-JalnanGothic: "JalnanGothic", "NotoSansKR", "Apple SD Gothic Neo",
-      "Malgun Gothic", sans-serif;
 
-    --color-bg: #0f1114;
-    --color-bg-alt: #161a1e;
-    --color-bg-card: #1c2028;
-    --color-border: #2a2e35;
-    --color-primary: #7c5cfc;
-    --color-primary-light: #a78bfa;
-    --color-text: #e4e4e7;
-    --color-text-muted: #9ca3af;
-    --color-text-dim: #6b7280;
-    --color-white: #ffffff;
-    --color-accent-gradient: linear-gradient(135deg, #7c5cfc 0%, #a78bfa 100%);
+    --color-bg: #ffffff;
+    --color-surface: #f6f7f9;
+    --color-border: #e6e8ec;
+    --color-border-strong: #c9cdd4;
+    --color-text: #16181d;
+    --color-text-body: #3d424d;
+    --color-text-muted: #5f6673;
+    --color-accent: #2350d8;
+    --color-accent-strong: #163a9e;
+    --color-accent-soft: #eef2fd;
+    --color-success: #1d6b3a;
+    --color-success-soft: #e7f5ec;
+    --color-neutral-soft: #eef0f3;
 
-    --max-width: 1000px;
-
-    --bs-breakpoint-xs: 0;
-    --bs-breakpoint-sm: 576px;
-    --bs-breakpoint-md: 768px;
-    --bs-breakpoint-lg: 905px;
+    --max-width: 1080px;
+    --max-width-narrow: 880px;
+    --header-height: 6rem;
   }
 
   *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  *::-webkit-scrollbar {
-    display: none;
-  }
-
-  html, body {
+  html {
     font-size: 62.5%;
     scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + 1.6rem);
   }
 
   body {
-    overflow: scroll;
-    -ms-overflow-style: none;
     background-color: var(--color-bg);
-    font-family: var(--font-NotoSansKR);
+    font-family: var(--font-sans);
+    font-size: 1.6rem;
     color: var(--color-text);
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-NotoSansKR);
+  strong {
     font-weight: 700;
-    letter-spacing: 0;
-    line-height: 1.3;
   }
 
   a {
+    color: var(--color-accent);
     text-decoration: none;
-    color: inherit;
-  }
 
-  button {
-    cursor: pointer;
-    border: none;
-  }
-
-  @media (max-width: 905px) {
-    html {
-      font-size: 9px;
+    &:hover {
+      color: var(--color-accent-strong);
+      text-decoration: underline;
     }
   }
 
-  @media (max-width: 768px) {
-    html {
-      font-size: 8px;
-    }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
   }
 
-  @media (max-width: 576px) {
+  img {
+    max-width: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
     html {
-      font-size: 7px;
+      scroll-behavior: auto;
     }
   }
 `
