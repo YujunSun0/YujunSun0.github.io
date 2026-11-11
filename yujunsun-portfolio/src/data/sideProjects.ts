@@ -1,7 +1,7 @@
 import deepdevMain from "@assets/projects/deepdev/01-main-deepdev.png"
 import blogMain from "@assets/projects/blog/01-main-tech.png"
 import audioStudioMain from "@assets/projects/audio-studio/01-main-audio-studio.png"
-import onginoteLogin from "@assets/projects/onginote/01-login-onginote.png"
+import onginoteMain from "@assets/projects/onginote/01-main-onginote.png"
 
 export type SideProjectStatus = "live" | "local" | "prototype"
 
@@ -56,7 +56,10 @@ export const sideProjects: SideProject[] = [
     description:
       "캐릭터와 함께하는 연애·인간관계 고민 상담 웹앱. 메시지마다 답변 모드를 판단하는 2단계 LLM 구조를 설계했고, 프롬프트 캐싱과 사용량 한도로 비용을 관리하며 Supabase RLS로 본인 데이터만 접근하도록 했습니다.",
     stack: "Next.js · TypeScript · Supabase · Claude API",
-    image: { src: onginoteLogin, alt: "온기노트 로그인 화면" },
+    image: {
+      src: onginoteMain,
+      alt: "온기노트 상담 화면 — 상황 해석, 행동 플랜, 상담 정리 카드"
+    },
     published: true
   }
 ]
