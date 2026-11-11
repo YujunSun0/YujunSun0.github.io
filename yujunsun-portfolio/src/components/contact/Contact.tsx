@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import emailjs from "@emailjs/browser"
 import { styled } from "styled-components"
 import Spinner from "assets/Rolling2-1s-21px.gif"
@@ -66,7 +66,7 @@ const Contact = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const form = useRef<HTMLFormElement>(null)
-  const target = useRef(null)
+  const target = useRef<HTMLElement>(null)
   const navigate = useNavigate()
 
   const [observe, unobserve] = scrollIntersectionObserver(() => {
@@ -105,18 +105,20 @@ const Contact = () => {
     }
   }
 
-  const checkValues = useCallback(
-    debounce((vals: InputType) => {
-      const hasBlank = Object.values(vals).some((v) => v === "")
-      setIsDisabled(hasBlank)
-    }, 700),
+  const checkValues = useMemo(
+    () =>
+      debounce((vals: InputType) => {
+        const hasBlank = Object.values(vals).some((v) => v === "")
+        setIsDisabled(hasBlank)
+      }, 700),
     []
   )
 
   useEffect(() => {
-    if (target.current) observe(target.current)
+    const el = target.current
+    if (el) observe(el)
     return () => {
-      if (target.current) unobserve(target.current)
+      if (el) unobserve(el)
     }
   }, [])
 
