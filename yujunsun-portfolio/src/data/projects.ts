@@ -60,6 +60,8 @@ export interface ProjectDetail {
   tasks: ProjectTask[]
   /** 아직 작성하지 않았다면 비워두면 섹션이 숨겨집니다. */
   learnings?: string
+  /** 상세 페이지 상단에 표시할 외부 링크 (사이트, GitHub 등) */
+  links?: Array<{ label: string; href: string }>
 }
 
 export const projectDetails: ProjectDetail[] = [

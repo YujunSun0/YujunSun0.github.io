@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 import { sideProjects, type SideProjectStatus } from "@/data/sideProjects"
 import SectionLabel from "@/components/common/SectionLabel"
 
@@ -16,47 +17,73 @@ const SideProjectsSection = () => {
     <Section id="side" aria-labelledby="side-title">
       <SectionLabel id="side-title">개인 프로젝트</SectionLabel>
       <Grid>
-        {visible.map((project) => (
-          <Card key={project.name}>
-            {project.image ? (
-              <Thumb
-                src={project.image.src}
-                alt={project.image.alt}
-                loading="lazy"
-              />
-            ) : (
-              <ThumbPlaceholder aria-hidden="true" />
-            )}
-            <CardBody>
-              <TitleRow>
-                <Name>{project.name}</Name>
-                <Status $status={project.status}>
-                  {statusLabel[project.status]}
-                </Status>
-              </TitleRow>
-              <Desc>{project.description}</Desc>
-              {project.stack && <Stack>{project.stack}</Stack>}
-              {(project.siteUrl ?? project.githubUrl) && (
-                <Links>
-                  {project.siteUrl && (
-                    <a href={project.siteUrl} target="_blank" rel="noreferrer">
-                      사이트
-                    </a>
-                  )}
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      GitHub
-                    </a>
-                  )}
-                </Links>
+        {visible.map((project) => {
+          const detailPath = project.detailSlug
+            ? `/side-projects/${project.detailSlug}`
+            : undefined
+          const thumb = project.image ? (
+            <Thumb
+              src={project.image.src}
+              alt={project.image.alt}
+              loading="lazy"
+            />
+          ) : (
+            <ThumbPlaceholder aria-hidden="true" />
+          )
+
+          return (
+            <Card key={project.name}>
+              {detailPath ? (
+                <ThumbLink to={detailPath} tabIndex={-1} aria-hidden="true">
+                  {thumb}
+                </ThumbLink>
+              ) : (
+                thumb
               )}
-            </CardBody>
-          </Card>
-        ))}
+              <CardBody>
+                <TitleRow>
+                  <Name>
+                    {detailPath ? (
+                      <Link to={detailPath}>{project.name}</Link>
+                    ) : (
+                      project.name
+                    )}
+                  </Name>
+                  <Status $status={project.status}>
+                    {statusLabel[project.status]}
+                  </Status>
+                </TitleRow>
+                <Desc>{project.description}</Desc>
+                {project.stack && <Stack>{project.stack}</Stack>}
+                {(detailPath ?? project.siteUrl ?? project.githubUrl) && (
+                  <Links>
+                    {detailPath && (
+                      <DetailLink to={detailPath}>자세히 보기 →</DetailLink>
+                    )}
+                    {project.siteUrl && (
+                      <a
+                        href={project.siteUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        사이트
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        GitHub
+                      </a>
+                    )}
+                  </Links>
+                )}
+              </CardBody>
+            </Card>
+          )
+        })}
       </Grid>
     </Section>
   )
@@ -82,6 +109,19 @@ const Card = styled.article`
   border: 1px solid var(--color-border);
   border-radius: 14px;
   overflow: hidden;
+`
+
+const ThumbLink = styled(Link)`
+  display: block;
+  overflow: hidden;
+
+  > img {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover > img {
+    transform: scale(1.02);
+  }
 `
 
 const Thumb = styled.img`
@@ -112,6 +152,15 @@ const TitleRow = styled.div`
 const Name = styled.h3`
   font-size: 1.8rem;
   font-weight: 700;
+
+  > a {
+    color: var(--color-text);
+
+    &:hover {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+  }
 `
 
 const Status = styled.span<{ $status: SideProjectStatus }>`
@@ -148,4 +197,13 @@ const Links = styled.div`
   gap: 1.6rem;
   font-size: 1.4rem;
   font-weight: 700;
+`
+
+const DetailLink = styled(Link)`
+  color: var(--color-text);
+
+  &:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
 `

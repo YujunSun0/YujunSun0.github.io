@@ -13,7 +13,10 @@ function App() {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    if (!pathname.startsWith("/projects/")) document.title = DEFAULT_TITLE
+    const isDetail =
+      pathname.startsWith("/projects/") ||
+      pathname.startsWith("/side-projects/")
+    if (!isDetail) document.title = DEFAULT_TITLE
   }, [pathname])
 
   return (
@@ -22,7 +25,11 @@ function App() {
       <SiteHeader />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/projects/:slug" element={<ProjectPage />} />
+        <Route path="/projects/:slug" element={<ProjectPage kind="career" />} />
+        <Route
+          path="/side-projects/:slug"
+          element={<ProjectPage kind="side" />}
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <SiteFooter />

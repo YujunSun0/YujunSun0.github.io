@@ -1,16 +1,43 @@
 import { useEffect } from "react"
 import styled from "styled-components"
 import { Link, useParams } from "react-router-dom"
-import { getProjectBySlug, projectDetails } from "@/data/projects"
+import { projectDetails, type ProjectDetail } from "@/data/projects"
+import { sideProjectDetails } from "@/data/sideProjectDetails"
 import ProjectMeta from "@components/project/ProjectMeta"
 import ProjectGallery from "@components/project/ProjectGallery"
 import ProjectDiagram from "@components/project/ProjectDiagram"
 import ProjectTaskSection from "@components/project/ProjectTaskSection"
 import NotFoundPage from "@pages/not-found"
 
-const ProjectPage = () => {
+type ProjectKind = "career" | "side"
+
+const KIND_CONFIG: Record<
+  ProjectKind,
+  {
+    list: ProjectDetail[]
+    basePath: string
+    listPath: string
+    listLabel: string
+  }
+> = {
+  career: {
+    list: projectDetails,
+    basePath: "/projects",
+    listPath: "/#career",
+    listLabel: "전체 경력"
+  },
+  side: {
+    list: sideProjectDetails,
+    basePath: "/side-projects",
+    listPath: "/#side",
+    listLabel: "개인 프로젝트"
+  }
+}
+
+const ProjectPage = ({ kind = "career" }: { kind?: ProjectKind }) => {
   const { slug } = useParams()
-  const project = getProjectBySlug(slug)
+  const { list, basePath, listPath, listLabel } = KIND_CONFIG[kind]
+  const project = list.find((item) => item.slug === slug)
 
   useEffect(() => {
     if (project) document.title = `${project.name} | 선유준 포트폴리오`
@@ -18,16 +45,16 @@ const ProjectPage = () => {
 
   if (!project) return <NotFoundPage />
 
-  const index = projectDetails.indexOf(project)
-  const prev = projectDetails[index - 1]
-  const next = projectDetails[index + 1]
+  const index = list.indexOf(project)
+  const prev = list[index - 1]
+  const next = list[index + 1]
 
   return (
     <Main>
       <TopBar>
-        <Link to="/#career">← 전체 경력</Link>
+        <Link to={listPath}>← {listLabel}</Link>
         <Counter>
-          프로젝트 {index + 1} / {projectDetails.length}
+          프로젝트 {index + 1} / {list.length}
         </Counter>
       </TopBar>
 
@@ -36,6 +63,20 @@ const ProjectPage = () => {
       </Eyebrow>
       <Title>{project.name}</Title>
       <Lead>{project.lead}</Lead>
+      {project.links && project.links.length > 0 && (
+        <ExternalLinks>
+          {project.links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {link.label} ↗
+            </a>
+          ))}
+        </ExternalLinks>
+      )}
 
       <ProjectMeta items={project.meta} />
       {project.images && project.images.length > 0 && (
@@ -56,25 +97,25 @@ const ProjectPage = () => {
 
       <Pager aria-label="프로젝트 이동">
         {prev ? (
-          <PagerLink to={`/projects/${prev.slug}`}>
+          <PagerLink to={`${basePath}/${prev.slug}`}>
             <span>← 이전 프로젝트</span>
             <strong>{prev.name}</strong>
           </PagerLink>
         ) : (
-          <PagerLink to="/#career">
+          <PagerLink to={listPath}>
             <span>← 목록</span>
-            <strong>전체 경력</strong>
+            <strong>{listLabel}</strong>
           </PagerLink>
         )}
         {next ? (
-          <PagerLink to={`/projects/${next.slug}`} $alignEnd>
+          <PagerLink to={`${basePath}/${next.slug}`} $alignEnd>
             <span>다음 프로젝트 →</span>
             <strong>{next.name}</strong>
           </PagerLink>
         ) : (
-          <PagerLink to="/#career" $alignEnd>
+          <PagerLink to={listPath} $alignEnd>
             <span>목록 →</span>
-            <strong>전체 경력</strong>
+            <strong>{listLabel}</strong>
           </PagerLink>
         )}
       </Pager>
@@ -131,6 +172,30 @@ const Lead = styled.p`
 
   @media (max-width: 720px) {
     font-size: 1.6rem;
+  }
+`
+
+const ExternalLinks = styled.div`
+  margin-top: 2.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  > a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.9rem 1.6rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text);
+
+    &:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+      text-decoration: none;
+    }
   }
 `
 

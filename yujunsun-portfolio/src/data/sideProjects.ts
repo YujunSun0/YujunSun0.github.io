@@ -13,6 +13,8 @@ export interface SideProject {
   image?: { src: string; alt: string }
   siteUrl?: string
   githubUrl?: string
+  /** 상세 페이지 slug (src/data/sideProjectDetails.ts) */
+  detailSlug?: string
   /** false면 화면에 표시하지 않습니다. 내용을 채운 뒤 true로 바꾸세요. */
   published: boolean
 }
@@ -27,6 +29,7 @@ export const sideProjects: SideProject[] = [
     image: { src: deepdevMain, alt: "DeepDev 메인 화면" },
     siteUrl: "https://deepdev.info/",
     githubUrl: "https://github.com/YujunSun0/DeepDev",
+    detailSlug: "deepdev",
     published: true
   },
   {
@@ -38,6 +41,7 @@ export const sideProjects: SideProject[] = [
     image: { src: blogMain, alt: "개인 기술 블로그 메인 화면" },
     siteUrl: "https://yujunsun.tech/",
     githubUrl: "https://github.com/YujunSun0/Personal-Blog",
+    detailSlug: "tech-blog",
     published: true
   },
   {
@@ -48,6 +52,7 @@ export const sideProjects: SideProject[] = [
     stack: "React · TypeScript · FastAPI · PyTorch · Web Audio API",
     image: { src: audioStudioMain, alt: "Audio Studio 메인 화면" },
     githubUrl: "https://github.com/YujunSun0/audio-studio",
+    detailSlug: "audio-studio",
     published: true
   },
   {
@@ -56,6 +61,7 @@ export const sideProjects: SideProject[] = [
     description:
       "캐릭터와 함께하는 연애·인간관계 고민 상담 웹앱. 메시지마다 답변 모드를 판단하는 2단계 LLM 구조를 설계했고, 프롬프트 캐싱과 사용량 한도로 비용을 관리하며 Supabase RLS로 본인 데이터만 접근하도록 했습니다.",
     stack: "Next.js · TypeScript · Supabase · Claude API",
+    detailSlug: "onginote",
     image: {
       src: onginoteMain,
       alt: "온기노트 상담 화면 — 상황 해석, 행동 플랜, 상담 정리 카드"
