@@ -1,20 +1,10 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import tsconfigPaths from "vite-tsconfig-paths";
-import path from "path";
 
 export default defineConfig({
-  // base: "/",
-  plugins: [react(), tsconfigPaths()],
+  plugins: [react()],
   resolve: {
-    alias: [
-      { find: "@", replacement: path.resolve(__dirname, "src") },
-      { find: "@pages", replacement: path.resolve(__dirname, "src/pages") },
-      { find: "@assets", replacement: path.resolve(__dirname, "src/assets") },
-      {
-        find: "@components",
-        replacement: path.resolve(__dirname, "src/components"),
-      },
-    ],
+    // tsconfig.path.json의 paths(@/*, @assets/*, @components/*, @pages/*)를 그대로 사용
+    tsconfigPaths: true,
   },
 });
