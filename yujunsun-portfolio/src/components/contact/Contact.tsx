@@ -87,10 +87,10 @@ const Contact = () => {
     if (form.current) {
       emailjs
         .send(
-          `${import.meta.env.VITE_SERVICE_ID || process.env.REACT_APP_SERVICE_ID}`,
-          `${import.meta.env.VITE_TEMPLATE_ID || process.env.REACT_APP_TEMPLATE_ID}`,
+          import.meta.env.VITE_SERVICE_ID,
+          import.meta.env.VITE_TEMPLATE_ID,
           values,
-          `${import.meta.env.VITE_PUBLIC_KEY || process.env.REACT_APP_PUBLIC_KEY}`
+          import.meta.env.VITE_PUBLIC_KEY
         )
         .then(() => {
           setIsLoading(false)
