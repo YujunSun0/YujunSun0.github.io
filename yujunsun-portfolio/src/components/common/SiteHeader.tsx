@@ -6,7 +6,7 @@ const navItems = [
   { label: "경력", hash: "career" },
   { label: "개인 프로젝트", hash: "side" },
   { label: "기술", hash: "skills" },
-  { label: "글", hash: "writing" },
+  { label: "글", hash: "writing" }
 ]
 
 const SiteHeader = () => {

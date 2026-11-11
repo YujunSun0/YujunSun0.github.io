@@ -5,7 +5,12 @@ const ProjectGallery = ({ images }: { images: ProjectImage[] }) => (
   <Grid>
     {images.map((image) => (
       <Figure key={image.src}>
-        <ImageLink href={image.src} target="_blank" rel="noreferrer" aria-label={`${image.caption} 원본 보기`}>
+        <ImageLink
+          href={image.src}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${image.caption} 원본 보기`}
+        >
           <Image src={image.src} alt={image.alt} loading="lazy" />
         </ImageLink>
         <Caption>{image.caption}</Caption>

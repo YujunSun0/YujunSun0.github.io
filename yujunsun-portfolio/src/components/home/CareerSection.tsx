@@ -27,7 +27,9 @@ const CompanyBlock = ({ company }: { company: Company }) => {
         <CompanyPeriod>
           {company.period} · {company.position}
         </CompanyPeriod>
-        {company.description && <CompanyDesc>{company.description}</CompanyDesc>}
+        {company.description && (
+          <CompanyDesc>{company.description}</CompanyDesc>
+        )}
         {company.stack && <CompanyStack>{company.stack}</CompanyStack>}
       </CompanySide>
 
@@ -51,7 +53,9 @@ const CompanyBlock = ({ company }: { company: Company }) => {
 
         {company.bullets && company.bullets.length > 0 && (
           <BulletBlock $withProjects={projects.length > 0}>
-            {company.bulletsLabel && <BulletLabel>{company.bulletsLabel}</BulletLabel>}
+            {company.bulletsLabel && (
+              <BulletLabel>{company.bulletsLabel}</BulletLabel>
+            )}
             <Bullets>
               {company.bullets.map((bullet) => (
                 <li key={bullet.text}>

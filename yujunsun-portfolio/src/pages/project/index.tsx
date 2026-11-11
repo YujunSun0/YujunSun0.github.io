@@ -38,7 +38,9 @@ const ProjectPage = () => {
       <Lead>{project.lead}</Lead>
 
       <ProjectMeta items={project.meta} />
-      {project.images && project.images.length > 0 && <ProjectGallery images={project.images} />}
+      {project.images && project.images.length > 0 && (
+        <ProjectGallery images={project.images} />
+      )}
       {project.diagram && <ProjectDiagram diagram={project.diagram} />}
 
       {project.tasks.map((task, taskIndex) => (

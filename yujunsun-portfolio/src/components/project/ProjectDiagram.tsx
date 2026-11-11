@@ -2,7 +2,17 @@ import styled from "styled-components"
 import type { DiagramNode, ProjectDiagram as Diagram } from "@/data/projects"
 
 const ArrowIcon = () => (
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <path d="M5 12h14" />
     <path d="M13 6l6 6-6 6" />
   </svg>
@@ -91,7 +101,8 @@ const ColumnLabel = styled.p<{ $accent?: boolean }>`
   margin-bottom: 1.4rem;
   font-size: 1.3rem;
   font-weight: 700;
-  color: ${(props) => (props.$accent ? "var(--color-accent)" : "var(--color-text-muted)")};
+  color: ${(props) =>
+    props.$accent ? "var(--color-accent)" : "var(--color-text-muted)"};
 `
 
 const Nodes = styled.div`

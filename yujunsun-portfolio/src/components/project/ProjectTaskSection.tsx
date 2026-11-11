@@ -1,7 +1,13 @@
 import styled from "styled-components"
 import type { ProjectTask } from "@/data/projects"
 
-const ProjectTaskSection = ({ task, index }: { task: ProjectTask; index: number }) => {
+const ProjectTaskSection = ({
+  task,
+  index
+}: {
+  task: ProjectTask
+  index: number
+}) => {
   const headingId = `task-${index}`
 
   return (
@@ -53,7 +59,8 @@ const StepLabel = styled.p<{ $result: boolean }>`
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1.8;
-  color: ${(props) => (props.$result ? "var(--color-accent)" : "var(--color-text-muted)")};
+  color: ${(props) =>
+    props.$result ? "var(--color-accent)" : "var(--color-text-muted)"};
 
   @media (max-width: 720px) {
     flex-basis: 100%;

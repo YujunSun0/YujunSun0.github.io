@@ -23,7 +23,7 @@ export const sideProjects: SideProject[] = [
     image: { src: deepdevMain, alt: "DeepDev 메인 화면" },
     siteUrl: "https://deepdev.info/",
     githubUrl: "https://github.com/YujunSun0/DeepDev",
-    published: true,
+    published: true
   },
   {
     name: "개인 기술 블로그",
@@ -34,20 +34,20 @@ export const sideProjects: SideProject[] = [
     image: { src: blogMain, alt: "개인 기술 블로그 메인 화면" },
     siteUrl: "https://yujunsun.tech/",
     githubUrl: "https://github.com/YujunSun0/Personal-Blog",
-    published: true,
+    published: true
   },
   {
     name: "audio-studio",
     status: "preparing",
     description: "",
     stack: "",
-    published: false,
+    published: false
   },
   {
     name: "onginote",
     status: "preparing",
     description: "",
     stack: "",
-    published: false,
-  },
+    published: false
+  }
 ]

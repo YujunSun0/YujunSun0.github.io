@@ -29,13 +29,17 @@ export const companies: Company[] = [
       "content-management",
       "seldoc-subscription",
       "keyword-analysis",
-      "seller-marketplace",
+      "seller-marketplace"
     ],
     bulletsLabel: "그 외 작업",
     bullets: [
-      { text: "PHP 기반 레거시 서비스를 Next.js(App Router) + TypeScript로 전면 마이그레이션" },
-      { text: "온라인·오프라인 강의 서비스 — ReactPlayer 기반 이어보기, 아임포트 결제" },
-    ],
+      {
+        text: "PHP 기반 레거시 서비스를 Next.js(App Router) + TypeScript로 전면 마이그레이션"
+      },
+      {
+        text: "온라인·오프라인 강의 서비스 — ReactPlayer 기반 이어보기, 아임포트 결제"
+      }
+    ]
   },
   {
     name: "(주)혜안파트너스",
@@ -46,17 +50,17 @@ export const companies: Company[] = [
     bullets: [
       {
         title: "영상 스트리밍",
-        text: "HLS 기반 플레이어 구현, 브라우저별 재생 환경 차이 대응",
+        text: "HLS 기반 플레이어 구현, 브라우저별 재생 환경 차이 대응"
       },
       {
         title: "성인인증·접근 권한",
-        text: "NICE 인증 팝업과 postMessage 연동 후 서버 검증까지 거치는 흐름, 로그인·성인인증·관리자 권한 단계 분리",
+        text: "NICE 인증 팝업과 postMessage 연동 후 서버 검증까지 거치는 흐름, 로그인·성인인증·관리자 권한 단계 분리"
       },
       {
         title: "다국어·배포",
-        text: "i18next로 한·영·일·중 4개 언어 지원, 접속 국가별 기본 언어 설정",
-      },
-    ],
+        text: "i18next로 한·영·일·중 4개 언어 지원, 접속 국가별 기본 언어 설정"
+      }
+    ]
   },
   {
     name: "스마트하우스",
@@ -64,7 +68,7 @@ export const companies: Company[] = [
     position: "주임",
     bullets: [
       { text: "CAFE24·IMWEB 기반 자사몰 UI·기능 개발 및 운영 이슈 대응" },
-      { text: "PHP 기반 토탈셀러 서비스 기능 수정 및 오류 대응" },
-    ],
-  },
+      { text: "PHP 기반 토탈셀러 서비스 기능 수정 및 오류 대응" }
+    ]
+  }
 ]

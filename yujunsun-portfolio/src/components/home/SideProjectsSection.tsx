@@ -4,7 +4,7 @@ import SectionLabel from "@/components/common/SectionLabel"
 
 const statusLabel = {
   live: "운영 중",
-  preparing: "배포 준비 중",
+  preparing: "배포 준비 중"
 } as const
 
 const SideProjectsSection = () => {
@@ -18,14 +18,20 @@ const SideProjectsSection = () => {
         {visible.map((project) => (
           <Card key={project.name}>
             {project.image ? (
-              <Thumb src={project.image.src} alt={project.image.alt} loading="lazy" />
+              <Thumb
+                src={project.image.src}
+                alt={project.image.alt}
+                loading="lazy"
+              />
             ) : (
               <ThumbPlaceholder aria-hidden="true" />
             )}
             <CardBody>
               <TitleRow>
                 <Name>{project.name}</Name>
-                <Status $status={project.status}>{statusLabel[project.status]}</Status>
+                <Status $status={project.status}>
+                  {statusLabel[project.status]}
+                </Status>
               </TitleRow>
               <Desc>{project.description}</Desc>
               {project.stack && <Stack>{project.stack}</Stack>}
@@ -37,7 +43,11 @@ const SideProjectsSection = () => {
                     </a>
                   )}
                   {project.githubUrl && (
-                    <a href={project.githubUrl} target="_blank" rel="noreferrer">
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       GitHub
                     </a>
                   )}
@@ -109,9 +119,13 @@ const Status = styled.span<{ $status: "live" | "preparing" }>`
   padding: 0.2rem 0.8rem;
   border-radius: 999px;
   color: ${(props) =>
-    props.$status === "live" ? "var(--color-success)" : "var(--color-text-muted)"};
+    props.$status === "live"
+      ? "var(--color-success)"
+      : "var(--color-text-muted)"};
   background-color: ${(props) =>
-    props.$status === "live" ? "var(--color-success-soft)" : "var(--color-neutral-soft)"};
+    props.$status === "live"
+      ? "var(--color-success-soft)"
+      : "var(--color-neutral-soft)"};
 `
 
 const Desc = styled.p`
