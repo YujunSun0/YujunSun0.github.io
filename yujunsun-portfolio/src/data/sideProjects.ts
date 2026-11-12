@@ -21,6 +21,20 @@ export interface SideProject {
 
 export const sideProjects: SideProject[] = [
   {
+    name: "온기노트",
+    status: "live",
+    description:
+      "캐릭터와 함께하는 연애·인간관계 고민 상담 웹앱. 메시지마다 답변 모드를 판단하는 2단계 LLM 구조를 설계했고, 프롬프트 캐싱과 사용량 한도로 비용을 관리하며 Supabase RLS로 본인 데이터만 접근하도록 했습니다. 카카오·구글 로그인과 무료·Plus 요금제를 갖춰 Vercel에 배포했습니다.",
+    stack: "Next.js · TypeScript · Supabase · Claude API",
+    siteUrl: "https://onginote.vercel.app/",
+    detailSlug: "onginote",
+    image: {
+      src: onginoteMain,
+      alt: "온기노트 상담 화면 — 상황 해석, 행동 플랜, 상담 정리 카드"
+    },
+    published: true
+  },
+  {
     name: "DeepDev",
     status: "live",
     description:
@@ -53,20 +67,6 @@ export const sideProjects: SideProject[] = [
     image: { src: audioStudioMain, alt: "Audio Studio 메인 화면" },
     githubUrl: "https://github.com/YujunSun0/audio-studio",
     detailSlug: "audio-studio",
-    published: true
-  },
-  {
-    name: "온기노트",
-    status: "live",
-    description:
-      "캐릭터와 함께하는 연애·인간관계 고민 상담 웹앱. 메시지마다 답변 모드를 판단하는 2단계 LLM 구조를 설계했고, 프롬프트 캐싱과 사용량 한도로 비용을 관리하며 Supabase RLS로 본인 데이터만 접근하도록 했습니다. 카카오·구글 로그인과 무료·Plus 요금제를 갖춰 Vercel에 배포했습니다.",
-    stack: "Next.js · TypeScript · Supabase · Claude API",
-    siteUrl: "https://onginote.vercel.app/",
-    detailSlug: "onginote",
-    image: {
-      src: onginoteMain,
-      alt: "온기노트 상담 화면 — 상황 해석, 행동 플랜, 상담 정리 카드"
-    },
     published: true
   }
 ]
