@@ -9,7 +9,11 @@ import blogPost from "@assets/projects/blog/03-post-tech.png"
 import blogEditor from "@assets/projects/blog/04-editor-tech.png"
 import audioStudioMain from "@assets/projects/audio-studio/01-main-audio-studio.png"
 import audioStudioMixer from "@assets/projects/audio-studio/02-mixer-audio-studio.png"
-import onginoteMain from "@assets/projects/onginote/01-main-onginote.png"
+import onginoteLanding from "@assets/projects/onginote/02-landing-onginote.png"
+import onginoteChat from "@assets/projects/onginote/03-chat-onginote.png"
+import onginoteSummary from "@assets/projects/onginote/04-summary-onginote.png"
+import onginotePerson from "@assets/projects/onginote/05-person-onginote.png"
+import onginoteHome from "@assets/projects/onginote/06-home-onginote.png"
 
 const SIDE = "개인 프로젝트"
 
@@ -364,15 +368,15 @@ export const sideProjectDetails: ProjectDetail[] = [
   {
     slug: "onginote",
     company: SIDE,
-    period: "2026.11 – 진행 중",
+    period: "2026.11 – 운영 중",
     name: "온기노트",
     outcome: "2단계 LLM 구조와 사용량 한도로 비용을 통제하는 AI 상담 웹앱",
     summary:
       "말투가 다른 캐릭터들이 연애·인간관계 고민을 들어주고, 대화를 정리 카드와 인물 프로필로 남기는 웹앱입니다.",
-    lead: "캐릭터와 대화하며 연애·인간관계 고민을 정리하는 웹앱입니다. 정해진 단계를 따라가지 않고 메시지마다 '들어주기 / 상황 해석 / 플랜 제안' 중 어떤 방식으로 답할지 판단하고, 상담이 끝나면 할 것·하지 말 것을 정리 카드로 만들어 줍니다. 민감한 대화를 다루는 서비스라 개인정보 보호와 LLM 비용 관리를 처음부터 함께 설계했습니다.",
+    lead: "캐릭터와 대화하며 연애·인간관계 고민을 정리하는 웹앱입니다. 정해진 단계를 따라가지 않고 메시지마다 '들어주기 / 상황 해석 / 플랜 제안' 중 어떤 방식으로 답할지 판단하고, 상담이 끝나면 할 것·하지 말 것을 정리 카드로 만들어 줍니다. 민감한 대화를 다루는 서비스라 개인정보 보호와 LLM 비용 관리를 처음부터 함께 설계했고, 카카오·구글 로그인과 무료·Plus 요금제를 갖춰 Vercel에 배포해 운영하고 있습니다.",
     meta: [
       { label: "역할", lines: ["1인 개발", "기획·설계·구현"] },
-      { label: "상태", lines: ["프로토타입", "비공개 저장소"] },
+      { label: "운영", lines: ["Vercel 배포", "카카오·구글 로그인"] },
       {
         label: "기술",
         lines: ["Next.js, TypeScript,", "Supabase, Claude API"]
@@ -382,12 +386,32 @@ export const sideProjectDetails: ProjectDetail[] = [
         lines: ["2단계 LLM 호출", "RLS · 사용량 한도"]
       }
     ],
+    links: [{ label: "서비스 바로가기", href: "https://onginote.vercel.app/" }],
     images: [
       {
-        src: onginoteMain,
-        alt: "온기노트 상담 화면 — 상황 해석, 행동 플랜, 상담 정리 카드",
-        caption:
-          "상황 해석 → 행동 플랜 → 정리 카드 (시연용 데이터로 캡처했습니다)"
+        src: onginoteChat,
+        alt: "온기노트 PC 상담 화면 — 상담 목록, 대화, 인물 정보 패널",
+        caption: "상담 — 목록·대화·참고 중인 인물 정보를 한 화면에"
+      },
+      {
+        src: onginoteSummary,
+        alt: "온기노트 상담 정리 카드 — 상황, 해석, 할 것, 하지 말 것",
+        caption: "정리 카드 — 할 것·하지 말 것과 다시 물어볼 날짜"
+      },
+      {
+        src: onginotePerson,
+        alt: "온기노트 인물 프로필 — 좋아하는 것, 연락 스타일, 상담 기록",
+        caption: "인물 프로필 — 대화에서 알게 된 정보와 상담 기록"
+      },
+      {
+        src: onginoteHome,
+        alt: "온기노트 홈 — 먼저 온 메시지, 내 사람들, 상담에서 정한 할 일",
+        caption: "홈 — 캐릭터가 먼저 보낸 메시지와 할 일·다가오는 날"
+      },
+      {
+        src: onginoteLanding,
+        alt: "온기노트 랜딩 페이지",
+        caption: "랜딩 페이지 — 카카오·구글 계정으로 바로 시작"
       }
     ],
     diagram: {
